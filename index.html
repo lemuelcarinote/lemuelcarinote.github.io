@@ -3,9 +3,41 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Lemuel</title>
+  
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+        <script type="javascript">
+            $('.selectall').click(function() {
+                if ($(this).is(':checked')) {
+                    $('input:checkbox').prop('checked', true);
+                } else {
+                    $('input:checkbox').prop('checked', false);
+                }
+            });
+            
+            $("input[type='checkbox'].justone").change(function(){
+                var a = $("input[type='checkbox'].justone");
+                if(a.length == a.filter(":checked").length){
+                    $('.selectall').prop('checked', true);
+                }
+                else {
+                    $('.selectall').prop('checked', false);
+                }
+            });
+        </script>
 </head>
 
 <body>
 <p> This is  a test site created and hosted in Github.</p>
+  
+  label><input type="checkbox" name="sample" class="selectall"/>Select all</label>
+
+<div id="checkboxlist">
+    <label><input type="checkbox" class="justone" name="sample[]"/>checkbox1</label><br/>
+    <label><input type="checkbox" class="justone" name="sample[]"/>checkbox2</label><br />
+    <label><input type="checkbox" class="justone" name="sample[]"/>checkbox3</label><br />
+    <label><input type="checkbox" class="justone" name="sample[]"/>checkbox4</label><br />
+</div>
+
 </body>
 </html>
