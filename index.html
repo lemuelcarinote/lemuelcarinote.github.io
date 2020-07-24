@@ -7,14 +7,18 @@
 <body>
 <span id='extole_zone_order_confirmation'></span>
 <script type="text/javascript">
-  /* Extole Script */
-  (function(c,e,k,l,a){c[e]=c[e]||{};for(c[e].q=c[e].q||[];a<l.length;)k(l[a++],c[e])})(window,"extole",function(c,e){e[c]=e[c]||function(){e.q.push([c,arguments])}},["createZone"],0);
-  /* End Magic Script */
-   extole.createZone({
-     name: 'extole_zone_order_confirmation',
-     element_id: 'extole_zone_order_confirmation'
-  });
+    (function(c,b,f,k,a){c[b]=c[b]||{};for(c[b].q=c[b].q||[];a<k.length;)f(k[a++],c[b])})(window,"extole",function (c,b){b[c]=b[c]||function (){b.q.push([c,arguments])}},["createZone"],0);
+    extole.createZone({
+        name: "order_confirmation",
+        element_id: 'extole_zone_order_confirmation',
+        data: {
+            "email": "lcarinote@usautoparts.com",
+            "first_name": "Lemuel",
+            "last_name": "Carinote",
+            "partner_user_id": "01234556"
+        }
+    });
 </script>
-<script type="text/javascript" src="https://share.carparts.com/core.js" async></script>
+<script src='https://share.carparts.com/core.js' async></script>
 </body>
 </html>
