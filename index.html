@@ -38,6 +38,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <br>
 <div data-bsft-slot='carparts_blog' class='cp-blog-post-widget'></div>
 <!-- END Blueshift Live Content -->
-    
+
+<script>
+function onPromoClick(promoObj) {
+var obj = {id: promoObj.id, name: promoObj.name, creative: promoObj.creative, position: promoObj.pos};
+var clickJSON = JSON.stringify(obj);
+parent.postMessage (clickJSON, 'https://lemuelcarinote.github.io/')
+alert(clickJSON);
+} 
+</script>
+  
+<script>
+var obj = [{% for product in recommendations.block2.products | limit: numProducts %}{id: 'blueshift_live_content', name: 'Blueshift Live Content', creative: '{{product.extended_attributes.part}}', position: 'Slot {{ forloop.index }}'}{% if forloop.last != true %},{% endif %}{% endfor %}];
+var openJSON = JSON.stringify(obj);
+parent.postMessage (openJSON, 'https://lemuelcarinote.github.io/')
+alert(openJSON);
+</script>
 </body>
 </html>
