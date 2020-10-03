@@ -1,19 +1,45 @@
+<div class="form-field">
+<div class="input-field-wrap">
+<div class="input-field-data">
+<input id="emailAddress" name="email" placeholder="Email address" class="email-input-field" value="">
+<input type="hidden" id="domain" name="domain" value="carparts.com">
+</div>
+</div>
+<button onclick="subscribe()" class="sign-up-btn">
+<span>Sign Up</span>
+</button>
+</div>
 
-<form>  
-<input type="text" id="email" placeholder="Enter your email address">
-<br/>
-<input type="submit" id="subscribeBtn" value="Submit">
-</form> 
+<script>
+function subscribe() {
+var xhr = new XMLHttpRequest();
+var data = "domain="+document.getElementById("domain").value+"&email="+document.getElementById("emailAddress").value;
+xhr.open('POST', 'https://api.usautoparts.io/v1/static/form/subscribe');
+xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhr.setRequestHeader("apikey", "anzhbnJvaXVz");
+xhr.onreadystatechange = function () {
+if (xhr.readyState == 4 && xhr.status == 200) {
+window.open('https://www.carparts.com/email-offers', '_blank');
+run_blueshift();
+}
+};
+xhr.send(data);
+}
+    
+function run_blueshift() {  
+    window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load=function(){var d=function(a){return function(){blueshift.push([a].concat(Array.prototype.slice.call(arguments,0)))}},e=["identify","track","click","pageload","capture","retarget","live"];for(var f=0;f<e.length;f++)blueshift[e[f]]=d(e[f])};}
+        blueshift.load();
+		blueshift.identify();
+        blueshift.live({profile360: {}});
+        blueshift.pageload();
+        if(blueshift.constructor===Array){(function(){var b=document.createElement("script");b.type="text/javascript",b.async=!0,b.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.getblueshift.com/blueshift.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);})()}
+}
+</script>
+
 <script>
 document.getElementById("subscribeBtn").addEventListener("click", function() {
-    var eadd=document.getElementById("email").value; 
+    var eadd=document.getElementById("emailAddress").value; 
     alert('Your email is '+ eadd); 
-    window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load=function(){var d=function(a){return function(){blueshift.push([a].concat(Array.prototype.slice.call(arguments,0)))}},e=["identify","track","click","pageload","capture","retarget","live"];for(var f=0;f<e.length;f++)blueshift[e[f]]=d(e[f])};}
-    blueshift.load();
-    blueshift.identify({email: eadd});
-    blueshift.live({profile360: {}});
-    blueshift.pageload();
-        if(blueshift.constructor===Array){(function(){var b=document.createElement("script");b.type="text/javascript",b.async=!0,b.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.getblueshift.com/blueshift.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);})()}
 });
 </script>
 
