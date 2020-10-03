@@ -1,19 +1,73 @@
-<div class="form-field">
-<div class="input-field-wrap">
-<div class="input-field-data">
-<input id="emailAddress" name="email" placeholder="Email address" class="email-input-field" value="">
-<input type="hidden" id="domain" name="domain" value="carparts.com">
-</div>
-</div>
-<button onclick="subscribe()" class="sign-up-btn">
-<span>Sign Up</span>
-</button>
-</div>
-
+<form action="" method="post" id="bsftForm">
+  <label for="email">
+    Email:
+    <input type="email" name="email">
+  </label>
+  <br><br>
+  <label for="does_not_accept_offers">
+    Unsubscribe:
+    <select name="does_not_accept_offers" id="">
+      <option value="true">Remove me from future emails</option>
+      <option value="false">Keep sending me emails</option>
+    </select>
+  </label>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
 
 <script>
-    document.getElementById("subscribeBtn").addEventListener("click", function() {
-        var eadd=document.getElementById("email").value; 
-	alert("Your email address is" + eadd);
+  // get blueshift
+  window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load=function(){var d=function(a){return function(){blueshift.push([a].concat(Array.prototype.slice.call(arguments,0)))}},e=["identify","track","click","pageload","capture","retarget"];for(var f=0;f<e.length;f++)blueshift[e[f]]=d(e[f])};}
+  blueshift.load();blueshift.retarget();blueshift.pageload();
+  if(blueshift.constructor===Array){(function(){var b=document.createElement("script");b.type="text/javascript",b.async=!0,b.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.getblueshift.com/blueshift.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);})()}
+  // get jQuery
+  if (typeof jQuery == 'undefined') {
+    function getJquery(success) {
+      var script = document.createElement('script');
+      script.src = 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js';
+      var head = document.getElementsByTagName('head')[0],
+      done = false;
+      script.onload = script.onreadystatechange = function() {
+        if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
+          done = true;
+          success();
+          script.onload = script.onreadystatechange = null;
+          head.removeChild(script);
+        };
+      };
+      head.appendChild(script);
+    };
+    getJquery(trackForm);
+  } else {
+    trackForm();
+  };
+  // track form submit
+  var submitForm = false
+  function trackForm() {
+    var keyMapping = {
+      'email': 'email',
+      'does_not_accept_offers': 'unsubscribed',
+    }
+    $("#bsftForm").submit( function(event) {
+      var formData = $(this).serializeArray();
+      var params = {};
+      $(formData).each( function(index,input) {
+        if (keyMapping[input.name] && ( input.value || input.value === false )) {
+          params[keyMapping[input.name]] = input.value
+        }
+      });
+      if (params.email) {
+        blueshift.identify(params)
+      };
+      if ( $(this).attr('target') === "_blank" ) {
+        submitForm = true
+      } else {
+        setTimeout(function() {
+          submitForm = true
+          $(event.currentTarget).submit();
+        }, 100);
+      }
+      return submitForm
     });
+  }
 </script>
