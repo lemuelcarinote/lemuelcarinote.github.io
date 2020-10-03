@@ -12,7 +12,13 @@ document.getElementById("subscribeBtn").addEventListener("click", function() {
 </script>
 <script>
   function run_bs(eadd) {
-  var email = eadd; 
+  var email = eadd;
+  window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load=function(){var d=function(a){return function(){blueshift.push([a].concat(Array.prototype.slice.call(arguments,0)))}},e=["identify","track","click","pageload","capture","retarget","live"];for(var f=0;f<e.length;f++)blueshift[e[f]]=d(e[f])};}
+    blueshift.load();
+    blueshift.identify({email: email});
+    blueshift.live({profile360: {}});
+    blueshift.pageload();
+        if(blueshift.constructor===Array){(function(){var b=document.createElement("script");b.type="text/javascript",b.async=!0,b.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.getblueshift.com/blueshift.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);})()}
   alert('Your email is '+ email); 
   }
 </script>
