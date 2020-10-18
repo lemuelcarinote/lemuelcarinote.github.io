@@ -88,7 +88,7 @@ function get_e(){
 window.addEventListener('message', receiver, false);
 function receiver(e) {
   if (e.data == 'Hello world') {
-      e.source.postMessage('Hello', e.origin);
+      alert(e.data);
     } else {
       alert(e.data);
     }
