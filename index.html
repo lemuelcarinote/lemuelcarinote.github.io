@@ -17,6 +17,7 @@ body {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
+  padding-top: 150px;
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -78,9 +79,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 // Get the modal
 var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
@@ -98,12 +96,12 @@ window.onclick = function(event) {
 </script>
         
 <script>
-function on() {
+function modal_on() {
   window.onload = function() {
-    modal.style.display = "flex";
+    modal.style.display = "block";
   }
 }
-on();        
+modal_on();        
 </script>
 </body>
 </html>
