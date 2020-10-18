@@ -11,6 +11,34 @@ body {
         margin: 0 auto !important;
         padding: 0 !important;
     }
+        
+#modal{
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #modalCont{
+            z-index: 2;
+            padding: 20px;
+            max-width: 300px;
+            background: #fff;
+            position: relative;
+        }
+
+        #modal-bg{
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background: rgba(1,1,1,.6);
+        }
+        section{
+            display: flex;
+            justify-content: center;
+        }
 </style>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -25,7 +53,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPVWX64"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<div data-bsft-slot="profile360"></div>
+        
+<section>
+<div id="iframeCont" data-bsft-slot="profile360"></div>
+</section>
         
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
