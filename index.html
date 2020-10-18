@@ -54,6 +54,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
         
+<div id="overlay" onclick="off()">
+  <div id="text">Overlay Text</div>
+</div>
+
+<div style="padding:20px">
+  <h2>Overlay with Text</h2>
+  <button onclick="on()">Turn on overlay effect</button>
+</div>
+        
 <div data-bsft-slot="profile360"></div>
         
 <div id="modal">
@@ -63,19 +72,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="modal-bg"></div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript">
-       $(function() {
-           var iframe = $('#iframeCont');
-           iframe.on('load', function() {
-               // iframe content
-               var iframeContents = $(this).contents();
-                var element = iframeContents.find('#btn').on('click',function(){
-                   $('#modal').css('display','flex');
-               
-               });
-           })
-       });
+<script>
+function on() {
+  document.getElementById("overlay").style.display = "block";
+}
+
+function off() {
+  document.getElementById("overlay").style.display = "none";
+}
 </script>
 </body>
 </html>
