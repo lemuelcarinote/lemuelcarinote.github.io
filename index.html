@@ -91,5 +91,13 @@ function get_e(){
     });
 }
 </script>
+window.addEventListener('message', receiver, false);
+function receiver(e) {
+  if (e.data == 'Hello world') {
+      e.source.postMessage('Hello', e.origin);
+    } else {
+      alert(e.data);
+    }
+}
 </body>
 </html>
