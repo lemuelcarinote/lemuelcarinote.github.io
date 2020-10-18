@@ -106,20 +106,10 @@ function on() {
 on();        
 </script>
         
-<script type ="text/javascript">
-  (function(window) {
-      addEvent(window, 'message', function(message) {
-          alert(message.data);
-          try{
-              var data = JSON.parse(message.data);
-              if (data.event == 'x-identity') {
-                  var obj = data.data;
-                  var eml = obj.eml;
-                  alert(eml);
-              }
-          }catch(e){}
-      });
-  })(window);
-  </script>
+<script>
+    window.addEventListener('message', function(event) {
+      alert('Received ${event.data}');
+    });
+</script>
 </body>
 </html>
