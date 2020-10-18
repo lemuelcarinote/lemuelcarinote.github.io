@@ -77,5 +77,19 @@ function off() {
   document.getElementById("overlay").style.display = "none";
 }
 </script>
+<script type="text/javascript">
+window.onload = get_e;
+function get_e(){
+    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+    var eventer = window.[eventMethod];
+    var messageEvent = (eventMethod == "attachEvent" ? "onmessage" : "message");
+    eventer(messageEvent, function(e){
+        console.log(e.data);
+        var obj = e.data;
+        var em = obj.eml;
+        alert(em);
+    });
+}
+</script>
 </body>
 </html>
