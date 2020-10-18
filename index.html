@@ -53,11 +53,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="overlay" onclick="off()">
   <div id="text">Overlay Text</div>
 </div>
-
-<div style="padding:20px">
-  <h2>Overlay with Text</h2>
-  <button onclick="on()">Turn on overlay effect</button>
-</div>
         
 <div data-bsft-slot="profile360"></div>
 
@@ -69,6 +64,7 @@ function on() {
 function off() {
   document.getElementById("overlay").style.display = "none";
 }
+on();        
 </script>
 <script type ="text/javascript">
   (function(window) {
