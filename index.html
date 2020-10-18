@@ -26,5 +26,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <div data-bsft-slot="profile360"></div>
+        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+       $(function() {
+           var iframe = $('#iframeCont');
+           iframe.on('load', function() {
+               // iframe content
+               var iframeContents = $(this).contents();
+                var element = iframeContents.find('#btn').on('click',function(){
+                   $('#modal').css('display','flex');
+               
+               });
+           })
+       });
+</script>
 </body>
 </html>
