@@ -72,20 +72,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="myModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <!-- 
     <p>Some text in the Modal..</p>
-    <p><span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde perspiciatis, veniam ipsam nesciunt dignissimos quam porro!</span></p>
-    -->
-    <div align="center">
+    <div id="contact_form" align="center">
         <form action="" method="post" id="bsftForm">
           <label for="email">
-            Email:
-            <input type="email" name="email">
+            <input type="email" id="email" name="email" placeholder="Email Address">
           </label>
           <br><br>
           <label for="does_not_accept_offers">
-            Unsubscribe:
-            <select name="does_not_accept_offers" id="">
+            Unsubscribe:<br>
+            <select name="does_not_accept_offers" id="does_not_accept_offers">
               <option value="true">Remove me from future emails</option>
               <option value="false">Keep sending me emails</option>
             </select>
@@ -93,7 +89,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <br><br>
           <input id="submit" type="submit" value="Submit">
         </form>
+        <div class="greetings">
+          <h1></h1>
+          <p>Some text in the Modal..</p>
         </div>
+    </div>
   </div>
 </div>
 
