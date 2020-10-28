@@ -72,32 +72,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="myModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-    <div id="contact_form" align="center">
-        <form method="post" id="bsftForm">
-          <label for="email">
-            <input type="email" id="email" name="email" placeholder="Email Address">
-          </label>
-          <br><br>
-          <label for="does_not_accept_offers">
-            Unsubscribe:<br>
-            <select name="does_not_accept_offers" id="does_not_accept_offers">
-              <option value="true">Remove me from future emails</option>
-              <option value="false">Keep sending me emails</option>
-            </select>
-          </label>
-          <br><br>
-          <button id="submit" type="submit" form="bsftForm" value="Submit">Submit</button>
-        </form>
-        <div class="greetings">
-          <h1></h1>
-          <p>Some text in the Modal..</p>
+    <div class="form-field">
+        <div class="input-field-wrap">
+        <div class="input-field-data">
+        <input id="emailAddress" name="email" placeholder="Email address" class="email-input-field" value="">
+        <input type="hidden" id="domain" name="domain" value="carparts.com">
         </div>
-    </div>
+        </div>
+        <button onclick="subscribe()" class="sign-up-btn">
+        <span>Sign Up</span>
+        </button>
+     </div>
   </div>
 </div>
 
 <div data-bsft-slot="profile360"></div>
+
+<script>
+function subscribe() {
+var xhr = new XMLHttpRequest();
+var data = "domain="+document.getElementById("domain").value+"&email="+document.getElementById("emailAddress").value;
+xhr.open('POST', 'https://api.usautoparts.io/v1/static/form/subscribe');
+xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhr.setRequestHeader("apikey", "anzhbnJvaXVz");
+xhr.onreadystatechange = function () {
+if (xhr.readyState == 4 && xhr.status == 200) {
+window.open('https://www.carparts.com/email-offers', '_blank');
+}
+};
+xhr.send(data);
+}
+</script>
 
 </body>
 </html>
