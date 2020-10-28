@@ -97,7 +97,11 @@ xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xhr.setRequestHeader("apikey", "anzhbnJvaXVz");
 xhr.onreadystatechange = function () {
 if (xhr.readyState == 4 && xhr.status == 200) {
-window.open('https://www.carparts.com/email-offers', '_blank');
+var modal = document.getElementById("myModal");
+var button = document.getElementById("submit");
+button.onclick = function() {
+  modal.style.display = "none";
+}
 }
 };
 xhr.send(data);
