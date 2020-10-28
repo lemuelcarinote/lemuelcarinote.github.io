@@ -62,7 +62,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WPVWX64');</script>
 <!-- End Google Tag Manager -->
-        
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPVWX64"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <!-- 
+    <p>Some text in the Modal..</p>
+    <p><span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde perspiciatis, veniam ipsam nesciunt dignissimos quam porro!</span></p>
+    -->
+    <div align="center">
+        <form action="" method="post" id="bsftForm">
+          <label for="email">
+            Email:
+            <input type="email" name="email">
+          </label>
+          <br><br>
+          <label for="does_not_accept_offers">
+            Unsubscribe:
+            <select name="does_not_accept_offers" id="">
+              <option value="true">Remove me from future emails</option>
+              <option value="false">Keep sending me emails</option>
+            </select>
+          </label>
+          <br><br>
+          <input type="submit" value="Submit">
+        </form>
+        </div>
+  </div>
+</div>
+
+<div data-bsft-slot="profile360"></div>
+
 <script>
 var vq7pfje396yu = bsft();
 window._blueshiftid = vq7pfje396yu;
@@ -139,41 +176,5 @@ function trackForm() {
     });
 }
 </script>
-</head>
-<body>
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPVWX64"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-    <p><span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde perspiciatis, veniam ipsam nesciunt dignissimos quam porro!</span></p>
-    <div align="center">
-        <form action="" method="post" id="bsftForm">
-          <label for="email">
-            Email:
-            <input type="email" name="email">
-          </label>
-          <br><br>
-          <label for="does_not_accept_offers">
-            Unsubscribe:
-            <select name="does_not_accept_offers" id="">
-              <option value="true">Remove me from future emails</option>
-              <option value="false">Keep sending me emails</option>
-            </select>
-          </label>
-          <br><br>
-          <input type="submit" value="Submit">
-        </form>
-        </div>
-  </div>
-</div>
-
-<div data-bsft-slot="profile360"></div>
-
 </body>
 </html>
