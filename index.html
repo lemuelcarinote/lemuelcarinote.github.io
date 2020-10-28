@@ -100,9 +100,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div data-bsft-slot="profile360"></div>
 
+<div align="center">
+<form action="" method="post" id="bsftForm">
+  <label for="email">
+    Email:
+    <input type="email" name="email">
+  </label>
+  <br><br>
+  <label for="does_not_accept_offers">
+    Unsubscribe:
+    <select name="does_not_accept_offers" id="">
+      <option value="true">Remove me from future emails</option>
+      <option value="false">Keep sending me emails</option>
+    </select>
+  </label>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+
 <script>
-var vq7pfje396yu = bsft();
-window._blueshiftid = vq7pfje396yu;
+window._blueshiftid = 'a3cf17c9321992514193bb8bbeb942fc';
 window.blueshift = window.blueshift || [];
 if (blueshift.constructor === Array) {
     blueshift.load = function() {
@@ -176,5 +194,6 @@ function trackForm() {
     });
 }
 </script>
+
 </body>
 </html>
