@@ -14,7 +14,7 @@
 
     /* The Modal (background) */
     .modal {
-      display: none;
+      display: -none;
       /* Hidden by default */
       position: fixed;
       /* Stay in place */
@@ -30,7 +30,7 @@
       /* Enable scroll if needed */
       background-color: rgb(0, 0, 0);
       /* Fallback color */
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.5);
       /* Black w/ opacity */
     }
 
@@ -38,18 +38,22 @@
     .modal-content {
       width: 80%;
       margin: auto;
+      color: #333;
       padding: 20px;
+      line-height: 1.5;
+      font-size: 14px;
       max-width: 415px;
       position: relative;
+      border-radius: 6px;
       background: #fefefe;
       border: 1px solid #888;
-      -webkit-box-shadow: 0 0 8px 0 #BDBDBD;
-      box-shadow: 0 0 8px 0 #BDBDBD;
+      -webkit-box-shadow: 0 0 8px 0 #555;
+      box-shadow: 0 0 8px 0 #555;
     }
 
       /* The Close Button */
       .close {
-        top: 0; right: 0;
+        top: 5px; right: 10px;
         float: right;
         color: #999;
         font-size: 28px;
@@ -68,10 +72,52 @@
         display: flex;
       }
 
-      ul{
+      p{
         margin: 0;
-        padding: 0;
       }
+
+      p.terms{
+        font-size: 12px;
+      }
+
+      .form-field{
+        margin: 20px 0;
+      }
+      
+      .input-field-wrap{
+        position: relative;
+      }
+
+      input[type="email"]{
+        width: 100%;
+        height: 40px;
+        padding: 0 10px;
+        line-height: 40px;
+        border-radius: 6px;
+        border: 1px solid #e0e0e0;
+      }
+
+      button{
+        top: 0;
+        right: 0;
+        border: 0;
+        height: 40px;
+        width: 100px;
+        cursor: pointer;
+        padding: 0 10px;
+        color: #f8f8f8;
+        line-height: 40px;
+        text-align: center;
+        position: absolute;
+        background: #2a478d;
+        border-radius: 1px 6px 6px 1px;
+        transition: all 0.5s ease 0s;
+      }
+
+      button:hover{
+        background: #3a63c5;
+      }
+      
 
 
   
@@ -107,20 +153,19 @@
   <div id="myModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam magni libero quasi amet maxime</h4>
-      <ul class="form-field">
-        <li class="input-field-wrap">
+      <p>Lorem ipsum dolor sitamet consectetur adipisicing elit, ullam magni liberoamet maxime</p>
+      <div class="form-field">
+        <div class="input-field-wrap">
           <div class="input-field-data">
-            <input id="emailAddress" name="email" placeholder="Email address" class="email-input-field" value="">
+            <input id="emailAddress" type="email" name="email" placeholder="Email address" class="email-input-field" value="">
             <input type="hidden" id="domain" name="domain" value="carparts.com">
           </div>
-        </li>
-        <li>
           <button id="submit" onclick="subscribe()" class="sign-up-btn">
-            <span>Enter Now</span>
+            <span>Submit</span>
           </button>
-        </li>
-      </ul>
+        </div>
+      </div>
+      <p class="terms">By using email address you agree to the following <a href="">Terms and Conditions</a></p>
     </div>
   </div>
 
