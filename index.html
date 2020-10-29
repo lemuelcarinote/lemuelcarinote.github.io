@@ -39,11 +39,11 @@
     }
 
     /* Modal Content */
-    .modal-content {
+    .modal-content{
       width: 80%;
       margin: auto;
       color: #333;
-      padding: 20px;
+      padding: 12px 20px 20px;
       line-height: 1.5;
       font-size: 14px;
       max-width: 415px;
@@ -88,8 +88,12 @@
       p.terms{
         margin: 0 auto;
         font-size: 12px;
-        max-width: 380px;
+        max-width: 340px;
         text-align: center;
+      }
+
+      p.heading{
+        font-size: 20px;
       }
 
       .form-field{
@@ -131,7 +135,11 @@
         background: #3a63c5;
       }
       
-
+    @media only screen and ( max-width:767px ) {
+      .modal-content{
+        width: 86%;
+      }
+    }
 
   
 
@@ -166,12 +174,12 @@
   <div id="myModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <p><strong>DON'T BE LEFT BEHIND!</strong></p>
+      <p class="heading"><strong>DON'T BE LEFT BEHIND!</strong></p>
       <p>Gain access to limited-time offers, exclusive discounts, DIY guides, and special events via email!</p>
       <div class="form-field">
         <div class="input-field-wrap">
           <div class="input-field-data">
-            <input id="emailAddress" type="email" name="email" placeholder="Email address" class="email-input-field" value="">
+            <input id="emailAddress" type="email" name="email" placeholder="Email Address" class="email-input-field" value="">
             <input type="hidden" id="domain" name="domain" value="carparts.com">
           </div>
           <button id="submit" onclick="subscribe()" class="sign-up-btn">
