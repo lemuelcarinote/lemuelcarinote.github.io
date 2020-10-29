@@ -195,27 +195,6 @@
 
   <div data-bsft-slot="profile360"></div>
 
-  <script>
-    function subscribe() {
-      var xhr = new XMLHttpRequest();
-      var data = "domain=" + document.getElementById("domain").value + "&email=" + document.getElementById(
-        "emailAddress").value;
-      xhr.open('POST', 'https://api.usautoparts.io/v1/static/form/subscribe');
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("apikey", "anzhbnJvaXVz");
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          var modal = document.getElementById("myModal");
-          var button = document.getElementById("submit");
-          button.onclick = function () {
-            modal.style.display = "none";
-          }
-        }
-      };
-      xhr.send(data);
-    }
-  </script>
-
 </body>
 
 </html>
