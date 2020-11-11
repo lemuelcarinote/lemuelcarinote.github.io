@@ -1,200 +1,179 @@
 <html>
 
 <head>
-  <title>CarParts.com – Right Parts, Guaranteed</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="https://cld.partsimg.com/image/upload/h_192,w_192/carparts/brand/icon.png">
-  <style>
-    body {
-      font-family: 'Roboto', Arial, Helvetica, sans-serif;
-      margin: 0 auto !important;
-      padding: 0 !important;
-    }
+    <title>CarParts.com – Right Parts, Guaranteed</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex" />
+    <meta name="AdsBot-Google" content="noindex" />
+    <link rel="icon" href="https://cld.partsimg.com/image/upload/h_192,w_192/carparts/brand/icon.png">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, Helvetica, sans-serif;
+            margin: 0 auto !important;
+            padding: 0 !important;
+        }
 
-    input:focus, textarea:focus, select:focus{
-        outline: none;
-    }
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+        }
 
-    /* The Modal (background) */
-    .modal {
-      display: none;
-      /* Hidden by default */
-      position: fixed;
-      /* Stay in place */
-      z-index: 1;
-      /* Sit on top */
-      left: 0;
-      top: 0;
-      width: 100%;
-      /* Full width */
-      height: 100%;
-      /* Full height */
-      overflow: auto;
-      /* Enable scroll if needed */
-      background-color: rgb(0, 0, 0);
-      /* Fallback color */
-      background-color: rgba(0, 0, 0, 0.5);
-      /* Black w/ opacity */
-    }
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Black w/ opacity */
+        }
 
-    /* Modal Content */
-    .modal-content{
-      width: 80%;
-      margin: auto;
-      color: #333;
-      padding: 12px 20px 20px;
-      line-height: 1.5;
-      font-size: 14px;
-      max-width: 415px;
-      position: relative;
-      border-radius: 6px;
-      background: #fefefe;
-      border: 1px solid #888;
-      -webkit-box-shadow: 0 0 8px 0 #555;
-      box-shadow: 0 0 8px 0 #555;
-    }
+        /* Modal Content */
+        .modal-content {
+            width: 80%;
+            margin: auto;
+            color: #333;
+            padding: 12px 20px 20px;
+            line-height: 1.5;
+            font-size: 14px;
+            max-width: 415px;
+            position: relative;
+            border-radius: 6px;
+            background: #fefefe;
+            border: 1px solid #888;
+            -webkit-box-shadow: 0 0 8px 0 #555;
+            box-shadow: 0 0 8px 0 #555;
+        }
 
-      /* The Close Button */
-      .close {
-        top: -5px; right: 10px;
-        float: right;
-        color: #999;
-        font-size: 28px;
-        font-weight: 100;
-        position: absolute;
-      }
+        /* The Close Button */
+        .close {
+            top: -5px;
+            right: 10px;
+            float: right;
+            color: #999;
+            font-size: 28px;
+            font-weight: 100;
+            position: absolute;
+        }
 
-      .modal-content a{
-        color: #2a62e8;
-        text-decoration: none;
-      }
+        .modal-content a {
+            color: #2a62e8;
+            text-decoration: none;
+        }
 
-      .close:hover,
-      .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-      }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-      .active {
-        display: flex;
-      }
+        .active {
+            display: flex;
+        }
 
-      p{
-        margin: 0;
-      }
+        p {
+            margin: 0;
+        }
 
-      p.terms{
-        margin: 0 auto;
-        font-size: 12px;
-        max-width: 340px;
-        text-align: center;
-      }
+        p.terms {
+            margin: 0 auto;
+            font-size: 12px;
+            max-width: 340px;
+            text-align: center;
+        }
 
-      p.heading{
-        font-size: 20px;
-      }
+        p.heading {
+            font-size: 20px;
+        }
 
-      .form-field{
-        margin: 20px 0;
-      }
+        .form-field {
+            margin: 20px 0;
+        }
 
-      .input-field-wrap{
-        position: relative;
-      }
+        .input-field-wrap {
+            position: relative;
+        }
 
-      input[type="email"]{
-        width: 100%;
-        height: 40px;
-        padding: 0 10px;
-        line-height: 40px;
-        border-radius: 6px;
-        border: 1px solid #e0e0e0;
-      }
+        input[type="email"] {
+            width: 100%;
+            height: 40px;
+            padding: 0 10px;
+            line-height: 40px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
 
-      button{
-        top: 0;
-        right: 0;
-        border: 0;
-        height: 40px;
-        width: 100px;
-        outline:none;
-        cursor: pointer;
-        padding: 0 10px;
-        color: #f8f8f8;
-        line-height: 40px;
-        text-align: center;
-        position: absolute;
-        background: #2a478d;
-        border-radius: 1px 6px 6px 1px;
-        transition: all 0.5s ease 0s;
-      }
+        button {
+            top: 0;
+            right: 0;
+            border: 0;
+            height: 40px;
+            width: 100px;
+            outline: none;
+            cursor: pointer;
+            padding: 0 10px;
+            color: #f8f8f8;
+            line-height: 40px;
+            text-align: center;
+            position: absolute;
+            background: #2a478d;
+            border-radius: 1px 6px 6px 1px;
+            transition: all 0.5s ease 0s;
+        }
 
-      button:hover{
-        background: #3a63c5;
-      }
-      
-    @media only screen and ( max-width:767px ) {
-      .modal-content{
-        width: 86%;
-      }
-    }
+        button:hover {
+            background: #3a63c5;
+        }
 
-  
-
-  </style>
-  <!-- Google Tag Manager -->
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({
-        'gtm.start': new Date().getTime(),
-        event: 'gtm.js'
-      });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != 'dataLayer' ? '&l=' + l : '';
-      j.async = true;
-      j.src =
-        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-WPVWX64');
-  </script>
-  <!-- End Google Tag Manager -->
+        @media only screen and (max-width:767px) {
+            .modal-content {
+                width: 86%;
+            }
+        }
+    </style>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WPVWX64');</script>
+<!-- End Google Tag Manager -->
 </head>
 
 <body>
-
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPVWX64" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <p class="heading"><strong>DON'T BE LEFT BEHIND!</strong></p>
-      <p>Gain access to limited-time offers, exclusive discounts, DIY guides, and special events via email!</p>
-      <div class="form-field">
-        <div class="input-field-wrap">
-          <div class="input-field-data">
-            <input id="emailAddress" type="email" name="email" placeholder="Email Address" class="email-input-field" value="">
-            <input type="hidden" id="domain" name="domain" value="carparts.com">
-          </div>
-          <button id="submit" onclick="subscribe()" class="sign-up-btn">
-            <span>Sign Me Up</span>
-          </button>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPVWX64"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <div id="myModal" class="modal">
+        <div class="modal-content"> <span class="close">&times;</span>
+            <p class="heading"><strong>DON'T BE LEFT BEHIND!</strong></p>
+            <p>Gain access to limited-time offers, exclusive discounts, DIY guides, and special events via email!</p>
+            <div class="form-field">
+                <div class="input-field-wrap">
+                    <div class="input-field-data"> <input id="emailAddress" type="email" name="email" placeholder="Email Address" class="email-input-field" value=""> <input type="hidden" id="domain" name="domain" value="carparts.com"> <input type="hidden" id="messaging_content_promotions" name="messaging_content_promotions" value="true"> <input type="hidden" id="opted_in" name="opted_in" value="true"> <input type="hidden" id="source" name="source" value="my-deals"></div> <button id="submit" onclick="subscribe()" class="sign-up-btn"> <span>Sign Me Up</span> </button>
+                </div>
+            </div>
+            <p class="terms">By entering your email address and clicking "Sign Me Up", you consent to receiving email
+                notifications from CarParts.com. You can unsubscribe at any time. View our <a href="https://www.carparts.com/privacy-policy" target="_blank">Privacy Policy</a></p>
         </div>
-      </div>
-      <p class="terms">
-        By entering your email address and clicking "Sign Me Up", you consent to receiving email notifications from CarParts.com. You can unsubscribe at any time. View our <a href="https://www.carparts.com/privacy-policy" target="_blank">Privacy Policy</a>
-      </p>
     </div>
-  </div>
-
-  <div data-bsft-slot="profile360"></div>
-
+    <div data-bsft-slot="profile360"></div>
 </body>
 
 </html>
