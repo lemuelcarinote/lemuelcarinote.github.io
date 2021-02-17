@@ -2,35 +2,21 @@
 <head>
     <title>CarParts.com – Right Parts, Guaranteed</title>
 <script>
-window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load=function(){var d=function(a){return function(){blueshift.push([a].concat(Array.prototype.slice.call(arguments,0)))}},e=["identify","track","click","pageload","capture","retarget","live"];for(var f=0;f<e.length;f++)blueshift[e[f]]=d(e[f])};}
-    blueshift.load();
-    blueshift.retarget();
-    blueshift.identify({cookies:"ac9db9dc-6be5-eb38-87ce-45e1201dd91f"});
-    blueshift.live({mydealsrecommendedforyou:{seed_item_ids: ["wpb_18318"]}})
-    blueshift.pageload();
-    if(blueshift.constructor===Array){(function(){var b=document.createElement("script");b.type="text/javascript",b.async=!0,b.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.getblueshift.com/blueshift.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);})()}
-</script>
-
-<script>
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-        }
+    var el = document.getElementById("ads-160x300");
+    
+    if (el.addEventListener) {
+        el.addEventListener("click", function() {
+            alert("clicked");
+        }, false);
+    } else { //IE8 support
+        el.attachEvent("onclick", function() { 
+            alert("clicked");
+        });
     }
-    return "";
-}
 </script>
     
 </head>
 <body>
-    <div data-bsft-slot="mydealsrecommendedforyou"></div>
+    <div id="ads-160x300" aria-label="Bestop Open Air in Love Flash Sale" style="position: relative; width: 300px; height: 600px;"> <a class="gofollow" data-track="MTQsOSwxLDYw" href="https://www.carparts.com/search?q=Bestop_Soft_Top?utm_source=blog&amp;utm_medium=cpc&amp;utm_campaign=bestop-vday-rebate" target="_blank" style="display: block; width: 300px; height: 600px;" aria-label="link103" aria-labelledby="sitelink103"> <img style="position: absolute; left: 0; top: 0;" data-src="https://cld.partsimg.com/image/upload/f_auto,q_auto,dpr_auto/carparts/blog/widgets/ads/bestop/bestop-softtop-300x600.jpg" class=" lazyloaded" src="https://cld.partsimg.com/image/upload/f_auto,q_auto,dpr_auto/carparts/blog/widgets/ads/bestop/bestop-softtop-300x600.jpg"><noscript><img src="https://cld.partsimg.com/image/upload/f_auto,q_auto,dpr_auto/carparts/blog/widgets/ads/bestop/bestop-softtop-300x600.jpg" style="position: absolute; left: 0; top: 0;"></noscript><div style="position: absolute; bottom: 68px; left: 18px; background: #ffce05; border-radius: 60px; -moz-border-radius: 60px; -webkit-border-radius: 60px; color: #333; font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: bold; height: 40px; text-align: center; text-decoration: none !important; width: 264px;"><span style="line-height: 40px;">Shop Now</span></div> </a><a class="gofollow" data-track="MTQsOSwxLDYw" href="https://cld.partsimg.com/image/upload/global/merchandising/pdf/Bestop%20February%202021%20%24100%20Soft%20Top%20Rebates%20-%20Promo%20%2392168?utm_source=blog&amp;utm_medium=cpc&amp;utm_campaign=bestop-vday-rebate" target="_blank" style="position: absolute; bottom: 18px; left: 18px; border: 2px #fff solid; border-radius: 60px; -moz-border-radius: 60px; -webkit-border-radius: 60px; box-sizing: border-box; color: #fff; font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: bold; height: 40px; text-align: center; text-decoration: none !important; width: 264px;" aria-label="link104" aria-labelledby="sitelink104"><span style="line-height: 36px;">Learn More</span></a></div>
 </body>
 </html>
