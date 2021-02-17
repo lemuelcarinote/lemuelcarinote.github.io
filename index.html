@@ -38,35 +38,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script>
-    var routeData = window.location.origin + window.location.pathname + window.location.hash;
+    var pageUrl = window.location.origin + window.location.pathname + window.location.hash;
 
     var ad160x300 = document.getElementById("ad160x300");
     if (ad160x300.addEventListener) {
         ad160x300.addEventListener("click", function() {
-            var clickSkusObj = {id: this.getAttribute("id"), name: this.getAttribute("id"), creative: this.getAttribute("aria-label"), destinationUrl: routeData};
-            console.log(clickSkusObj);
-            onAdClick(clickSkusObj);
+            var clickData = {id: this.getAttribute("id"), name: this.getAttribute("id"), creative: this.getAttribute("aria-label"), destinationUrl: pageUrl};
+            console.log(clickData);
+            onAdClick(clickData);
         }, false);
     } else { //IE8 support
         ad160x300.attachEvent("onclick", function() {
-            var clickSkusObj = {id: this.getAttribute("id"), name: this.getAttribute("id"), creative: this.getAttribute("aria-label"), destinationUrl: routeData};
-            console.log(clickSkusObj);
-            onAdClick(clickSkusObj);
+            var clickData = {id: this.getAttribute("id"), name: this.getAttribute("id"), creative: this.getAttribute("aria-label"), destinationUrl: pageUrl};
+            console.log(clickData);
+            onAdClick(clickData);
         });
     }
 
     var ad300x250 = document.getElementById("ad300x250");
     if (ad300x250.addEventListener) {
         ad300x250.addEventListener("click", function() {
-            var clickSkusObj = {id: this.getAttribute("id"), name: this.getAttribute("id"), creative: this.getAttribute("aria-label"), destinationUrl: routeData};
-            console.log(clickSkusObj);
-            onAdClick(clickSkusObj);
+            var clickData = {id: this.getAttribute("id"), name: this.getAttribute("id"), creative: this.getAttribute("aria-label"), destinationUrl: pageUrl};
+            console.log(clickData);
+            onAdClick(clickData);
         }, false);
     } else { //IE8 support
         ad300x250.attachEvent("onclick", function() {
-            var clickSkusObj = {id: this.getAttribute("id"), name: this.getAttribute("id"), creative: this.getAttribute("aria-label"), destinationUrl: routeData};
-            console.log(clickSkusObj);
-            onAdClick(clickSkusObj);
+            var clickData = {id: this.getAttribute("id"), name: this.getAttribute("id"), creative: this.getAttribute("aria-label"), destinationUrl: pageUrl};
+            console.log(clickData);
+            onAdClick(clickData);
         });
     }
 </script>
