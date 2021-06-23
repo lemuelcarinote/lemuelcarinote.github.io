@@ -2,6 +2,21 @@
     <head>
         <title>CarParts.com – Right Parts, Guaranteed</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #preloader {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                z-index: 999;
+                overflow: visible;
+                background: url('https://cdn.getblueshift.com/pictures/88364/content/cp_preloader.gif') no-repeat center center;
+                background-color: #333333;
+            }
+
+            #content {
+                display: none;
+            }
+        </style>
         <script>
 window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc'; window.blueshift=window.blueshift || []; if (blueshift.constructor===Array){blueshift.load=function (){var d=function (a){return function (){blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0)))}}, e=["identify", "track", "click", "pageload", "capture", "retarget", "live"]; for (var f=0; f < e.length; f++) blueshift[e[f]]=d(e[f])};}
     blueshift.load(); 
@@ -13,10 +28,29 @@ if (blueshift.constructor===Array){(function (){var b=document.createElement("sc
 </script>
     </head>
 <body style="margin: 0; padding: 0">
-<div data-bsft-slot="mydealsdailydealsmaster"></div>
-    
-    
+<div id="preloader"></div>
+<div id="content" data-bsft-slot="mydealsdailydealsmaster"></div>
+<script>
+            var preloader;
+            function preload(opacity) {
+                if(opacity <= 0) {
+                    showContent();
+                }
+                else {
+                    preloader.style.opacity = opacity;
+                    window.setTimeout(function() { preload(opacity - 0.05) }, 100);
+                }
+            }
 
+            function showContent() {
+                preloader.style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            }
 
+            document.addEventListener("DOMContentLoaded", function () {
+                preloader = document.getElementById('preloader');
+                preload(1);
+            });
+        </script>
 </body>
 </html>
