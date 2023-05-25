@@ -1,45 +1,178 @@
+<!-- cblemuel.surge.sh -->
 <html>
-    <head>
-        <title>CarParts.com – Right Parts, Guaranteed</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            #preloader {
-                position: fixed;
-                width: 100%;
-                height: 100%;
-                z-index: 999;
-                overflow: visible;
-                background: url('https://cdn.getblueshift.com/pictures/88365/content/cp_preloader2.gif') no-repeat center center;
-                background-color: #ffffff;
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .sign-up {
+            background: #2e4787;
+            padding: 10px 10px 14px;
+            height: 85px;
+            position: relative;
+        }
+        .sign-up p {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+            color: #ffffff;
+            padding: 0 0 8px 0;
+            margin: 0;
+        }
+        .sign-up #submit-form .form-field {
+            display: flex;
+            box-sizing: border-box;
+            max-width: 100%;
+            -webkit-box-align: center;
+            align-items: center;
+            min-width: 0px;
+            min-height: 0px;
+            flex-direction: row;
+            height: 36px;
+            width: 100%;
+            -webkit-box-pack: center;
+            justify-content: center;
+            outline: none;
+        }
+        .sign-up #submit-form .form-field .input-field-wrap {
+            display: flex;
+            box-sizing: border-box;
+            max-width: 100%;
+            color: #444444;
+            min-width: 0px;
+            min-height: 0px;
+            flex-direction: column;
+            height: 100%;
+            width: 70%;
+            border-top-left-radius: 24px;
+            border-bottom-left-radius: 24px;
+            outline: none;
+            background: #ffffff;
+            padding: 4px;
+        }
+        .sign-up #submit-form .form-field .input-field-wrap .input-field-data {
+            position: relative;
+            width: 100%;
+        }
+        .sign-up #submit-form .email-input-field {
+            box-sizing: border-box;
+            font-size: inherit;
+            font-family: inherit;
+            -webkit-appearance: none;
+            color: inherit;
+            width: 100%;
+            font-weight: 400;
+            outline: none;
+            background: transparent;
+            padding: 5px 5px 5px 10px;
+            margin: 0px;
+            border-radius: 4px;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            border-image: initial;
+            font-size: 14px;
+            font-weight: normal;
+            color: #333333;
+        }
+        .sign-up #submit-form .sign-up-btn {
+            display: flex;
+            box-sizing: border-box;
+            max-width: 100%;
+            -webkit-box-align: center;
+            align-items: center;
+            color: #444444;
+            min-width: 0px;
+            min-height: 0px;
+            flex-direction: row;
+            height: 100%;
+            width: 100px;
+            -webkit-box-pack: center;
+            justify-content: center;
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border-top-right-radius: 24px;
+            border-bottom-right-radius: 24px;
+            outline: none;
+            background: #ffce05;
+            padding: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 0px;
+        }
+        .sign-up-thank-you {
+            display: none;
+        }
+    </style>
+    <script>
+        // Email Validation
+        function ValidateEmail(inputText){
+            let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if(inputText.value.match(mailformat)){
+                document.querySelector('#article-submit-form').style.display = 'none';
+                document.querySelector('.sign-up-txt').style.display = 'none';
+                document.querySelector('#extole-dp-content').style.display = 'none';
+                document.querySelector('#form-privacy').style.display = 'none';
+                document.querySelector('#success-note').style.display = 'block';
+                var d = new Date();
+                var timestamp = d.toISOString();
+                var unsubscribed = false;
+                var emailaddress = document.getElementById("emailAddress").value;
+                var messaging_content_featured_articles = document.getElementById("messaging_content_featured_articles").value;
+                var opted_in = document.getElementById("opted_in").value;
+                var source = document.getElementById("source").value;
+                blueshift.track("site_subscribe", {
+                    "email": emailaddress, 
+                    "unsubscribed": unsubscribed, 
+                    "opted_in": opted_in,
+                    "source": source,
+                    "messaging_content_featured_articles": messaging_content_featured_articles,
+                    "messaging_content_featured_articles_at": timestamp
+                });
+                blueshift.identify({"email":emailaddress});
+                //after thank you message
+                is_submit = true;
+                document.cookie = "isClose=true; path=/";
+                setCookie();
+                return false;
+            } else {
+                alert("You have entered an invalid email address!");
+                return false;
             }
+        }
 
-            #content {
-                display: none;
-            }
-        </style>
-    </head>
-<body style="margin: 0; padding: 0"><div id="preloader"></div>
-<script>
-            var preloader;
-            function preload(opacity) {
-                if(opacity <= 0) {
-                    showContent();
-                }
-                else {
-                    preloader.style.opacity = opacity;
-                    window.setTimeout(function() { preload(opacity - 0.05) }, 200);
-                }
-            }
-
-            function showContent() {
-                preloader.style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                preloader = document.getElementById('preloader');
-                preload(1);
-            });
-        </script>
+        $(".sign-up-btn").click(function(){
+        ValidateEmail(document.emailSubmitForm.email);
+        });
+    </script>
+</head>
+<body>
+    <div class="sign-up">
+        <p class="sign-up-txt">Get FREE Auto Repair Tips + 10% OFF on CarParts.com</p>
+        <form id="submit-form" name="emailSubmitForm" aria-label="email form">
+            <div class="form-field">
+                <div class="input-field-wrap">
+                    <div class="input-field-data">
+                        <input id="emailAddress" name="email" placeholder="Email address" class="email-input-field" value="" aria-label="email">
+                        <input type="hidden" id="messaging_content_featured_articles" name="messaging_content_featured_articles" value="true">
+                        <input type="hidden" id="domain" name="domain" value="carparts.com">
+                        <input type="hidden" id="opted_in" name="opted_in" value="true">
+                        <input type="hidden" id="source" name="source" value="blog">
+                    </div>
+                </div>
+                <button class="sign-up-btn" aria-label="button1">
+                    <span>Sign Up</span>
+                </button>
+            </div>
+        </form>
+        <p class="sign-up-thank-you">Thank you for signing up. Your coupon is on its way to your inbox.</p>
+    </div>
+    <script type="text/javascript">
+        window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load = function () { var d = function (a) { return function () { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))) } }, e = ["config", "identify", "track", "pageload", "live"]; for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]) };}
+        blueshift.load();
+        blueshift.pageload();
+        if(blueshift.constructor===Array){(function () { var b = document.createElement("script"); b.type = "text/javascript", b.async = !0, b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js"; var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c); })()}
+    </script>
 </body>
 </html>
