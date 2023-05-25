@@ -2,152 +2,32 @@
 <html>
 <head>
   <title>Signup Form</title>
-  <script>
-    function handleBsftSubmit() {
-      // Get the values from the form fields
-      var email = document.getElementById("email").value;
-      var phoneNumber = document.getElementById("phone").value;
-      var unsubscribed = document.getElementById("unsubscribed").value;
-      var opted_in = document.getElementById("opted_in").value;
-      var source = document.getElementById("source").value;
-      var messaging_content_promotions = document.getElementById("messaging_content_promotions").value;
-      var d = new Date(); var timestamp = d.toISOString();
-      
-      // Email validation
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        document.getElementById("errorDiv").innerHTML = "Please enter a valid email address.";
-        return;
-      }
-
-      // Phone number validation
-      var phoneRegex = /^\+1\d{10}$/;
-      if (!phoneRegex.test(phoneNumber)) {
-      document.getElementById("errorDiv").innerHTML = "Please enter a valid US phone number (including +1 prefix and 10 digits).";
-      return;
-      }
-      
-      // Clear any previous error message
-      document.getElementById("errorDiv").innerHTML = "";
-      
-      // Perform further blueshift processing 
-      blueshift.track("site_subscribe", {
-        "email": email, 
-        "phone_number": phoneNumber,
-        "unsubscribed": unsubscribed, 
-        "opted_in": opted_in,
-        "source": source,
-        "messaging_content_promotions": messaging_content_promotions,
-        "messaging_content_promotions_at": timestamp
-      });
-
-      document.getElementById("errorDiv").style.display = 'block';
-      document.getElementById("successDiv").style.display = 'block';
-      
-      // Display the success message in a div
-      var successMessage = "<p>Thank you for signing up. Your coupon is on its way to your inbox.</p> <hr>Signup Successful!<br>Email: " + email 
-        + "<br>Phone Number: " + phoneNumber 
-        + "<br>unsubscribed: " + unsubscribed 
-        + "<br>opted_in: " + opted_in 
-        + "<br>source: " + source 
-        + "<br>messaging_content_promotions: " + messaging_content_promotions 
-        + "<br>messaging_content_promotions_at: " + timestamp;
-      document.getElementById("successDiv").innerHTML = successMessage;
-    }
-
-    function handleAttvSubmit() {
-        var url = 'https://api.attentivemobile.com/v1/subscriptions';
-        var token = 'gmGqK2k-sM6xjeOdH9XADUETnGru7TkHVF-s5mkB2e4';
-
-        var data = {
-        user: {
-            phone: '+17252044949',
-            email: 'test@gmail.com'
-        },
-        /** signUpSourceId: 'string',
-        externalIdentifiers: {
-            clientUserId: 'string',
-            shopifyId: 'string',
-            klaviyoId: 'string',
-            customIdentifiers: [
-            {
-                name: 'string',
-                value: 'string'
-            }
-            ]
-        },
-        **/
-        locale: {
-            language: 'en',
-            country: 'US'
-        },
-        subscriptionType: 'MARKETING'
-        };
-
-        fetch(url, {method: 'POST', headers: {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Response:', data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-
-    }
-  </script>
-  <style>
-    #errorDiv {
-      color: red;
-      margin-bottom: 10px;
-      display: none;
-    }
-    
-    #successDiv {
-      background-color: #c1f3c7;
-      padding: 10px;
-      display: none;
-    }
-    
-    .signup {
-      padding: 15px 0
-    }
-  </style>
 </head>
 <body>
-<div class="blueshift signup"> 
-  <form>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br><br>
-    <label for="phone">Phone Number:</label>
-    <input type="tel" id="phone" name="phone" required><br><br>
-    <input type="hidden" id="source" name="source" value="carparts.com">
-    <input type="hidden" id="opted_in" name="opted_in" value="true">
-    <input type="hidden" id="messaging_content_promotions" value="true">
-    <input type="hidden" id="unsubscribed" value="false">
-    <button type="button" onclick="handleBsftSubmit()">Submit</button>
-  </form>
+// HTML
+<input type="text" id="myInput">
+<div id="myDiv" style="display: none;">
+  This div will be displayed when the form has a value or the customer is typing.
 </div>
 
-<div class="attentive signup">
-    <form>
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" name="phone" required><br><br>
-        <input type="hidden" id="source" name="source" value="carparts.com">        
-        <button type="button" onclick="handleAttvSubmit()">Submit</button>
-      </form>
-      <p>By submitting this form, you agree to receive recurring automated promotional and personalized marketing text messages (e.g. cart reminders) from CarParts.com at the cell number used when signing up. Consent is not a condition of any purchase. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg and data rates may apply. View <a href="https://attnl.tv/t/gLQ">Terms & Privacy</a>.</p>
-</div>
+// JavaScript
+const myInput = document.getElementById("myInput");
+const myDiv = document.getElementById("myDiv");
 
-  <div id="errorDiv"></div>
-  <div id="successDiv"></div>
+// Listen for changes to the value of the input field
+myInput.addEventListener("input", () => {
+  // If the value of the input field is not empty, display the div
+  if (myInput.value) {
+    myDiv.style.display = "block";
+  }
+});
 
-  <script type="text/javascript">
-    window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load = function () { var d = function (a) { return function () { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))) } }, e = ["config", "identify", "track", "pageload", "live"]; for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]) };}
-    blueshift.load();
-    blueshift.pageload();
-    if(blueshift.constructor===Array){(function () { var b = document.createElement("script"); b.type = "text/javascript", b.async = !0, b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js"; var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c); })()}
-</script>
+// Listen for keystrokes in the input field
+myInput.addEventListener("keydown", () => {
+  // If the user is typing, display the div
+  if (myInput.value.length > 0) {
+    myDiv.style.display = "block";
+  }
+});
 </body>
 </html>
