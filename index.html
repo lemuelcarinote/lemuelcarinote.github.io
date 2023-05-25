@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Signup Form</title>
-</head>
-<body>
 // HTML
 <input type="text" id="myInput">
 <div id="myDiv" style="display: none;">
   This div will be displayed when the form has a value or the customer is typing.
 </div>
 
+<script>
 // JavaScript
 const myInput = document.getElementById("myInput");
 const myDiv = document.getElementById("myDiv");
@@ -29,5 +24,4 @@ myInput.addEventListener("keydown", () => {
     myDiv.style.display = "block";
   }
 });
-</body>
-</html>
+</script>
