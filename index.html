@@ -1,305 +1,153 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        .sign-up {
-            background: #2e4787;
-            padding: 10px 10px 14px;
-            height: 85px;
-            position: relative;
-        }
-        .sign-up p {
-            text-align: center;
-            font-size: 11px;
-            font-weight: 500;
-            color: #ffffff;
-            padding: 0 0 8px 0;
-            margin: 0;
-        }
-        .sign-up #submit-form .form-field {
-            display: flex;
-            box-sizing: border-box;
-            max-width: 100%;
-            -webkit-box-align: center;
-            align-items: center;
-            min-width: 0px;
-            min-height: 0px;
-            flex-direction: row;
-            height: 36px;
-            width: 100%;
-            -webkit-box-pack: center;
-            justify-content: center;
-            outline: none;
-        }
-        .sign-up #submit-form .form-field .input-field-wrap {
-            display: flex;
-            box-sizing: border-box;
-            max-width: 100%;
-            color: #444444;
-            min-width: 0px;
-            min-height: 0px;
-            flex-direction: column;
-            height: 100%;
-            width: 70%;
-            border-top-left-radius: 24px;
-            border-bottom-left-radius: 24px;
-            outline: none;
-            background: #ffffff;
-            padding: 4px;
-        }
-        .sign-up #submit-form .form-field .input-field-wrap .input-field-data {
-            position: relative;
-            width: 100%;
-        }
-        .sign-up #submit-form .email-input-field {
-            box-sizing: border-box;
-            font-size: inherit;
-            font-family: inherit;
-            -webkit-appearance: none;
-            color: inherit;
-            width: 100%;
-            font-weight: 400;
-            outline: none;
-            background: transparent;
-            padding: 5px 5px 5px 10px;
-            margin: 0px;
-            border-radius: 4px;
-            border-width: initial;
-            border-style: none;
-            border-color: initial;
-            border-image: initial;
-            font-size: 14px;
-            font-weight: normal;
-            color: #333333;
-        }
-        .sign-up #submit-form .sign-up-btn {
-            display: flex;
-            box-sizing: border-box;
-            max-width: 100%;
-            -webkit-box-align: center;
-            align-items: center;
-            color: #444444;
-            min-width: 0px;
-            min-height: 0px;
-            flex-direction: row;
-            height: 100%;
-            width: 100px;
-            -webkit-box-pack: center;
-            justify-content: center;
-            border-top-left-radius: 0px;
-            border-bottom-left-radius: 0px;
-            border-top-right-radius: 24px;
-            border-bottom-right-radius: 24px;
-            outline: none;
-            background: #ffce05;
-            padding: 4px;
-            font-weight: 500;
-            cursor: pointer;
-            border: 0px;
-        }
-        .sign-up-thank-you {
-            display: none;
-        }
-    </style>
-    <script>
-        $(document).ready(function() {
-        let
-        email_cookie = false,
-        close_btn_group = document.querySelector('.close-btn-group'),
-        subscribe_article_wrap = document.getElementById('subscribe-article-child-wrap'),
-        is_submit = false,
-        is_close,
-        is_show = false
+  <title>Signup Form</title>
+  <script>
+    function handleBsftSubmit() {
+      // Get the values from the form fields
+      var email = document.getElementById("email").value;
+      var phoneNumber = document.getElementById("phone").value;
+      var unsubscribed = document.getElementById("unsubscribed").value;
+      var opted_in = document.getElementById("opted_in").value;
+      var source = document.getElementById("source").value;
+      var messaging_content_promotions = document.getElementById("messaging_content_promotions").value;
+      var d = new Date(); var timestamp = d.toISOString();
+      
+      // Email validation
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        document.getElementById("errorDiv").innerHTML = "Please enter a valid email address.";
+        return;
+      }
 
-        
-        // Email Validation
-        function ValidateEmail(inputText){
+      // Phone number validation
+      var phoneRegex = /^\+1\d{10}$/;
+      if (!phoneRegex.test(phoneNumber)) {
+      document.getElementById("errorDiv").innerHTML = "Please enter a valid US phone number (including +1 prefix and 10 digits).";
+      return;
+      }
+      
+      // Clear any previous error message
+      document.getElementById("errorDiv").innerHTML = "";
+      
+      // Perform further blueshift processing 
+      blueshift.track("site_subscribe", {
+        "email": email, 
+        "phone_number": phoneNumber,
+        "unsubscribed": unsubscribed, 
+        "opted_in": opted_in,
+        "source": source,
+        "messaging_content_promotions": messaging_content_promotions,
+        "messaging_content_promotions_at": timestamp
+      });
 
-        
-        let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        
-        if(inputText.value.match(mailformat)){
-            document.querySelector('#article-submit-form').style.display = 'none';
-            document.querySelector('.sign-up-txt').style.display = 'none';
-            document.querySelector('#extole-dp-content').style.display = 'none';
-            document.querySelector('#form-privacy').style.display = 'none';
-            document.querySelector('#success-note').style.display = 'block';
+      document.getElementById("errorDiv").style.display = 'block';
+      document.getElementById("successDiv").style.display = 'block';
+      
+      // Display the success message in a div
+      var successMessage = "<p>Thank you for signing up. Your coupon is on its way to your inbox.</p> <hr>Signup Successful!<br>Email: " + email 
+        + "<br>Phone Number: " + phoneNumber 
+        + "<br>unsubscribed: " + unsubscribed 
+        + "<br>opted_in: " + opted_in 
+        + "<br>source: " + source 
+        + "<br>messaging_content_promotions: " + messaging_content_promotions 
+        + "<br>messaging_content_promotions_at: " + timestamp;
+      document.getElementById("successDiv").innerHTML = successMessage;
+    }
 
+    function handleAttvSubmit() {
+        var url = 'https://api.attentivemobile.com/v1/subscriptions';
+        var token = 'gmGqK2k-sM6xjeOdH9XADUETnGru7TkHVF-s5mkB2e4';
 
-            var d = new Date();
-            var timestamp = d.toISOString();
-            var unsubscribed = false;
-            var emailaddress = document.getElementById("emailAddressArticle").value;
-            var messaging_content_featured_articles = document.getElementById("messaging_content_featured_articles").value;
-            var opted_in = document.getElementById("opted_in_article").value;
-            var source = document.getElementById("source_article").value;
-            blueshift.track("site_subscribe", {
-            "email": emailaddress, 
-            "unsubscribed": unsubscribed, 
-            "opted_in": opted_in,
-            "source": source,
-            "messaging_content_featured_articles": messaging_content_featured_articles,
-            "messaging_content_featured_articles_at": timestamp
-            });
+        var data = {
+        user: {
+            phone: '+17252044949',
+            email: 'test@gmail.com'
+        },
+        /** signUpSourceId: 'string',
+        externalIdentifiers: {
+            clientUserId: 'string',
+            shopifyId: 'string',
+            klaviyoId: 'string',
+            customIdentifiers: [
+            {
+                name: 'string',
+                value: 'string'
+            }
+            ]
+        },
+        **/
+        locale: {
+            language: 'en',
+            country: 'US'
+        },
+        subscriptionType: 'MARKETING'
+        };
 
-            blueshift.identify({"email":emailaddress});
-
-            //after thank you message
-            is_submit = true;
-            document.cookie = "isClose=true; path=/";
-            setCookie();
-            return false;
-
-        } else {
-            alert("You have entered an invalid email address!");
-            return false;
-        }
-        }
-
-
-        $(".sign-up-btn").click(function(){
-        ValidateEmail(document.emailSubmitForm.email);
+        fetch(url, {method: 'POST', headers: {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response:', data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
 
-        
-
-        let timeOut = setTimeout(timedCount, 60000);
-
-        function timedCount() {
-        getCookie("_bs");
-
-        if(email_cookie){
-            subscribe_article_wrap.style.display = 'none';
-            clearTimeout(timeOut);
-        }
-        }
-
-
-        function setCookie() {
-        document.cookie = "path=/";
-        is_close = getCookie("isClose");
-        
-        if(is_close && is_submit){
-            subscribe_article_wrap.style.display = 'block';
-
-        } else if (is_close) {
-            subscribe_article_wrap.style.display = 'none';
-
-        } else {
-            if(is_show){
-            subscribe_article_wrap.style.display = 'block';
-            }
-        }
-
-        }
-
-
-        function getCookie(name) {
-        let cookieName = name + "=";
-        let ca = document.cookie.split(';');
-        for(let i=0;i < ca.length;i++) {
-            let c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1);
-            if (c.indexOf(cookieName) != -1) return c.substring(cookieName.length,c.length);
-        }
-        return null;
-        }
-
-
-        function closeCookie() {
-        document.cookie = "isClose=true; path=/";
-        setCookie();
-        subscribe_article_wrap.style.display = 'none';
-        }
-
-        // Close Event
-        close_btn_group.addEventListener('click', function() {
-        closeCookie();
-        });
-
-
-
-        function onScrollContent(){
-
-
-        if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
-            
-            if(is_close && is_submit){
-            subscribe_article_wrap.style.display = 'block';
-
-            } else if (is_close) {
-            subscribe_article_wrap.style.display = 'none';
-
-            } else {
-            if(!is_show){
-                document.querySelector('#subscribe-article-child-wrap').style.transform = 'translateX(0)';
-                is_show = true;
-            }
-            }
-
-        } else {
-            if(is_show){
-            document.querySelector('#subscribe-article-child-wrap').style.transform = 'translateX(120%)';
-            is_show = false;
-            }
-        }
-
-            
-        }
-
-        // Scroll Event
-        window.onscroll = function() { onScrollContent() };
-        setCookie();
-
-
-        });
-    </script>
+    }
+  </script>
+  <style>
+    #errorDiv {
+      color: red;
+      margin-bottom: 10px;
+      display: none;
+    }
+    
+    #successDiv {
+      background-color: #c1f3c7;
+      padding: 10px;
+      display: none;
+    }
+    
+    .signup {
+      padding: 15px 0
+    }
+  </style>
 </head>
 <body>
-    <div class="sign-up"> 
+<div class="blueshift signup"> 
+  <form>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" name="phone" required><br><br>
+    <input type="hidden" id="source" name="source" value="carparts.com">
+    <input type="hidden" id="opted_in" name="opted_in" value="true">
+    <input type="hidden" id="messaging_content_promotions" value="true">
+    <input type="hidden" id="unsubscribed" value="false">
+    <button type="button" onclick="handleBsftSubmit()">Submit</button>
+  </form>
+</div>
 
-        <div id="form-fields" class="fillup-form-article"> 
-            <form id="article-submit-form" name="emailSubmitForm" aria-label="email form">
-            <div id="form-fields" class="fillup-form-article">
-                    <div class="input-field-wrap">
-                    <div class="input-field-data">
-                            <input id="emailAddressArticle" name="email" placeholder="Email Address" pattern="\S+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" class="email-input-field" value="" aria-label="email">
-                            <input type="hidden" id="domainArticle" name="domain" value="carparts.com">
-                            <input type="hidden" id="messaging_content_featured_articles" name="messaging_content_featured_articles" value="true">
-                            <input type="hidden" id="opted_in_article" name="opted_in" value="true">
-                            <input type="hidden" id="source_article" name="source" value="blog">
-                    </div>
-                    </div>
+<div class="attentive signup">
+    <form>
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required><br><br>
+        <input type="hidden" id="source" name="source" value="carparts.com">        
+        <button type="button" onclick="handleAttvSubmit()">Submit</button>
+      </form>
+      <p>By submitting this form, you agree to receive recurring automated promotional and personalized marketing text messages (e.g. cart reminders) from CarParts.com at the cell number used when signing up. Consent is not a condition of any purchase. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg and data rates may apply. View <a href="https://attnl.tv/t/gLQ">Terms & Privacy</a>.</p>
+</div>
 
-               
-                    <input type="button" value="Sign Up" class="sign-up-btn"> 
-            </div>
-            </form>
-        </div>
+  <div id="errorDiv"></div>
+  <div id="successDiv"></div>
 
-
-        <div id="form-privacy" class="priv-desc">
-            <p class="sign-up-txt">
-                <span><a class="priv-link" href="https://www.carparts.com/privacy-policy" aria-label="link127" aria-labelledby="sitelink127">Privacy Policy</a></span>
-            </p>
-        </div>
-
-
-        <div id="success-note" class="result">
-            <p class="sign-up-thank-you">
-                <span>Thank you for signing up.</span>
-                <span>Your coupon is on its way to your inbox.</span>
-            </p>
-        </div>
-    </div>
-    <script type="text/javascript">
-        window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load = function () { var d = function (a) { return function () { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))) } }, e = ["config", "identify", "track", "pageload", "live"]; for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]) };}
-        blueshift.load();
-        blueshift.pageload();
-        if(blueshift.constructor===Array){(function () { var b = document.createElement("script"); b.type = "text/javascript", b.async = !0, b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js"; var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c); })()}
-    </script>
+  <script type="text/javascript">
+    window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load = function () { var d = function (a) { return function () { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))) } }, e = ["config", "identify", "track", "pageload", "live"]; for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]) };}
+    blueshift.load();
+    blueshift.pageload();
+    if(blueshift.constructor===Array){(function () { var b = document.createElement("script"); b.type = "text/javascript", b.async = !0, b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js"; var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c); })()}
+</script>
 </body>
 </html>
