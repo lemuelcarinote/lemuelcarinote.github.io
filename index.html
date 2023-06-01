@@ -1,27 +1,168 @@
-// HTML
-<input type="text" id="myInput">
-<div id="myDiv" style="display: none;">
-  This div will be displayed when the form has a value or the customer is typing.
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Join the VIP List</title>
+  <style>
+    * {
+        font-family: Roboto, Inter, Arial
+    }
+
+    .wrapper {
+        display: flex;
+    }
+
+    .content {
+        width: 640px; 
+        display: block; 
+        margin: 0 auto;
+        padding: 15px
+    }
+
+    #errorDiv {
+      color: red;
+      margin-bottom: 10px;
+      display: none;
+    }
+    
+    #successDiv {
+      background-color: #c1f3c7;
+      padding: 10px;
+      display: none;
+    }
+
+    .legal {
+        font-size: 11px
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="content">
+        <div class="blueshift signup">
+          <h2>
+            Sign up now to receive email and texts notifications on the latest updates and exclusive deals.
+          </h2>
+          <form name="adhoc_signup">
+            <div class="form-fields">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"><br><br>
+                <label for="phone">Phone Number:</label>
+                US +1 <input type="tel" id="phone" name="phone"> (Optional) 6137040629
+                <input type="hidden" id="source" name="source" value="adhoc_signup_page">
+                <input type="hidden" id="messaging_content_promotions" value="true">
+            </div>
+            <div class="legal" id="legal-email">
+                <p>By providing your email address and submitting this form, you consent to receive marketing emails from CarParts.com. For more information, please refer to our <a href="https://www.carparts.com/privacy-policy">Privacy Policy</a>.</p>
+            </div>
+            <div class="legal" id="legal-sms">
+                <p>By providing your phone number and submitting this form, you consent to receive recurring automated promotional and personalized marketing text messages (e.g. cart reminders) from CarParts.com at the cell number used when signing up. Consent is not a condition of any purchase. Reply <b>HELP</b> for help and <b>STOP</b> to cancel. Msg frequency varies. Msg and data rates may apply. View <a href="https://attnl.tv/t/gLQ">Terms & Privacy</a>.</p>
+            </div>
+            <div class="form-fields">
+                <button type="button" onclick="adhocFormSubmit()" class="cta blue sign-up-btn">SIGN UP NOW</button>
+            </div>
+          </form>
+        </div>
+        <div id="errorDiv"></div>
+        <div id="successDiv"></div>
+        <div id="attvsuccessDiv"></div>
+    </div>
 </div>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-// JavaScript
-const myInput = document.getElementById("myInput");
-const myDiv = document.getElementById("myDiv");
+    function adhocFormSubmit() {
+    var d = new Date(); 
+    var timestamp = d.toISOString();
+    var email = document.getElementById("email").value;
+    var phone_number = "+1" + document.getElementById("phone").value;
+    var dataObj = {
+        email: email,
+        phone_number: phone_number,
+        unsubscribed: false,
+        opted_in: true,
+        source: document.getElementById("source").value,
+        messaging_content_promotions: document.getElementById("messaging_content_promotions").value,
+         messaging_content_promotions_at: timestamp
+    };
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var isEmailValid = emailRegex.test(email);
+    var phoneRegex = /^\+1\d{10}$/;
+    var isPhoneValid = phoneRegex.test(phone_number);
 
-// Listen for changes to the value of the input field
-myInput.addEventListener("input", () => {
-  // If the value of the input field is not empty, display the div
-  if (myInput.value) {
-    myDiv.style.display = "block";
-  }
-});
+    // Email validation
+    if (!emailRegex.test(email)) {
+        document.getElementById("errorDiv").style.display = 'block';
+        document.getElementById("errorDiv").innerHTML = "Please enter a valid email address.";
+        return;
+    }
 
-// Listen for keystrokes in the input field
-myInput.addEventListener("keydown", () => {
-  // If the user is typing, display the div
-  if (myInput.value.length > 0) {
-    myDiv.style.display = "block";
-  }
-});
+    // Phone number validation
+    if (!phoneRegex.test(phone_number)) {
+        document.getElementById("errorDiv").style.display = 'block';
+        document.getElementById("errorDiv").innerHTML = "Please enter a valid US phone number.";
+        return;
+    }
+
+    // Triage
+    if (isEmailValid == true && isPhoneValid == true) {
+        optinEmail(dataObj);
+        optinSMS(dataObj);
+    } else {
+        optinEmail(dataObj);
+    }
+    }
+
+    function optinEmail(dataObj) {
+        // Clear any previous error message
+        document.getElementById("errorDiv").innerHTML = "";
+                
+        // Perform further blueshift processing 
+        blueshift.track("site_subscribe", {
+            "email": dataObj.email, 
+            "phone_number": dataObj.phone_number,
+            "unsubscribed": dataObj.unsubscribed, 
+            "opted_in": dataObj.opted_in,
+            "source": dataObj.source,
+            "messaging_content_promotions": dataObj.messaging_content_promotions,
+            "messaging_content_promotions_at": dataObj.timestamp
+        });
+                
+        // Display the success message in a div
+        var successMessage = "<p>Thank you for signing up. Your coupon is on its way to your inbox.</p>" + JSON.stringify(dataObj);
+        document.getElementById("successDiv").style.display = 'block';
+        document.getElementById("successDiv").innerHTML = successMessage;
+    }
+    
+    function optinSMS(dataObj) {            
+        var xhr = new XMLHttpRequest();
+        var url = 'https://api.attentivemobile.com/v1/subscriptions';
+        var token = 'RUFKMFdDdW5CMVJlRzhpZmQwZk53QjVoTzJJVTNmdDFWYTJa';
+        var sourceid = "266454";
+        var data = {};
+        data.user = {phone: dataObj.phone_number, email: dataObj.email};
+        data.signUpSourceId = sourceid;
+        data.locale = {"language": "en","country": "US"};
+        data.subscriptionType = "MARKETING";
+        xhr.open('POST', url);
+        xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
+        xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Referer");
+        xhr.setRequestHeader("Authorization", "Bearer " + token);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log(xhr.status);
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send(JSON.stringify(data));
+        document.getElementById("attvsuccessDiv").innerHTML = "Attentive Data Submission started. " + "<br>Payload: " + JSON.stringify(data) + "<br> Status: " + xhr.status + "<br> Response: " + xhr.responseText + "<br> xhr.readyState: " + xhr.readyState;
+    }
 </script>
+<script type="text/javascript">
+    window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load = function () { var d = function (a) { return function () { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))) } }, e = ["config", "identify", "track", "pageload", "live"]; for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]) };}
+    blueshift.load();
+    blueshift.pageload();
+    if(blueshift.constructor===Array){(function () { var b = document.createElement("script"); b.type = "text/javascript", b.async = !0, b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js"; var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c); })()}
+</script>
+</body>
+</html>
