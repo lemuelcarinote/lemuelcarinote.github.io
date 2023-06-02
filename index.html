@@ -2,39 +2,38 @@
 <html>
 <head>
     <title>Join the VIP List</title>
-    <link rel="stylesheet" href="https://www.carparts.com/blog/wp-content/themes/genesis_child/custom/landingpage/discounts/adhoc-signup-discount/assets/css/discounts.css?06.01.202302"/>
-    <style>
-        * {
-            font-family: Roboto, Inter, Arial
-        }
+  <style>
+    * {
+        font-family: Roboto, Inter, Arial
+    }
 
-        .wrapper {
-            display: flex;
-        }
+    .wrapper {
+        display: flex;
+    }
 
-        .content {
-            width: 640px; 
-            display: block; 
-            margin: 0 auto;
-            padding: 15px
-        }
+    .content {
+        width: 640px; 
+        display: block; 
+        margin: 0 auto;
+        padding: 15px
+    }
 
-        #errorDiv {
-        color: red;
-        margin-bottom: 10px;
-        display: none;
-        }
-        
-        #successDiv {
-        background-color: #c1f3c7;
-        padding: 10px;
-        display: none;
-        }
+    #errorDiv {
+      color: red;
+      margin-bottom: 10px;
+      display: none;
+    }
+    
+    #successDiv {
+      background-color: #c1f3c7;
+      padding: 10px;
+      display: none;
+    }
 
-        .legal {
-            font-size: 11px
-        }
-    </style>
+    .legal {
+        font-size: 11px
+    }
+  </style>
 </head>
 <body>
 <div id="discounts">
@@ -171,10 +170,10 @@
         const url = 'https://api.attentivemobile.com/v1/subscriptions';
         const auth = 'Bearer RUFKMFdDdW5CMVJlRzhpZmQwZk53QjVoTzJJVTNmdDFWYTJa';
 
-        const data = JSON.stringify({
-            email: dataObj.email,
-            phone_number: dataObj.phone_number
-        });
+        const data = {};
+        data.user = {phone: dataObj.phone_number, email: dataObj.email};
+        data.signUpSourceId = "444929";
+        data.subscriptionType = 'MARKETING';
 
         const settings = {
             async: true,
@@ -189,7 +188,7 @@
                 'access-dontrol-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS'
             },
             processData: false,
-            data: data
+            data: JSON.stringify(data)
         };
 
         $.ajax(settings).done(function (response) {
@@ -199,7 +198,6 @@
 
         console.log(data);
     }
-
 </script>
 <script type="text/javascript">
     window._blueshiftid='a3cf17c9321992514193bb8bbeb942fc';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load = function () { var d = function (a) { return function () { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))) } }, e = ["config", "identify", "track", "pageload", "live"]; for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]) };}
