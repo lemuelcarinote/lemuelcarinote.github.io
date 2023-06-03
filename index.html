@@ -27,6 +27,9 @@
         window.addEventListener('message', function(event) {
             if (event.origin === 'https://lemuelcarinote.github.io') {
                 console.log('Message received:', event.data);
+                var iframeWindow = iframe.contentWindow;
+                var statusCode = iframeWindow.status;
+                console.log('Status code:', statusCode);
             }
         });
         
@@ -37,9 +40,7 @@
             document.getElementById("adhoc_signup").style.border = 'none'; 
             document.getElementById("adhoc_signup").style.flexGrow = '1'; 
 
-            var iframeWindow = iframe.contentWindow;
-            var statusCode = iframeWindow.status;
-            console.log('Status code:', statusCode);
+            
 
         };
         iframe.onerror = function() {
