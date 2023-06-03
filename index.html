@@ -13,15 +13,59 @@
             margin: 0 !important;
             padding: 0 !important;
         }
-        iframe {
-            border: none !important;
-            flex-grow: 1;
-        }
     </style>
 </head>
 <body>
-    <div style="display: flex; height: 100vh;">
-        <iframe src="https://carparts.attn.tv/p/jBZ/special-event"></iframe>
+    <div id="attv">
+        <iframe id="adhoc_signup" src="https://carparts.attn.tv/p/lnX/special-event"></iframe>
     </div>
+    <div class="blueshift_signup" style="none">
+    </div>
+    <script>
+        var iframe = document.getElementById('adhoc_signup');
+        iframe.onload = function() {
+            console.log("Content is loaded in the iframe");
+            document.getElementById("attv").style.display = 'flex'; 
+            document.getElementById("attv").style.height = '100vh'; 
+            document.getElementById("adhoc_signup").style.border = 'none'; 
+            document.getElementById("adhoc_signup").style.flexGrow = '1'; 
+
+            var iframeWindow = iframe.contentWindow;
+            var statusCode = iframeWindow.status;
+            console.log('Status code:', statusCode);
+
+        };
+        iframe.onerror = function() {
+            console.log("No content is loaded in the iframe");
+
+            var iframeWindow = iframe.contentWindow;
+            var statusCode = iframeWindow.status;
+            console.log('Status code:', statusCode);
+
+            divattv.style.display = 'none';
+            divattv.style.height = '0px';
+            iframe.style.display = 'none';
+            iframe.style.border = 'none';
+            iframe.style.flexGrow = '0';
+
+            // Create a new link element and append in the head
+            var stylesheet = document.createElement('link');
+            stylesheet.rel = 'stylesheet';
+            stylesheet.href = 'https://www.carparts.com/blog/wp-content/themes/genesis_child/custom/landingpage/discounts/adhoc-signup-discount/assets/css/discounts.css?06.01.202302';
+            document.head.appendChild(stylesheet);
+
+            // Create a new style element and in the head as styles
+            var styles = document.createElement('style');
+            styles.innerHTML = `
+                * {font-family: Roboto, Inter, Arial;}
+                .wrapper {display: flex;}
+                .content {width: 640px; display: block; margin: 0 auto; padding: 15px;}
+                #errorDiv {color: red; margin-bottom: 10px; display: none;}
+                #successDiv {background-color: #c1f3c7; padding: 10px; display: none;}
+                .legal {font-size: 11px;}
+            `;
+            document.head.appendChild(styles);
+        };
+    </script>
 </body>
 </html>
