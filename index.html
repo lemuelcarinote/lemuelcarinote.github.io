@@ -100,6 +100,9 @@
     
     bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A
     bGVtdWVsY2FyaW5vdGVAZ21haWwuY29t%0A
+
+    https://lemuelcarinote.github.io/?em=bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A&an=bGNhcmlub3Rl%0A&oi=MTIzNDU1Njc%3D%0A&dm=c2FsZXMuY29uc29sZS5jb20%3D%0A&ds=T3JkZXIgQ29tcGxldGVk%0A
+
     -->
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -118,35 +121,34 @@
             var xhr = new XMLHttpRequest();
             var queryString = window.location.search;
             var urlParams = new URLSearchParams(queryString);
-            var embase64 = urlParams.get('em');
-            var email = atob(embase64);
-            var agent_name = urlParams.get('an');
-            var order_id = urlParams.get('oid');
-            var channel = urlParams.get('cn');
-            var disposition = urlParams.get('ds');
+            var email = atob(urlParams.get('em'));
+            var agent_username = atob(urlParams.get('an'));
+            var order_id = atob(urlParams.get('oi'));
+            var domain_name = atob(urlParams.get('dm'));
+            var disposition = atob(urlParams.get('ds'));
             var radioselectedValues = {
                 satisfaction: $("input[name='satisfaction']:checked").val(),
                 resolve: $("input[name='resolve']:checked").val()
             };
             var comments = document.getElementById("comments").value;
             var message = "Order Id: " + order_id
-                + "\nPurchase Medium: " + channel
+                + "\nPurchase Medium: " + domain_name
                 + "\nDisposition: " + disposition
-                + "\n\nCSR: " + agent_name 
+                + "\n\nCSR: " + agent_username 
                 + "\n\nHow satisfied are you with the most recent interaction with our service representative? \n" + radioselectedValues.satisfaction
                 + "\n\nDid we resolve your problem? \n" + radioselectedValues.resolve
                 + "\n\nComments or Feedback: \n" + comments;
             var data = {};
-            data.title = "Customer Satisfaction Survey";
+            data.title = "CSR Voice CSAT Survey";
             data.email = email;
             data.message = message;
-            /* data.agent_name = agent_name;
+            data.agent_username = agent_username;
             data.order_id = order_id;
-            data.channel = channel;
+            data.domain_name = domain_name;
             data.disposition = disposition;
             data.satisfaction = radioselectedValues.satisfaction;
             data.resolve = radioselectedValues.resolve;
-            data.comments = comments; */
+            data.comments = comments; 
             xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab3502a7d92e7d38d9e130/f2d708cecc1d12ee7f5fa6cb6694cfd9343d7af09f618ca7f5f5d11fb4d1335c');
             xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
             xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmE4YTM4ZDUzMmQyMWRmMDNkZWY0OCIsInVzZXIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIiLCJvcmciOiI2MmFiMzUwMmE3ZDkyZTdkMzhkOWUxMzAiLCJvcmdOYW1lIjoiY2FycGFydHMtc2FuZGJveCIsInVzZXJUeXBlIjoibWFjaGluZSIsInBvZCI6InByb2QxIiwicm9sZXMiOlsib3JnLmFkbWluIl0sImF1ZCI6InVybjpjb25zdW1lciIsImlzcyI6InVybjphcGkiLCJzdWIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIifQ.PLT_uBbBaX8a2Fkc6V6mtjijqtkr5yIz259xLDz0mVU");
