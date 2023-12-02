@@ -110,8 +110,12 @@
         var btnSubmit = document.getElementById("btnSubmit");
         var successNote = document.getElementById("successNote");
         var successIcon = document.getElementById("successIcon");
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            var xhr = new XMLHttpRequest();
         
-        var queryString = window.location.search;
+            var querystring = window.location.search;
             var urlParams = new URLSearchParams(queryString);
             var embase64 = urlParams.get('em');
             var email = atob(embase64);
@@ -122,9 +126,6 @@
 
             console.log(embase64 + " - " + agent_name + " - " + order_id + " - " + channel + " - " + disposition);
 
-        form.addEventListener('submit', e => {
-            e.preventDefault()
-            var xhr = new XMLHttpRequest();
             var queryString = window.location.search;
             var urlParams = new URLSearchParams(queryString);
             var embase64 = urlParams.get('em');
