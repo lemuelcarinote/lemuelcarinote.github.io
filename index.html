@@ -3,30 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="icon" href="https://www.carparts.com/blog/wp-content/uploads/2020/11/cropped-CarPartscom_Image_Browser_Tab_Favicon-32x32.png" sizes="32x32">
-    <link rel="icon" href="https://www.carparts.com/blog/wp-content/uploads/2020/11/cropped-CarPartscom_Image_Browser_Tab_Favicon-192x192.png" sizes="192x192">
-    <link rel="apple-touch-icon" href="https://www.carparts.com/blog/wp-content/uploads/2020/11/cropped-CarPartscom_Image_Browser_Tab_Favicon-180x180.png">
-    <title>CarParts.com Discounts</title>
-    <style>
-        body {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        #attv {
-            display: flex; height: 100vh;
-        }
-        #attv #adhoc_signup {
-            border: none !important;
-            flex-grow: 1;
-        }
-    </style>
+    <title>Radio Button Form with jQuery</title>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-    <div id="attv">
-        <iframe id="adhoc_signup" src="https://carparts.attn.tv/p/lnX/special-event"></iframe>
-    </div>
-    <div class="blueshift_signup" style="none">
-    </div>
+    <h2>Radio Button Form</h2>
+    <form id="radioForm">
+        <label>
+            <input type="radio" name="group1" value="option1"> Option 1
+        </label>
+        <label>
+            <input type="radio" name="group1" value="option2"> Option 2
+        </label>
+
+        <label>
+            <input type="radio" name="group2" value="optionA"> Option A
+        </label>
+        <label>
+            <input type="radio" name="group2" value="optionB"> Option B
+        </label>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        // jQuery code to handle form submission
+        $(document).ready(function () {
+            // Handle form submission
+            $("#radioForm").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Get the selected values using jQuery
+                var selectedValues = {
+                    group1: $("input[name='group1']:checked").val(),
+                    group2: $("input[name='group2']:checked").val()
+                };
+
+                // Display the selected values using alert
+                alert("Selected Values:\nGroup 1: " + selectedValues.group1 + "\nGroup 2: " + selectedValues.group2);
+            });
+        });
+    </script>
 </body>
 </html>
