@@ -127,7 +127,16 @@
                 resolve: $("input[name='resolve']:checked").val()
             };
             var comments = document.getElementById("comments").value;
-            console.log(embase64 + " - " + agent_name + " - " + order_id + " - " + channel + " - " + disposition);
+            var message = 
+                "Order Id: " + order_id
+                + "\nPurchase Medium: " + channel
+                + "\nDisposition: " + disposition
+                + "\n\nCSR: " + agent_name 
+                + "\n\nHow satisfied are you with the most recent interaction with our service representative? \n" + radioselectedValues.satisfaction
+                + "\n\nDid we resolve your problem? \n" + radioselectedValues.resolve
+                + "\n\nComments or Feedback: \n" + comments;
+            
+            console.log(message);
             var data = {};
             data.email = email;
             data.agent_name = agent_name;
@@ -135,8 +144,9 @@
             data.channel = channel;
             data.disposition = disposition;
             data.satisfaction = radioselectedValues.satisfaction;
-            data.disposition = radioselectedValues.disposition;
+            data.resolve = radioselectedValues.resolve;
             data.comments = comments;
+            data.message = message;
             xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab3502a7d92e7d38d9e130/f2d708cecc1d12ee7f5fa6cb6694cfd9343d7af09f618ca7f5f5d11fb4d1335c');
             xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
             xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmE4YTM4ZDUzMmQyMWRmMDNkZWY0OCIsInVzZXIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIiLCJvcmciOiI2MmFiMzUwMmE3ZDkyZTdkMzhkOWUxMzAiLCJvcmdOYW1lIjoiY2FycGFydHMtc2FuZGJveCIsInVzZXJUeXBlIjoibWFjaGluZSIsInBvZCI6InByb2QxIiwicm9sZXMiOlsib3JnLmFkbWluIl0sImF1ZCI6InVybjpjb25zdW1lciIsImlzcyI6InVybjphcGkiLCJzdWIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIifQ.PLT_uBbBaX8a2Fkc6V6mtjijqtkr5yIz259xLDz0mVU");
@@ -148,8 +158,7 @@
                     successIcon.style.display = "block",
                     form.btnSubmit.value = "Submitted",
                     form.btnSubmit.disabled = true,
-                    form.btnSubmit.style.cursor = "default",
-                    error.style.display = "none"
+                    form.btnSubmit.style.cursor = "default"
                 }};
             xhr.send(JSON.stringify(data));
             console.log(data);
