@@ -117,24 +117,23 @@
         var radioResolve = document.getElementsByName("resolve");
         var textboxComments = document.getElementById("comments");
 
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var embase64 = urlParams.get('em');
+        var email = atob(embase64);
+        var agent_name = urlParams.get('an');
+        var order_id = urlParams.get('oid');
+        var channel = urlParams.get('cn');
+        var disposition = urlParams.get('ds');
+        var radioselectedValues = {
+            satisfaction: $("input[name='satisfaction']:checked").val(),
+            resolve: $("input[name='resolve']:checked").val()
+        };
+        var comments = document.getElementById("comments").value;
         form.addEventListener('submit', e => {
             e.preventDefault()
             var xhr = new XMLHttpRequest();
-            var queryString = window.location.search;
-            var urlParams = new URLSearchParams(queryString);
-            var embase64 = urlParams.get('em');
-            var email = atob(embase64);
-            var agent_name = urlParams.get('an');
-            var order_id = urlParams.get('oid');
-            var channel = urlParams.get('cn');
-            var disposition = urlParams.get('ds');
-            var radioselectedValues = {
-                satisfaction: $("input[name='satisfaction']:checked").val(),
-                resolve: $("input[name='resolve']:checked").val()
-            };
-            var comments = document.getElementById("comments").value;
-            var message = 
-                "Order Id: " + order_id
+            var message = "Order Id: " + order_id
                 + "\nPurchase Medium: " + channel
                 + "\nDisposition: " + disposition
                 + "\n\nCSR: " + agent_name 
@@ -144,6 +143,7 @@
             var data = {};
             data.title = "Customer Satisfaction Survey";
             data.email = email;
+            data.message = message;
             /* data.agent_name = agent_name;
             data.order_id = order_id;
             data.channel = channel;
@@ -151,7 +151,6 @@
             data.satisfaction = radioselectedValues.satisfaction;
             data.resolve = radioselectedValues.resolve;
             data.comments = comments; */
-            data.message = message;
             xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab3502a7d92e7d38d9e130/f2d708cecc1d12ee7f5fa6cb6694cfd9343d7af09f618ca7f5f5d11fb4d1335c');
             xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
             xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmE4YTM4ZDUzMmQyMWRmMDNkZWY0OCIsInVzZXIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIiLCJvcmciOiI2MmFiMzUwMmE3ZDkyZTdkMzhkOWUxMzAiLCJvcmdOYW1lIjoiY2FycGFydHMtc2FuZGJveCIsInVzZXJUeXBlIjoibWFjaGluZSIsInBvZCI6InByb2QxIiwicm9sZXMiOlsib3JnLmFkbWluIl0sImF1ZCI6InVybjpjb25zdW1lciIsImlzcyI6InVybjphcGkiLCJzdWIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIifQ.PLT_uBbBaX8a2Fkc6V6mtjijqtkr5yIz259xLDz0mVU");
