@@ -97,6 +97,9 @@
     https://efmfeed.verintefm.com/se/0A88B8A45D232866?wsb9=rdelosreyes&wsb10=68593003&wsb18=sales.carparts.com&wsb17=S+Order+Completed
 
     em=bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A&an=lcarinote&oid=12345567&cn=sales.console.com&ds=Order+Completed
+    
+    bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A
+    bGVtdWVsY2FyaW5vdGVAZ21haWwuY29t%0A
     -->
 
     
@@ -110,6 +113,9 @@
         var btnSubmit = document.getElementById("btnSubmit");
         var successNote = document.getElementById("successNote");
         var successIcon = document.getElementById("successIcon");
+        var radioSatisfaction = document.getElementsByName("satisfaction");
+        var radioResolve = document.getElementsByName("resolve");
+        var textboxComments = document.getElementById("comments");
 
         form.addEventListener('submit', e => {
             e.preventDefault()
@@ -159,7 +165,9 @@
                     successIcon.style.display = "block",
                     form.btnSubmit.value = "Submitted",
                     form.btnSubmit.disabled = true,
-                    form.btnSubmit.disabled = true,
+                    form.radioSatisfaction.disabled = true,
+                    form.radioResolve.disabled = true,
+                    form.textboxComments.disabled = true,
                     form.btnSubmit.style.cursor = "default"
                 }};
             xhr.send(JSON.stringify(data));
