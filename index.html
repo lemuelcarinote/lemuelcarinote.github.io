@@ -141,8 +141,6 @@
                 + "\n\nHow satisfied are you with the most recent interaction with our service representative? \n" + radioselectedValues.satisfaction
                 + "\n\nDid we resolve your problem? \n" + radioselectedValues.resolve
                 + "\n\nComments or Feedback: \n" + comments;
-            
-            console.log(message);
             var data = {};
             data.title = "Customer Satisfaction Survey";
             data.email = email;
@@ -159,6 +157,7 @@
             xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmE4YTM4ZDUzMmQyMWRmMDNkZWY0OCIsInVzZXIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIiLCJvcmciOiI2MmFiMzUwMmE3ZDkyZTdkMzhkOWUxMzAiLCJvcmdOYW1lIjoiY2FycGFydHMtc2FuZGJveCIsInVzZXJUeXBlIjoibWFjaGluZSIsInBvZCI6InByb2QxIiwicm9sZXMiOlsib3JnLmFkbWluIl0sImF1ZCI6InVybjpjb25zdW1lciIsImlzcyI6InVybjphcGkiLCJzdWIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIifQ.PLT_uBbBaX8a2Fkc6V6mtjijqtkr5yIz259xLDz0mVU");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
+                    console.log(message);
                     console.log(xhr.status);
                     console.log(xhr.responseText);
                     successNote.style.display = "block",
