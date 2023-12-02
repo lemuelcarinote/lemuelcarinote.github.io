@@ -3,47 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radio Button Form with jQuery</title>
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Feedback Form</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .row {
+            padding: 15px 0
+        }
+
+        .row .logo {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .logo {
+            width: 220px;
+            height: auto;
+        }
+
+        h3 {
+            line-height: 140%;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        input[type="radio"],
+        textarea {
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Radio Button Form</h2>
-    <form id="radioForm">
-        <label>
-            <input type="radio" name="group1" value="option1"> Option 1
-        </label>
-        <label>
-            <input type="radio" name="group1" value="option2"> Option 2
-        </label>
 
-        <label>
-            <input type="radio" name="group2" value="optionA"> Option A
-        </label>
-        <label>
-            <input type="radio" name="group2" value="optionB"> Option B
-        </label>
+    <div class="row">
+        <img class="logo" src="https://cld.partsimg.com/image/upload/carparts/blog/landing-pages/difm/p2/wordmark-colour.svg" alt="CarParts.com">
+    </div>
+    
+    <div id="form_widget">
+        <h3>Thank you for contacting us regarding your auto parts purchase. We want to be sure that you were satisfied with the level of service we provided.</h3>
+        <form name="csat">
+            <div class="row">
+                <label for="satisfaction">How satisfied are you with the most recent interaction with our service representative?</label>
+                <div>
+                    <input type="radio" id="satisfaction1" name="satisfaction" value="1">
+                    <label for="satisfaction1">1</label>
+                    <input type="radio" id="satisfaction2" name="satisfaction" value="2">
+                    <label for="satisfaction2">2</label>
+                    <input type="radio" id="satisfaction3" name="satisfaction" value="3">
+                    <label for="satisfaction3">3</label>
+                    <input type="radio" id="satisfaction4" name="satisfaction" value="4">
+                    <label for="satisfaction4">4</label>
+                    <input type="radio" id="satisfaction5" name="satisfaction" value="5">
+                    <label for="satisfaction5">5</label>
+                </div>
+            </div>
 
-        <input type="submit" value="Submit">
-    </form>
+            <div class="row">
+                <label for="resolve">Did we resolve your problem?</label>
+                <div>
+                    <input type="radio" id="resolveYes" name="resolve" value="Yes">
+                    <label for="resolveYes">Yes</label>
+                    <input type="radio" id="resolveNo" name="resolve" value="No">
+                    <label for="resolveNo">No</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <label for="comments">You are welcome to share any comments or feedback in the space provided below.</label>
+                <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+            </div>
+
+            <div class="row">
+                <input id="btnSubmit" type="submit" value="Submit">
+                <em id="successIcon"><img src="https://cld.partsimg.com/image/upload/carparts/blog/landing-pages/difm/p2/check.svg"></em>
+            </div>
+
+            <div id="successNote">
+                <h3>Thank you for your feedback!</h3>
+            </div>
+            
+        </form>
+    </div>
+
+    <!-- 
+    https://efmfeed.verintefm.com/se/0A88B8A45D232866?wsb9=rdelosreyes&wsb10=68593003&wsb18=sales.carparts.com&wsb17=S+Order+Completed
+    -->
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script>
-        // jQuery code to handle form submission
-        $(document).ready(function () {
-            // Handle form submission
-            $("#radioForm").submit(function (event) {
-                event.preventDefault(); // Prevent the default form submission
-
-                // Get the selected values using jQuery
-                var selectedValues = {
-                    group1: $("input[name='group1']:checked").val(),
-                    group2: $("input[name='group2']:checked").val()
-                };
-
-                // Display the selected values using alert
-                alert("Selected Values:\nGroup 1: " + selectedValues.group1 + "\nGroup 2: " + selectedValues.group2);
-            });
-        });
+        var form = document.forms['csat'];
+        var btnSubmit = document.getElementById("btnSubmit");
+        var successNote = document.getElementById("successNote");
+        var successIcon = document.getElementById("successIcon");
+        
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            var xhr = new XMLHttpRequest();
+            var queryString = window.location.search;
+            var urlParams = new URLSearchParams(queryString);
+            var embase64 = urlParams.get('em');
+            var email = atob(embase64);
+            var agent_name = urlParams.get('an');
+            var order_id = urlParams.get('oid');
+            var channel = urlParams.get('dm');
+            var disposition = urlParams.get('ds');
+            var radioselectedValues = {
+                satisfaction: $("input[name='satisfaction']:checked").val(),
+                resolve: $("input[name='resolve']:checked").val()
+            };
+            var comments = document.getElementById("comments").value;
+            var data = {};
+            data.email = email;
+            data.agent_name = agent_name;
+            data.order_id = order_id;
+            data.channel = channel;
+            data.disposition = disposition;
+            data.satisfaction = radioselectedValues.satisfaction;
+            data.disposition = radioselectedValues.disposition;
+            data.comments = comments;
+            data.message = message;
+            xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab3502a7d92e7d38d9e130/f2d708cecc1d12ee7f5fa6cb6694cfd9343d7af09f618ca7f5f5d11fb4d1335c');
+            xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
+            xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmE4YTM4ZDUzMmQyMWRmMDNkZWY0OCIsInVzZXIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIiLCJvcmciOiI2MmFiMzUwMmE3ZDkyZTdkMzhkOWUxMzAiLCJvcmdOYW1lIjoiY2FycGFydHMtc2FuZGJveCIsInVzZXJUeXBlIjoibWFjaGluZSIsInBvZCI6InByb2QxIiwicm9sZXMiOlsib3JnLmFkbWluIl0sImF1ZCI6InVybjpjb25zdW1lciIsImlzcyI6InVybjphcGkiLCJzdWIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIifQ.PLT_uBbBaX8a2Fkc6V6mtjijqtkr5yIz259xLDz0mVU");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
+                    successNote.style.display = "block",
+                    successIcon.style.display = "block",
+                    form.btnSubmit.value = "Submitted",
+                    form.btnSubmit.disabled = true,
+                    form.btnSubmit.style.cursor = "default",
+                    error.style.display = "none"
+                }};
+            xhr.send(JSON.stringify(data));
+            console.log(data);
+        })
     </script>
+
 </body>
 </html>
