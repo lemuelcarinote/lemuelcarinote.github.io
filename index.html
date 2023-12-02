@@ -144,13 +144,13 @@
             var data = {};
             data.title = "Customer Satisfaction Survey";
             data.email = email;
-            data.agent_name = agent_name;
+            /* data.agent_name = agent_name;
             data.order_id = order_id;
             data.channel = channel;
             data.disposition = disposition;
             data.satisfaction = radioselectedValues.satisfaction;
             data.resolve = radioselectedValues.resolve;
-            data.comments = comments;
+            data.comments = comments; */
             data.message = message;
             xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab3502a7d92e7d38d9e130/f2d708cecc1d12ee7f5fa6cb6694cfd9343d7af09f618ca7f5f5d11fb4d1335c');
             xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
