@@ -149,9 +149,9 @@
             data.satisfaction = radioselectedValues.satisfaction;
             data.resolve = radioselectedValues.resolve;
             data.comments = comments; 
-            xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab3502a7d92e7d38d9e130/f2d708cecc1d12ee7f5fa6cb6694cfd9343d7af09f618ca7f5f5d11fb4d1335c');
+            xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0');
             xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
-            xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmE4YTM4ZDUzMmQyMWRmMDNkZWY0OCIsInVzZXIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIiLCJvcmciOiI2MmFiMzUwMmE3ZDkyZTdkMzhkOWUxMzAiLCJvcmdOYW1lIjoiY2FycGFydHMtc2FuZGJveCIsInVzZXJUeXBlIjoibWFjaGluZSIsInBvZCI6InByb2QxIiwicm9sZXMiOlsib3JnLmFkbWluIl0sImF1ZCI6InVybjpjb25zdW1lciIsImlzcyI6InVybjphcGkiLCJzdWIiOiI2NTZhOGEzNzhhYTAzODgxZWE1MGFjYjIifQ.PLT_uBbBaX8a2Fkc6V6mtjijqtkr5yIz259xLDz0mVU");
+            xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzlkNDhmNTU4YzIxYzYyZGY1MTk0ZiIsInVzZXIiOiI2NTc5ZDQ4ZDAwMzE4MzVmNDhhYTAyMjgiLCJvcmciOiI2MmFiMzVmNTRkNmQ5ODNkZDEyMGFmYjAiLCJvcmdOYW1lIjoiY2FycGFydHMiLCJ1c2VyVHlwZSI6Im1hY2hpbmUiLCJwb2QiOiJwcm9kMSIsInJvbGVzIjpbIm9yZy5hZG1pbiJdLCJhdWQiOiJ1cm46Y29uc3VtZXIiLCJpc3MiOiJ1cm46YXBpIiwic3ViIjoiNjU3OWQ0OGQwMDMxODM1ZjQ4YWEwMjI4In0.hHPqxf04wPqBGyiMjllKqOswPhPMnFoLdaSReRrK5ME");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     console.log(message);
