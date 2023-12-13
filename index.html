@@ -194,7 +194,7 @@
             data.satisfaction = radioselectedValues.satisfaction;
             data.resolve = radioselectedValues.resolve;
             data.comments = comments; 
-            if (radioselectedValues.satisfaction === "" || radioselectedValues.resolve === "") {
+            if (radioselectedValues.satisfaction === "" || radioselectedValues.satisfaction === undefined || radioselectedValues.resolve === "" || radioselectedValues.resolve === undefined) {
                 errorDiv.style.display = "block"
             } else {
                 xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0');
