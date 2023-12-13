@@ -83,8 +83,12 @@
             font-family: 'Inter', Arial, sans-serif
         }
 
-        #response {
+        #response, #error {
             display: none
+        }
+
+        #error p {
+            color: #cc0202
         }
 
         #response p {
@@ -126,13 +130,16 @@
 
             <div class="row">
                 <label for="comments">You are welcome to share any comments or feedback in the space provided below.</label>
-                <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+                <textarea id="comments" name="comments" rows="4" cols="50" value=""></textarea>
             </div>
 
             <div class="row">
                 <input id="btnSubmit" type="submit" value="Submit">
                 <div id="response">
                     <p id="note">Please wait...</p>
+                </div>
+                <div id="error">
+                    <p>Please provide answers.</p>
                 </div>
             </div>
         </form>
