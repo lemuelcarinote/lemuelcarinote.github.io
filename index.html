@@ -50,7 +50,7 @@
         }
 
         textarea {
-            margin-top: 15px;
+            margin-top: 5px;
             padding: 10px;
         }
 
@@ -69,7 +69,11 @@
             font-family: 'Inter', Arial, sans-serif
         }
 
-        .response p {
+        #response {
+            display: none
+        }
+
+        #response p {
             font-size: 13px;
             display: inline-block
         }
@@ -118,7 +122,7 @@
 
             <div class="row">
                 <input id="btnSubmit" type="submit" value="Submit">
-                <div class="response">
+                <div id="response">
                     <p id="note">Please wait...</p>
                 </div>
             </div>
@@ -137,9 +141,11 @@
         var radioSatisfaction = document.getElementsByName("satisfaction");
         var radioResolve = document.getElementsByName("resolve");
         var textboxComments = document.getElementById("comments");
+        var responseDiv = document.getElementById("response");
 
         form.addEventListener('submit', e => {
             e.preventDefault()
+            responseDiv.style.display = "block";
             var xhr = new XMLHttpRequest();
             var queryString = window.location.search;
             var urlParams = new URLSearchParams(queryString);
