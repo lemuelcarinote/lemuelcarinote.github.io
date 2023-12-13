@@ -39,6 +39,16 @@
             font-family: 'Inter', Arial, sans-serif
         }
 
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding-right: 15px;
+        }
+
         label {
             display: inline-block;
             margin-bottom: 5px;
@@ -91,18 +101,13 @@
         <form name="csat">
             <div class="row">
                 <label for="satisfaction">How satisfied are you with the most recent interaction with our service representative?</label>
-                <div>
-                    <input type="radio" id="satisfaction1" name="satisfaction" value="1">
-                    <label for="satisfaction1">1</label>
-                    <input type="radio" id="satisfaction2" name="satisfaction" value="2">
-                    <label for="satisfaction2">2</label>
-                    <input type="radio" id="satisfaction3" name="satisfaction" value="3">
-                    <label for="satisfaction3">3</label>
-                    <input type="radio" id="satisfaction4" name="satisfaction" value="4">
-                    <label for="satisfaction4">4</label>
-                    <input type="radio" id="satisfaction5" name="satisfaction" value="5">
-                    <label for="satisfaction5">5</label>
-                </div>
+                <ul>
+                    <li><input type="radio" id="satisfaction1" name="satisfaction" value="1"><label for="satisfaction1">1</label></li>
+                    <li><input type="radio" id="satisfaction2" name="satisfaction" value="2"><label for="satisfaction2">2</label></li>
+                    <li><input type="radio" id="satisfaction3" name="satisfaction" value="3"><label for="satisfaction3">3</label></li>
+                    <li><input type="radio" id="satisfaction4" name="satisfaction" value="4"><label for="satisfaction4">4</label></li>
+                    <li><input type="radio" id="satisfaction5" name="satisfaction" value="5"><label for="satisfaction5">5</label></li>
+                </ul>
             </div>
 
             <div class="row">
