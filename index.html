@@ -11,8 +11,12 @@
         
         body {
             font-family: 'Roboto', Arial, sans-serif;
+            margin: 0 auto;
+        }
+
+        .wrapper {
             max-width: 600px;
-            margin: 20px 15px;
+            margin: 15px;
         }
 
         .row {
@@ -64,10 +68,16 @@
             font-weight: bold;
             font-family: 'Inter', Arial, sans-serif
         }
+
+        .response p {
+            font-size: 13px;
+            display: inline-block
+        }
     </style>
 </head>
 <body>
 
+<div class="wrapper">
     <div class="row">
         <img class="logo" src="https://cld.partsimg.com/image/upload/carparts/blog/landing-pages/difm/p2/wordmark-colour.svg" alt="CarParts.com">
     </div>
@@ -108,25 +118,14 @@
 
             <div class="row">
                 <input id="btnSubmit" type="submit" value="Submit">
-                <em id="successIcon"><img src="https://cld.partsimg.com/image/upload/carparts/blog/landing-pages/difm/p2/check.svg"></em>
-                <div id="successNote">
-                    <h3>Thank you for your feedback!</h3>
+                <div class="response">
+                    <p id="note">Please wait...</p>
                 </div>
             </div>
         </form>
     </div>
 
-    <!-- 
-    https://efmfeed.verintefm.com/se/0A88B8A45D232866?wsb9=rdelosreyes&wsb10=68593003&wsb18=sales.carparts.com&wsb17=S+Order+Completed
-
-    em=bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A&an=lcarinote&oid=12345567&cn=sales.console.com&ds=Order+Completed
-    
-    bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A
-    bGVtdWVsY2FyaW5vdGVAZ21haWwuY29t%0A
-
-    https://lemuelcarinote.github.io/?em=bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A&an=bGNhcmlub3Rl%0A&oi=MTIzNDU1Njc%3D%0A&dm=c2FsZXMuY29uc29sZS5jb20%3D%0A&ds=T3JkZXIgQ29tcGxldGVk%0A
-
-    -->
+</div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -184,12 +183,25 @@
                     successIcon.style.display = "block",
                     form.btnSubmit.value = "Submitted",
                     form.btnSubmit.disabled = true,
-                    form.btnSubmit.style.cursor = "default"
+                    form.btnSubmit.style.cursor = "default",
+                    form.note.value = "Thank you for your feedback!"
                 }};
             xhr.send(JSON.stringify(data));
             console.log(data);
         })
     </script>
 
+    
+    <!-- 
+    https://efmfeed.verintefm.com/se/0A88B8A45D232866?wsb9=rdelosreyes&wsb10=68593003&wsb18=sales.carparts.com&wsb17=S+Order+Completed
+
+    em=bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A&an=lcarinote&oid=12345567&cn=sales.console.com&ds=Order+Completed
+    
+    bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A
+    bGVtdWVsY2FyaW5vdGVAZ21haWwuY29t%0A
+
+    https://lemuelcarinote.github.io/?em=bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A&an=bGNhcmlub3Rl%0A&oi=MTIzNDU1Njc%3D%0A&dm=c2FsZXMuY29uc29sZS5jb20%3D%0A&ds=T3JkZXIgQ29tcGxldGVk%0A
+
+    -->
 </body>
 </html>
