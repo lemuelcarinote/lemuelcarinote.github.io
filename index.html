@@ -216,7 +216,8 @@
                         form.btnSubmit.value = "Submitted",
                         form.btnSubmit.disabled = true,
                         form.btnSubmit.style.cursor = "default",
-                        form.note.value = "Thank you for your feedback!"
+                        form.note.value = "Thank you for your feedback!", 
+                        errorDiv.style.display = "none"
                     }};
                 xhr.send(JSON.stringify(data));
                 console.log(data);
