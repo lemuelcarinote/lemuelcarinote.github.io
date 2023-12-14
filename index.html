@@ -178,6 +178,7 @@
             data.satisfaction = radioselectedValues.satisfaction;
             data.resolve = radioselectedValues.resolve;
             data.comments = comments; 
+            console.log(message);
             if (radioselectedValues.satisfaction === "" || radioselectedValues.satisfaction === undefined || radioselectedValues.resolve === "" || radioselectedValues.resolve === undefined) {
                 responseText.innerHTML  = "<p style="color: #cc0202">Please provide answers.</p>";
             } else { 
