@@ -126,7 +126,7 @@
 
             <div class="row">
                 <input id="btnSubmit" type="submit" value="Submit">
-                <p id="response">Please wait...</p>
+                <p id="response"></p>
             </div>
         </form>
     </div>
@@ -179,16 +179,15 @@
             data.resolve = radioselectedValues.resolve;
             data.comments = comments; 
             if (radioselectedValues.satisfaction === "" || radioselectedValues.satisfaction === undefined || radioselectedValues.resolve === "" || radioselectedValues.resolve === undefined) {
-                form.btnSubmit.style.display = "block";
                 form.response.value = "Please provide answers.";
                 responseText.style.color = "#cc0202"
             } else { 
+                form.response.value = "Please wait...";
                 xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0');
                 xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
                 xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzlkNDhmNTU4YzIxYzYyZGY1MTk0ZiIsInVzZXIiOiI2NTc5ZDQ4ZDAwMzE4MzVmNDhhYTAyMjgiLCJvcmciOiI2MmFiMzVmNTRkNmQ5ODNkZDEyMGFmYjAiLCJvcmdOYW1lIjoiY2FycGFydHMiLCJ1c2VyVHlwZSI6Im1hY2hpbmUiLCJwb2QiOiJwcm9kMSIsInJvbGVzIjpbIm9yZy5hZG1pbiJdLCJhdWQiOiJ1cm46Y29uc3VtZXIiLCJpc3MiOiJ1cm46YXBpIiwic3ViIjoiNjU3OWQ0OGQwMDMxODM1ZjQ4YWEwMjI4In0.hHPqxf04wPqBGyiMjllKqOswPhPMnFoLdaSReRrK5ME");
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4) {
-                        form.btnSubmit.style.display = "block",
                         form.btnSubmit.value = "Submitted",
                         form.btnSubmit.disabled = true,
                         form.btnSubmit.style.cursor = "default",
