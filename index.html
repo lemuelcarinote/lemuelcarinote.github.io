@@ -82,24 +82,11 @@
             font-weight: bold;
             font-family: 'Inter', Arial, sans-serif
         }
-
-        #response {
-            display: none
-        }
         
         #response p {
+            display: none;
             font-size: 13px;
-            display: inline-block
-        }
-
-        #error {
-            display: none
-        }
-
-        #error p {
-            color: #cc0202;
-            font-size: 13px;
-            display: inline-block
+            display: block
         }
     </style>
 </head>
@@ -141,12 +128,7 @@
 
             <div class="row">
                 <input id="btnSubmit" type="submit" value="Submit">
-                <div id="response">
-                    <p id="note">Please wait...</p>
-                </div>
-                <div id="error">
-                    <p id="msg">Please provide answers.</p>
-                </div>
+                <p id="response">Please wait...</p>
             </div>
         </form>
     </div>
@@ -163,8 +145,7 @@
         var radioSatisfaction = document.getElementsByName("satisfaction");
         var radioResolve = document.getElementsByName("resolve");
         var textboxComments = document.getElementById("comments");
-        var responseDiv = document.getElementById("response");
-        var errorDiv = document.getElementById("error");
+        var responseText = document.getElementById("response");
 
         form.addEventListener('submit', e => {
             e.preventDefault()
@@ -200,23 +181,20 @@
             data.resolve = radioselectedValues.resolve;
             data.comments = comments; 
             if (radioselectedValues.satisfaction === "" || radioselectedValues.satisfaction === undefined || radioselectedValues.resolve === "" || radioselectedValues.resolve === undefined) {
-                errorDiv.style.display = "block"
+                form.response.value = "Please provide answers.";
+                responseText.style.color = "#cc0202"
             } else { 
-                responseDiv.style.display = "block";
                 xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0');
                 xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
                 xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzlkNDhmNTU4YzIxYzYyZGY1MTk0ZiIsInVzZXIiOiI2NTc5ZDQ4ZDAwMzE4MzVmNDhhYTAyMjgiLCJvcmciOiI2MmFiMzVmNTRkNmQ5ODNkZDEyMGFmYjAiLCJvcmdOYW1lIjoiY2FycGFydHMiLCJ1c2VyVHlwZSI6Im1hY2hpbmUiLCJwb2QiOiJwcm9kMSIsInJvbGVzIjpbIm9yZy5hZG1pbiJdLCJhdWQiOiJ1cm46Y29uc3VtZXIiLCJpc3MiOiJ1cm46YXBpIiwic3ViIjoiNjU3OWQ0OGQwMDMxODM1ZjQ4YWEwMjI4In0.hHPqxf04wPqBGyiMjllKqOswPhPMnFoLdaSReRrK5ME");
                 xhr.onreadystatechange = function () {
-                    if (xhr.status === 200) {
-                        console.log(xhr.status);
-                        successNote.style.display = "block",
-                        successIcon.style.display = "block",
+                    if (xhr.readyState === 4) {
                         form.btnSubmit.value = "Submitted",
                         form.btnSubmit.disabled = true,
                         form.btnSubmit.style.cursor = "default",
-                        form.note.value = "Thank you for your feedback!", 
-                        errorDiv.style.display = "none"
+                        form.response.value = "Thank you for your feedback!"
                     }};
+                    console.log(xhr.status);
                 xhr.send(JSON.stringify(data));
             }
         })
