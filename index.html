@@ -6,6 +6,7 @@
     <link rel="icon" href="https://cld.partsimg.com/image/upload/h_200,w_200,f_auto,q_auto/carparts/logos/badge/blue/CP_BADGE_RGB_BLUE_HR.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>CSR Voice CSAT Survey</title>
     <style>
         
@@ -184,7 +185,6 @@
             data.satisfaction = radioselectedValues.satisfaction;
             data.resolve = radioselectedValues.resolve;
             data.comments = comments; 
-            console.log(message);
             if (radioselectedValues.satisfaction === "" || radioselectedValues.satisfaction === undefined || radioselectedValues.resolve === "" || radioselectedValues.resolve === undefined) {
                 responseText.innerHTML  = "<p style='color: #cc0202'>Please provide answers.</p>";
             } else { 
@@ -200,23 +200,9 @@
                         form.btnSubmit.style.cursor = "default",
                         responseText.innerHTML  = "<p>Thank you for your feedback!</p>"
                     }};
-                    console.log(xhr.status);
                 xhr.send(JSON.stringify(data));
             }
         })
     </script>
-
-    
-    <!-- 
-    https://efmfeed.verintefm.com/se/0A88B8A45D232866?wsb9=rdelosreyes&wsb10=68593003&wsb18=sales.carparts.com&wsb17=S+Order+Completed
-
-    em=bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A&an=lcarinote&oid=12345567&cn=sales.console.com&ds=Order+Completed
-    
-    bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A
-    bGVtdWVsY2FyaW5vdGVAZ21haWwuY29t%0A
-
-    https://lemuelcarinote.github.io/?em=bGNhcmlub3RlQGdtYWlsLmNvbQ%3D%3D%0A&an=bGNhcmlub3Rl%0A&oi=MTIzNDU1Njc%3D%0A&dm=c2FsZXMuY29uc29sZS5jb20%3D%0A&ds=T3JkZXIgQ29tcGxldGVk%0A
-
-    -->
 </body>
 </html>
