@@ -1,98 +1,99 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://cld.partsimg.com/image/upload/h_200,w_200,f_auto,q_auto/carparts/logos/badge/blue/CP_BADGE_RGB_BLUE_HR.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>CSR Voice CSAT Survey</title>
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CSR Voice CSAT Survey</title>
+<link rel="preconnect" href="//fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Roboto&amp;display=swap" rel="stylesheet">
+<link rel="icon" href="https://cld.partsimg.com/image/upload/h_200,w_200,f_auto,q_auto/carparts/logos/badge/blue/CP_BADGE_RGB_BLUE_HR.png">
+<style>
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        margin: 15px;
+    }
+
+    .wrapper {
+        display: block;
+        margin: 0 auto;
+        max-width: 600px;
+    }
+
+    .row {
+        padding: 10px 0
+    }
+
+    .logo_section {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .logo_section .logo {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .logo {
+        width: 180px;
+        height: auto;
+    }
+
+    h3 {
+        line-height: 140%;
+        font-family: 'Inter', Arial, sans-serif
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        padding-top: 5px;
+        padding-right: 15px;
+        display: inline-block
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 5px;
+        line-height: 140%
+    }
+
+    input[type="radio"] label {
+        margin-bottom: 15px;
+        margin-right: 15px;
+    }
+
+    textarea {
+        margin-top: 5px;
+        padding: 10px;
+        width: 95%
+    }
+
+    input[type="submit"] {
+        background-color: #ffcd05;
+        border: none;
+        color: #282832;
+        padding: 12px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-weight: bold;
+        font-family: 'Inter', Arial, sans-serif
+    }
         
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            margin: 15px;
-        }
-
-        .wrapper {
-            display: block;
-            margin: 0 auto;
-            max-width: 600px;
-        }
-
-        .row {
-            padding: 10px 0
-        }
-
-        .logo_section {
-            display: block;
-            margin: 0 auto;
-        }
-
-        .logo_section .logo {
-            display: block;
-            margin: 0 auto;
-        }
-
-        .logo {
-            width: 180px;
-            height: auto;
-        }
-
-        h3 {
-            line-height: 140%;
-            font-family: 'Inter', Arial, sans-serif
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            padding-top: 5px;
-            padding-right: 15px;
-            display: inline-block
-        }
-
-        label {
-            display: inline-block;
-            margin-bottom: 5px;
-            line-height: 140%
-        }
-
-        input[type="radio"] label {
-            margin-bottom: 15px;
-            margin-right: 15px;
-        }
-
-        textarea {
-            margin-top: 5px;
-            padding: 10px;
-            width: 95%
-        }
-
-        input[type="submit"] {
-            background-color: #ffcd05;
-            border: none;
-            color: #282832;
-            padding: 12px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-weight: bold;
-            font-family: 'Inter', Arial, sans-serif
-        }
-        
-        #response {
-            font-size: 13px
-        }
-    </style>
+    #response {
+        font-size: 13px
+    }
+</style>
+<meta name="robots" content="noindex, nofollow">
 </head>
 <body>
 
@@ -105,15 +106,15 @@
         <h3>Thank you for contacting us regarding your auto parts purchase. We want to be sure that you were satisfied with the level of service we provided.</h3>
         <form name="csat">
             <div class="row">
-                <label for="satisfaction">How satisfied are you with the most recent interaction with our service representative? 
+                <label for="satisfaction">How satisfied are you with the most recent interaction with our service representative? </label>
                 <ul>
-                    <li><input type="radio" id="satisfaction1" name="satisfaction" value="1"><label for="satisfaction1">&nbsp;1</label></li>
-                    <li><input type="radio" id="satisfaction2" name="satisfaction" value="2"><label for="satisfaction2">&nbsp;2</label></li>
-                    <li><input type="radio" id="satisfaction3" name="satisfaction" value="3"><label for="satisfaction3">&nbsp;3</label></li>
-                    <li><input type="radio" id="satisfaction4" name="satisfaction" value="4"><label for="satisfaction4">&nbsp;4</label></li>
-                    <li><input type="radio" id="satisfaction5" name="satisfaction" value="5"><label for="satisfaction5">&nbsp;5</label></li>
+                    <li><input type="radio" id="satisfaction1" name="satisfaction" value="1"><label for="satisfaction1"> 1</label></li>
+                    <li><input type="radio" id="satisfaction2" name="satisfaction" value="2"><label for="satisfaction2"> 2</label></li>
+                    <li><input type="radio" id="satisfaction3" name="satisfaction" value="3"><label for="satisfaction3"> 3</label></li>
+                    <li><input type="radio" id="satisfaction4" name="satisfaction" value="4"><label for="satisfaction4"> 4</label></li>
+                    <li><input type="radio" id="satisfaction5" name="satisfaction" value="5"><label for="satisfaction5"> 5</label></li>
                 </ul>
-                <div><span style="font-size: 13px">(1 = Not at all Likely&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 = Extremely Likely)</span></label></div>
+                <div><span style="font-size: 13px">(1 = Not at all Likely     ---     5 = Extremely Likely)</span></div>
             </div>
 
             <div class="row">
@@ -140,35 +141,44 @@
 
 </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <script>
-        var form = document.forms['csat'];
-        var btnSubmit = document.getElementById("btnSubmit");
-        var successNote = document.getElementById("successNote");
-        var successIcon = document.getElementById("successIcon");
-        var radioSatisfaction = document.getElementsByName("satisfaction");
-        var radioResolve = document.getElementsByName("resolve");
-        var textboxComments = document.getElementById("comments");
-        var responseText = document.getElementById("response");
+<script>
+    var form = document.forms['csat'];
+    var btnSubmit = document.getElementById("btnSubmit");
+    var successNote = document.getElementById("successNote");
+    var successIcon = document.getElementById("successIcon");
+    var radioSatisfaction = document.getElementsByName("satisfaction");
+    var radioResolve = document.getElementsByName("resolve");
+    var textboxComments = document.getElementById("comments");
+    var responseText = document.getElementById("response");
+
+    if (typeof csid === 'undefined' || csid === null || csid === '') {
+        // csid is not defined, has no value, or is an empty string
+        alert('We encountered a broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
+    } else {
+        // csid has a value
+        var qs = window.location.search;
+        var csid = new URLSearchParams(qs).get('csid');
+        var obj = csid ? JSON.parse(atob(csid)) : null;
+        var name = obj.firstname + " " + lastname;
+        console.log(obj);
 
         form.addEventListener('submit', e => {
             e.preventDefault()
             var xhr = new XMLHttpRequest();
-            var queryString = window.location.search;
-            var urlParams = new URLSearchParams(queryString);
-            var email = atob(urlParams.get('em'));
-            var agent_username = atob(urlParams.get('an'));
-            var order_id = atob(urlParams.get('oi'));
-            var domain_name = atob(urlParams.get('dm'));
-            var disposition = atob(urlParams.get('ds'));
+            var email = obj.email;
+            var agent_username = obj.agent_user_name;
+            var order_id = obj.merchant_order_id;
+            var domain_name = obj.domain_name + " / " + obj.server_name;
+            var disposition = obj.disposition_text;
             var radioselectedValues = {
                 satisfaction: $("input[name='satisfaction']:checked").val(),
                 resolve: $("input[name='resolve']:checked").val()
             };
             var comments = document.getElementById("comments").value;
             var message = "Order Id: " + order_id
-                + "\nPurchase Medium: " + domain_name
+                + "\nDomain/Server: " + domain_name
                 + "\n\nDisposition: " + disposition
                 + "\nCSR: " + agent_username 
                 + "\n\nHow satisfied are you with the most recent interaction with our service representative? \n" + radioselectedValues.satisfaction
@@ -185,10 +195,11 @@
             data.satisfaction = radioselectedValues.satisfaction;
             data.resolve = radioselectedValues.resolve;
             data.comments = comments; 
+            
             if (radioselectedValues.satisfaction === "" || radioselectedValues.satisfaction === undefined || radioselectedValues.resolve === "" || radioselectedValues.resolve === undefined) {
-                responseText.innerHTML  = "<p style='color: #cc0202'>Please provide answers.</p>";
+                responseText.innerHTML  = "<p style='color: #cc0202'>Please provide answers.<\/p>";
             } else { 
-                responseText.innerHTML  = "<p>Please wait...</p>";
+                responseText.innerHTML  = "<p>Please wait...<\/p>";
                 xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0');
                 xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
                 xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzlkNDhmNTU4YzIxYzYyZGY1MTk0ZiIsInVzZXIiOiI2NTc5ZDQ4ZDAwMzE4MzVmNDhhYTAyMjgiLCJvcmciOiI2MmFiMzVmNTRkNmQ5ODNkZDEyMGFmYjAiLCJvcmdOYW1lIjoiY2FycGFydHMiLCJ1c2VyVHlwZSI6Im1hY2hpbmUiLCJwb2QiOiJwcm9kMSIsInJvbGVzIjpbIm9yZy5hZG1pbiJdLCJhdWQiOiJ1cm46Y29uc3VtZXIiLCJpc3MiOiJ1cm46YXBpIiwic3ViIjoiNjU3OWQ0OGQwMDMxODM1ZjQ4YWEwMjI4In0.hHPqxf04wPqBGyiMjllKqOswPhPMnFoLdaSReRrK5ME");
@@ -198,11 +209,12 @@
                         form.btnSubmit.value = "Submitted",
                         form.btnSubmit.disabled = true,
                         form.btnSubmit.style.cursor = "default",
-                        responseText.innerHTML  = "<p>Thank you for your feedback!</p>"
+                        responseText.innerHTML  = "<p>Thank you for your feedback!<\/p>"
                     }};
                 xhr.send(JSON.stringify(data));
             }
         })
-    </script>
+    }
+</script>
 </body>
 </html>
