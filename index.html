@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,11 +33,6 @@
     .logo_section .logo {
         display: block;
         margin: 0 auto;
-    }
-
-    .logo {
-        width: 180px;
-        height: auto;
     }
 
     h3 {
@@ -97,9 +93,7 @@
 <body>
 
 <div class="wrapper">
-    <div class="logo_section">
-        <img class="logo" src="https://cld.partsimg.com/image/upload/carparts/blog/landing-pages/difm/p2/wordmark-colour.svg" alt="CarParts.com">
-    </div>
+    <div class="logo_section"></div>
     
     <div id="form_widget">
         <h3>Thank you for contacting us regarding your auto parts purchase. We want to be sure that you were satisfied with the level of service we provided.</h3>
@@ -143,6 +137,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
+    var logo_section = document.getElementById("logo_section");
     var form = document.forms['csat'];
     var btnSubmit = document.getElementById("btnSubmit");
     var successNote = document.getElementById("successNote");
@@ -162,16 +157,33 @@
         // csid has a value
         var obj = csid ? JSON.parse(atob(csid)) : null;
         var name = obj.firstname + " " + obj.lastname;
-        console.log(obj);
+        var email = obj.email;
+        var agent_username = obj.agent_user_name;
+        var order_id = obj.merchant_order_id;
+        var domain_name = obj.domain_name + " / " + obj.server_name;
+        var domain = obj.domain_name ? obj.domain_name.toLowerCase() : null;
+        var sitecode = obj.sitecode ? obj.sitecode.toLowerCase() : null;
+        var disposition = obj.disposition_text;
+
+        if (domain == 'carparts.com') {
+            logo_section.innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cld.partsimg.com/image/upload/carparts/blog/landing-pages/difm/p2/wordmark-colour.svg' alt='CarParts.com'>";
+        } else if (sitecode == 'carpartswholesale') {
+            logo_section.innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
+        } else if (sitecode == 'carpartswholesale-whi') {
+            logo_section.innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
+        } else if (sitecode == 'carpartswholesale.ebay-ams.com') {
+            logo_section.innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162960/content/ebay-cpw.png' alt='CarPars Wholesale on eBay'>";
+        } else if (sitecode == 'carparts.ebay-ams.com') {
+            logo_section.innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162481/content/ebay-carparts.png' alt='CarParts on eBay'>";
+        } else if (sitecode == 'jcwhitney.ebay-ams.com ') {
+            logo_section.innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162479/content/ebay-jcwhitney.png' alt='JC Whitney on eBay'>";
+        } else if (sitecode == 'returnedcarparts.ebay-ams.com') {
+            logo_section.innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/163612/content/ebay-rcp.png' alt='Returned Car Parts'>";
+        }
 
         form.addEventListener('submit', e => {
             e.preventDefault()
             var xhr = new XMLHttpRequest();
-            var email = obj.email;
-            var agent_username = obj.agent_user_name;
-            var order_id = obj.merchant_order_id;
-            var domain_name = obj.domain_name + " / " + obj.server_name;
-            var disposition = obj.disposition_text;
             var radioselectedValues = {
                 satisfaction: $("input[name='satisfaction']:checked").val(),
                 resolve: $("input[name='resolve']:checked").val()
