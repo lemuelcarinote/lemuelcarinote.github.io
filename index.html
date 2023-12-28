@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,7 +137,6 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-    var logo_section = document.getElementById("logo_section");
     var form = document.forms['csat'];
     var btnSubmit = document.getElementById("btnSubmit");
     var successNote = document.getElementById("successNote");
@@ -165,19 +165,19 @@
         var disposition = obj.disposition_text;
 
         if (domain == 'carparts.com') {
-            logo_section.innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/211269/content/carpartscom.png' alt='CarParts.com'>";
+            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/211269/content/carpartscom.png' alt='CarParts.com'>";
         } else if (sitecode == 'carpartswholesale') {
-            logo_section.innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
+            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
         } else if (sitecode == 'carpartswholesale-whi') {
-            logo_section.innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
+            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
         } else if (sitecode == 'carpartswholesale.ebay-ams.com') {
-            logo_section.innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162960/content/ebay-cpw.png' alt='CarPars Wholesale on eBay'>";
+            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162960/content/ebay-cpw.png' alt='CarPars Wholesale on eBay'>";
         } else if (sitecode == 'carparts.ebay-ams.com') {
-            logo_section.innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162481/content/ebay-carparts.png' alt='CarParts on eBay'>";
+            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162481/content/ebay-carparts.png' alt='CarParts on eBay'>";
         } else if (sitecode == 'jcwhitney.ebay-ams.com ') {
-            logo_section.innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162479/content/ebay-jcwhitney.png' alt='JC Whitney on eBay'>";
+            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162479/content/ebay-jcwhitney.png' alt='JC Whitney on eBay'>";
         } else if (sitecode == 'returnedcarparts.ebay-ams.com') {
-            logo_section.innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/163612/content/ebay-rcp.png' alt='Returned Car Parts'>";
+            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/163612/content/ebay-rcp.png' alt='Returned Car Parts'>";
         }
 
         form.addEventListener('submit', e => {
