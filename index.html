@@ -161,7 +161,7 @@
     } else {
         // csid has a value
         var obj = csid ? JSON.parse(atob(csid)) : null;
-        var name = obj.firstname + " " + lastname;
+        var name = obj.firstname + " " + obj.lastname;
         console.log(obj);
 
         form.addEventListener('submit', e => {
