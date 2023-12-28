@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -152,7 +151,7 @@
 
     if (typeof csid === 'undefined' || csid === null || csid === '') {
         // csid is not defined, has no value, or is an empty string
-        alert('We encountered a broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
+        alert('Broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
     } else {
         // csid has a value
         var obj = csid ? JSON.parse(atob(csid)) : null;
@@ -166,7 +165,7 @@
         var disposition = obj.disposition_text;
 
         if (domain == 'carparts.com') {
-            logo_section.innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cld.partsimg.com/image/upload/carparts/blog/landing-pages/difm/p2/wordmark-colour.svg' alt='CarParts.com'>";
+            logo_section.innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/211269/content/carpartscom.png' alt='CarParts.com'>";
         } else if (sitecode == 'carpartswholesale') {
             logo_section.innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
         } else if (sitecode == 'carpartswholesale-whi') {
