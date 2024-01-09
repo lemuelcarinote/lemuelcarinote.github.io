@@ -1,231 +1,87 @@
-
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>CSR Voice CSAT Survey</title>
-<link rel="preconnect" href="//fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Roboto&amp;display=swap" rel="stylesheet">
-<link rel="icon" href="https://cld.partsimg.com/image/upload/h_200,w_200,f_auto,q_auto/carparts/logos/badge/blue/CP_BADGE_RGB_BLUE_HR.png">
-<style>
-    body {
-        font-family: 'Roboto', Arial, sans-serif;
-        margin: 15px;
-    }
-
-    .wrapper {
-        display: block;
-        margin: 0 auto;
-        max-width: 600px;
-    }
-
-    .row {
-        padding: 10px 0
-    }
-
-    .logo_section {
-        display: block;
-        margin: 0 auto;
-    }
-
-    .logo_section .logo {
-        display: block;
-        margin: 0 auto;
-    }
-
-    h3 {
-        line-height: 140%;
-        font-family: 'Inter', Arial, sans-serif
-    }
-
-    ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    li {
-        padding-top: 5px;
-        padding-right: 15px;
-        display: inline-block
-    }
-
-    label {
-        display: inline-block;
-        margin-bottom: 5px;
-        line-height: 140%
-    }
-
-    input[type="radio"] label {
-        margin-bottom: 15px;
-        margin-right: 15px;
-    }
-
-    textarea {
-        margin-top: 5px;
-        padding: 10px;
-        width: 95%
-    }
-
-    input[type="submit"] {
-        background-color: #ffcd05;
-        border: none;
-        color: #282832;
-        padding: 12px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 4px;
-        font-weight: bold;
-        font-family: 'Inter', Arial, sans-serif
-    }
-        
-    #response {
-        font-size: 13px
-    }
-</style>
-<meta name="robots" content="noindex, nofollow">
+  <title>Newsletter Sign up + Blueshift Events JS</title>
+  <style type="text/css">
+    #bsft_signup { width: 600px; margin: 0 auto; }
+    #success-note { display: none }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
-
-<div class="wrapper">
-    <div class="logo_section" id="logo_section"></div>
-    
-    <div id="form_widget">
-        <h3>Thank you for contacting us regarding your auto parts purchase. We want to be sure that you were satisfied with the level of service we provided.</h3>
-        <form name="csat">
-            <div class="row">
-                <label for="satisfaction">How satisfied are you with the most recent interaction with our service representative? </label>
-                <ul>
-                    <li><input type="radio" id="satisfaction1" name="satisfaction" value="1"><label for="satisfaction1"> 1</label></li>
-                    <li><input type="radio" id="satisfaction2" name="satisfaction" value="2"><label for="satisfaction2"> 2</label></li>
-                    <li><input type="radio" id="satisfaction3" name="satisfaction" value="3"><label for="satisfaction3"> 3</label></li>
-                    <li><input type="radio" id="satisfaction4" name="satisfaction" value="4"><label for="satisfaction4"> 4</label></li>
-                    <li><input type="radio" id="satisfaction5" name="satisfaction" value="5"><label for="satisfaction5"> 5</label></li>
-                </ul>
-                <div><span style="font-size: 13px">(1 = Not at all Likely&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 = Extremely Likely)</span></div>
-            </div>
-
-            <div class="row">
-                <label for="resolve">Did we resolve your problem?</label>
-                <div>
-                    <input type="radio" id="resolveYes" name="resolve" value="Yes">
-                    <label for="resolveYes">Yes</label>
-                    <input type="radio" id="resolveNo" name="resolve" value="No">
-                    <label for="resolveNo">No</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <label for="comments">You are welcome to share any comments or feedback in the space provided below.</label>
-                <textarea id="comments" name="comments" rows="4" cols="50" value=""></textarea>
-            </div>
-
-            <div class="row">
-                <input id="btnSubmit" type="submit" value="Submit">
-                <div id="response"></div>
-            </div>
-        </form>
-    </div>
-
+<div id="signup_wrapper">
+  <form id="bsft_email_form">
+    <input id="email" name="email" placeholder="Email Address" pattern="\S+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" value="">
+    <input type="submit" value="Submit">
+  </form>
+  <div id="email-privacy">
+    <a href="https://www.carparts.com/privacy-policy">Privacy Policy</a>
+  </div>
+  <div id="success-note"></div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
 <script>
-    var form = document.forms['csat'];
-    var btnSubmit = document.getElementById("btnSubmit");
-    var successNote = document.getElementById("successNote");
-    var successIcon = document.getElementById("successIcon");
-    var radioSatisfaction = document.getElementsByName("satisfaction");
-    var radioResolve = document.getElementsByName("resolve");
-    var textboxComments = document.getElementById("comments");
-    var responseText = document.getElementById("response");
+document.addEventListener("DOMContentLoaded", function() {
+// Form widgets
+var bsftEmailForm = document.getElementById("bsft_email_form");
+var successNote = document.getElementById("success-note");
     
-    var qs = window.location.search;
-    var csid = new URLSearchParams(qs).get('csid');
-
-    if (typeof csid === 'undefined' || csid === null || csid === '') {
-        // csid is not defined, has no value, or is an empty string
-        alert('Broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
-    } else {
-        // csid has a value
-        var obj = csid ? JSON.parse(atob(csid)) : null;
-        var name = obj.firstname + " " + obj.lastname;
-        var email = obj.email;
-        var agent_username = obj.agent_user_name;
-        var order_id = obj.merchant_order_id;
-        var domain_name = obj.domain_name + " / " + obj.server_name;
-        var domain = obj.domain_name ? obj.domain_name.toLowerCase() : null;
-        var sitecode = obj.sitecode ? obj.sitecode.toLowerCase() : null;
-        var disposition = obj.disposition_text;
-
-        if (domain == 'carparts.com') {
-            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/211269/content/carpartscom.png' alt='CarParts.com'>";
-        } else if (sitecode == 'carpartswholesale') {
-            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
-        } else if (sitecode == 'carpartswholesale-whi') {
-            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
-        } else if (sitecode == 'carpartswholesale.ebay-ams.com') {
-            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162960/content/ebay-cpw.png' alt='CarPars Wholesale on eBay'>";
-        } else if (sitecode == 'carparts.ebay-ams.com') {
-            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162481/content/ebay-carparts.png' alt='CarParts on eBay'>";
-        } else if (sitecode == 'jcwhitney.ebay-ams.com ') {
-            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162479/content/ebay-jcwhitney.png' alt='JC Whitney on eBay'>";
-        } else if (sitecode == 'returnedcarparts.ebay-ams.com') {
-            document.getElementById("logo_section").innerHTML  = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/163612/content/ebay-rcp.png' alt='Returned Car Parts'>";
-        }
-
-        form.addEventListener('submit', e => {
-            e.preventDefault()
-            var xhr = new XMLHttpRequest();
-            var radioselectedValues = {
-                satisfaction: $("input[name='satisfaction']:checked").val(),
-                resolve: $("input[name='resolve']:checked").val()
-            };
-            var comments = document.getElementById("comments").value;
-            var message = "Order Id: " + order_id
-                + "\nDomain/Server: " + domain_name
-                + "\n\nDisposition: " + disposition
-                + "\nCSR: " + agent_username 
-                + "\n\nHow satisfied are you with the most recent interaction with our service representative? \n" + radioselectedValues.satisfaction
-                + "\n\nDid we resolve your problem? \n" + radioselectedValues.resolve
-                + "\n\nComments or Feedback: \n" + comments;
-            var data = {};
-            data.title = "CSR Voice CSAT Survey";
-            data.email = email;
-            data.message = message;
-            data.agent_username = agent_username;
-            data.order_id = order_id;
-            data.domain_name = domain_name;
-            data.disposition = disposition;
-            data.satisfaction = radioselectedValues.satisfaction;
-            data.resolve = radioselectedValues.resolve;
-            data.comments = comments; 
-            
-            if (radioselectedValues.satisfaction === "" || radioselectedValues.satisfaction === undefined || radioselectedValues.resolve === "" || radioselectedValues.resolve === undefined) {
-                responseText.innerHTML  = "<p style='color: #cc0202'>Please provide answers.<\/p>";
-            } else { 
-                responseText.innerHTML  = "<p>Please wait...<\/p>";
-                xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0');
-                xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
-                xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzlkNDhmNTU4YzIxYzYyZGY1MTk0ZiIsInVzZXIiOiI2NTc5ZDQ4ZDAwMzE4MzVmNDhhYTAyMjgiLCJvcmciOiI2MmFiMzVmNTRkNmQ5ODNkZDEyMGFmYjAiLCJvcmdOYW1lIjoiY2FycGFydHMiLCJ1c2VyVHlwZSI6Im1hY2hpbmUiLCJwb2QiOiJwcm9kMSIsInJvbGVzIjpbIm9yZy5hZG1pbiJdLCJhdWQiOiJ1cm46Y29uc3VtZXIiLCJpc3MiOiJ1cm46YXBpIiwic3ViIjoiNjU3OWQ0OGQwMDMxODM1ZjQ4YWEwMjI4In0.hHPqxf04wPqBGyiMjllKqOswPhPMnFoLdaSReRrK5ME");
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        form.btnSubmit.style.cursor = "default",
-                        form.btnSubmit.value = "Submitted",
-                        form.btnSubmit.disabled = true,
-                        form.btnSubmit.style.cursor = "default",
-                        responseText.innerHTML  = "<p>Thank you for your feedback!<\/p>"
-                    }};
-                xhr.send(JSON.stringify(data));
-            }
-        })
-    }
+// Blueshift initialization
+window._blueshiftid = 'a3cf17c9321992514193bb8bbeb942fc';
+window.blueshift = window.blueshift || [];
+blueshift.load = function() {
+    var d = function(a) { return function() { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))); } };
+    var e = ["config", "identify", "track", "pageload", "live"];
+    for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]);
+};
+blueshift.load();
+blueshift.pageload();
+if (blueshift.constructor === Array) {
+    (function() {
+        var b = document.createElement("script");
+        b.type = "text/javascript";
+        b.async = true;
+        b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js";
+        var c = document.getElementsByTagName("script")[0];
+          c.parentNode.insertBefore(b, c);
+    })();
+}
+    
+// jQuery
+$(document).on('submit', '#bsft_email_form', function() {
+    // Data
+    var d = new Date();
+    var timestamp = d.toISOString();
+    var emailaddress = document.getElementById("email").value;
+    var unsubscribed = false;
+    var email_spam_reported = false;
+    var email_hard_bounced = false;
+    var messaging_content_promotions = true;
+    var opted_in = true;
+    var opted_in_email = true;
+    var source = "Promotions Landing Page";
+    
+    blueshift.track("site_subscribe", {
+        "email": emailaddress,
+        "unsubscribed": unsubscribed,
+        "email_spam_reported": email_spam_reported,
+        "email_hard_bounced": email_hard_bounced,
+        "unsubscribed": unsubscribed,
+        "opted_in": opted_in,
+        "opted_in_email": opted_in_email,
+        "source": source,
+        "messaging_content_promotions": messaging_content_promotions,
+        "messaging_content_promotions_at": timestamp
+    });
+    
+    blueshift.identify({ "email": emailaddress });
+    
+    bsftEmailForm.style.display = "none";
+    successNote.style.display = "block";
+    return false;
+    });
+});
 </script>
+    
+
 </body>
 </html>
