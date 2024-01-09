@@ -21,64 +21,64 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-// Form widgets
-var bsftEmailForm = document.getElementById("bsft_email_form");
-var successNote = document.getElementById("success-note");
-    
-// Blueshift initialization
-window._blueshiftid = 'a3cf17c9321992514193bb8bbeb942fc';
-window.blueshift = window.blueshift || [];
-blueshift.load = function() {
-    var d = function(a) { return function() { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))); } };
-    var e = ["config", "identify", "track", "pageload", "live"];
-    for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]);
-};
-blueshift.load();
-blueshift.pageload();
-if (blueshift.constructor === Array) {
-    (function() {
-        var b = document.createElement("script");
-        b.type = "text/javascript";
-        b.async = true;
-        b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js";
-        var c = document.getElementsByTagName("script")[0];
-          c.parentNode.insertBefore(b, c);
-    })();
-}
-    
-// jQuery
-$(document).on('submit', '#bsft_email_form', function() {
-    // Data
-    var d = new Date();
-    var timestamp = d.toISOString();
-    var emailaddress = document.getElementById("email").value;
-    var unsubscribed = false;
-    var email_spam_reported = false;
-    var email_hard_bounced = false;
-    var messaging_content_promotions = true;
-    var opted_in = true;
-    var opted_in_email = true;
-    var source = "Promotions Landing Page";
-    
-    blueshift.track("site_subscribe", {
-        "email": emailaddress,
-        "unsubscribed": unsubscribed,
-        "email_spam_reported": email_spam_reported,
-        "email_hard_bounced": email_hard_bounced,
-        "unsubscribed": unsubscribed,
-        "opted_in": opted_in,
-        "opted_in_email": opted_in_email,
-        "source": source,
-        "messaging_content_promotions": messaging_content_promotions,
-        "messaging_content_promotions_at": timestamp
-    });
-    
-    blueshift.identify({ "email": emailaddress });
-    
-    bsftEmailForm.style.display = "none";
-    successNote.style.display = "block";
-    return false;
-    });
+    // Form widgets
+    var bsftEmailForm = document.getElementById("bsft_email_form");
+    var emailPrivacy = document.getElementById("email-privacy");
+    var successNote = document.getElementById("success-note");
+        
+    // Blueshift initialization
+    window._blueshiftid = 'a3cf17c9321992514193bb8bbeb942fc';
+    window.blueshift = window.blueshift || [];
+    blueshift.load = function() {
+        var d = function(a) { return function() { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))); } };
+        var e = ["config", "identify", "track", "pageload", "live"];
+        for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]);
+    };
+    blueshift.load();
+    blueshift.pageload();
+    if (blueshift.constructor === Array) {
+        (function() {
+            var b = document.createElement("script");
+            b.type = "text/javascript";
+            b.async = true;
+            b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js";
+            var c = document.getElementsByTagName("script")[0];
+            c.parentNode.insertBefore(b, c);
+        })();
+    }
+        
+    // jQuery
+    $(document).on('submit', '#bsft_email_form', function() {
+        // Data
+        var d = new Date();
+        var timestamp = d.toISOString();
+        var emailaddress = document.getElementById("email").value;
+        var unsubscribed = false;
+        var email_spam_reported = false;
+        var email_hard_bounced = false;
+        var messaging_content_promotions = true;
+        var opted_in = true;
+        var opted_in_email = true;
+        var source = "Promotions Landing Page";
+        
+        blueshift.track("site_subscribe", {
+            "email": emailaddress,
+            "unsubscribed": unsubscribed,
+            "email_spam_reported": email_spam_reported,
+            "email_hard_bounced": email_hard_bounced,
+            "unsubscribed": unsubscribed,
+            "opted_in": opted_in,
+            "opted_in_email": opted_in_email,
+            "source": source,
+            "messaging_content_promotions": messaging_content_promotions,
+            "messaging_content_promotions_at": timestamp
+        });
+        
+        bsftEmailForm.style.display = "none";
+        emailPrivacy.style.display = "none";
+        successNote.innerHTML  = "<p>Thank you for your signing up!</p>"
+        return false;
+        });
 });
 </script>
     
