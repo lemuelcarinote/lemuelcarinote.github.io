@@ -103,6 +103,7 @@
         background-color: #ffcd05;
         border: 1px solid #ffcd05;
         color: #282832;
+        transition: background-color 0.9s;
     }
 
     .label-row {
@@ -140,6 +141,12 @@
         font-weight: bold;
         font-family: 'Roboto', Arial, sans-serif
     }
+
+    /* Add a hover effect */
+    input[type="submit"]:hover {
+        transition: background-color 0.9s;
+    }
+
         
     #response {
         font-size: 14px;
@@ -334,6 +341,7 @@
                     form.btnSubmit.style.cursor = "default";
                     form.btnSubmit.value = "Submitted";
                     form.btnSubmit.disabled = true;
+                    form.btnSubmit.style.backgroundColor = "#f7f7f7";
                     document.getElementById("response").innerHTML = "<p>Thank you for your feedback!</p>";
                 }
             };
