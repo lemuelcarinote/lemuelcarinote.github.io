@@ -1,83 +1,305 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Newsletter Sign up + Blueshift Events JS</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-</head>
-<body>
-<div id="signup_wrapper">
-  <form id="bsft_email_form">
-    <input id="email" name="email" placeholder="Email Address" pattern="\S+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" value="">
-    <input type="submit" value="Submit">
-  </form>
-  <div id="email-privacy">
-    <a href="https://www.carparts.com/privacy-policy">Privacy Policy</a>
-  </div>
-  <div id="success-note"></div>
-</div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CSR Voice CSAT Survey</title>
+<link rel="preconnect" href="//fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&family=Inter+Tight:wght@400&family=Inter:wght@400&display=swap" rel="stylesheet">
+<link rel="icon" href="https://cld.partsimg.com/image/upload/h_200,w_200,f_auto,q_auto/carparts/logos/badge/blue/CP_BADGE_RGB_BLUE_HR.png">
+<style>
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        margin: 15px;
+    }
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Form widgets
-    var bsftEmailForm = document.getElementById("bsft_email_form");
-    var emailPrivacy = document.getElementById("email-privacy");
-    var successNote = document.getElementById("success-note");
-        
-    // Blueshift initialization
-    window._blueshiftid = 'a3cf17c9321992514193bb8bbeb942fc';
-    window.blueshift = window.blueshift || [];
-    blueshift.load = function() {
-        var d = function(a) { return function() { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))); } };
-        var e = ["config", "identify", "track", "pageload", "live"];
-        for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]);
-    };
-    blueshift.load();
-    blueshift.pageload();
-    if (blueshift.constructor === Array) {
-        (function() {
-            var b = document.createElement("script");
-            b.type = "text/javascript";
-            b.async = true;
-            b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js";
-            var c = document.getElementsByTagName("script")[0];
-            c.parentNode.insertBefore(b, c);
-        })();
+    .wrapper {
+        display: block;
+        margin: 0 auto;
+        max-width: 600px;
+    }
+
+    .row {
+        padding: 10px 0
+    }
+
+    .logo_section {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .logo_section .logo {
+        display: block;
+        margin: 0 auto;
+    }
+
+    #expired_widget {
+        display: none;
+    }
+
+    #expired_widget p, h3 {
+        line-height: 160%;
+        font-family: 'Roboto', Arial, sans-serif;
+        font-weight: normal;
+        font-size: 16px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        padding-top: 5px;
+        padding-right: 15px;
+        display: inline-block
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 5px;
+        line-height: 140%;
+        font-weight: bold;
+    }
+
+    input[type="radio"] label {
+        margin-bottom: 15px;
+        margin-right: 15px;
+    }
+
+    textarea {
+        margin-top: 5px;
+        padding: 10px;
+        width: 95%
+    }
+
+    input[type="submit"] {
+        background-color: #ffcd05;
+        border: none;
+        color: #282832;
+        padding: 12px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-weight: bold;
+        font-family: 'Roboto', Arial, sans-serif
     }
         
-    // jQuery
-    $(document).on('submit', '#bsft_email_form', function() {
-        // Data
-        var d = new Date();
-        var timestamp = d.toISOString();
-        var emailaddress = document.getElementById("email").value;
-        var unsubscribed = false;
-        var email_spam_reported = false;
-        var email_hard_bounced = false;
-        var messaging_content_promotions = true;
-        var opted_in = true;
-        var opted_in_email = true;
-        var source = "Promotions Landing Page";
-        
-        blueshift.track("site_subscribe", {
-            "email": emailaddress,
-            "unsubscribed": unsubscribed,
-            "email_spam_reported": email_spam_reported,
-            "email_hard_bounced": email_hard_bounced,
-            "unsubscribed": unsubscribed,
-            "opted_in": opted_in,
-            "opted_in_email": opted_in_email,
-            "source": source,
-            "messaging_content_promotions": messaging_content_promotions,
-            "messaging_content_promotions_at": timestamp
-        });
-        
-        bsftEmailForm.style.display = "none";
-        emailPrivacy.style.display = "none";
-        successNote.innerHTML  = "<p>Thank you for your signing up!</p>"
-        return false;
-        });
-});
-</script>
+    #response {
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="logo_section" id="logo_section"></div>
     
+    <div id="expired_widget">
+        <p align="center">
+            Thank you for your interest, but the survey is now closed. 
+            <br>We hope to hear from you in the future!
+        </p>
+    </div>
+
+    <div id="form_widget">
+        <h3>Thank you for contacting us regarding your purchase. We&nbsp;want&nbsp;to&nbsp;be&nbsp;sure&nbsp;that you were satisfied with the level of service we&nbsp;provided.</h3>
+        
+        <form name="csat">
+            <div class="row">
+                <label for="satisfaction">On a scale of 1 to 5, how satisfied are you with the assistance you received?</label>
+                <div align="center">
+                    <ul>
+                        <li><input type="radio" id="satisfaction1" name="satisfaction" value="1"><label for="satisfaction1"> 1</label></li>
+                        <li><input type="radio" id="satisfaction2" name="satisfaction" value="2"><label for="satisfaction2"> 2</label></li>
+                        <li><input type="radio" id="satisfaction3" name="satisfaction" value="3"><label for="satisfaction3"> 3</label></li>
+                        <li><input type="radio" id="satisfaction4" name="satisfaction" value="4"><label for="satisfaction4"> 4</label></li>
+                        <li><input type="radio" id="satisfaction5" name="satisfaction" value="5"><label for="satisfaction5"> 5</label></li>
+                    </ul>
+                    <span style="font-size: 13px">(1 = Not at all Likely&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 = Extremely Likely)</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <label for="comments">Please share additional comments or suggestions to help us improve our service:</label>
+                <textarea id="comments" name="comments" rows="4" cols="50" value=""></textarea>
+            </div>
+
+            <div class="row" align="center">
+                <input id="btnSubmit" type="submit" value="Submit">
+                <div id="response"></div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    // Function to add days to a date
+    function addDays(date, days) {
+        let result = new Date(date);
+        result.setDate(result.getDate() + days);
+        
+        // Adjust the result date to the Pacific Time zone (US & Canada)
+        const options = {
+            timeZone: 'America/Los_Angeles',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+
+        // Format and parse to get the correct date in the specified timezone
+        let adjustedDate = new Date(
+            new Intl.DateTimeFormat('en-US', options).format(result)
+        );
+
+        return adjustedDate;
+    }
+
+    // Function to get the current date in Pacific Time
+    function getCurrentDatePacificTime() {
+        return new Date(
+            new Intl.DateTimeFormat('en-US', {
+                timeZone: 'America/Los_Angeles',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }).format(new Date())
+        );
+    }
+
+    // Function to display the appropriate logo based on the site code or domain
+    function displayLogo(domain, sitecode) {
+        let logoSection = document.getElementById("logo_section");
+
+        if (domain === 'carparts.com') {
+            logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/227464/content/carpartscom.png' alt='CarParts.com'>";
+        } else if (sitecode === 'carpartswholesale' || sitecode === 'carpartswholesale-whi') {
+            logoSection.innerHTML = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
+        } else if (sitecode === 'carpartswholesale.ebay-ams.com') {
+            logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162960/content/ebay-cpw.png' alt='CarPars Wholesale on eBay'>";
+        } else if (sitecode === 'carparts.ebay-ams.com') {
+            logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162481/content/ebay-carparts.png' alt='CarParts on eBay'>";
+        } else if (sitecode === 'jcwhitney.ebay-ams.com') {
+            logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162479/content/ebay-jcwhitney.png' alt='JC Whitney on eBay'>";
+        } else if (sitecode === 'returnedcarparts.ebay-ams.com') {
+            logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/163612/content/ebay-rcp.png' alt='Returned Car Parts'>";
+        }
+    }
+
+    // Function to handle the CSAT form submission
+    function handleCSATFormSubmission(csr_voice_csat_invite_at) {
+        let currentdate = getCurrentDatePacificTime();
+
+        if (csr_voice_csat_invite_at === null) {
+            console.log("The csr_voice_csat_invite_at is null.");
+            document.getElementById('expired_widget').style.display = 'block';
+            document.getElementById('form_widget').style.display = 'none';
+        } else {
+            let linkexpirydate = addDays(new Date(csr_voice_csat_invite_at), 8);
+            console.log("CSAT Invite:", csr_voice_csat_invite_at);
+            console.log("Link expiry date:", linkexpirydate);
+
+            if (linkexpirydate < currentdate) {
+                document.getElementById('expired_widget').style.display = 'block';
+                document.getElementById('form_widget').style.display = 'none';
+            } else {
+                document.forms['csat'].addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    submitCSATForm();
+                });
+            }
+        }
+    }
+
+    // Function to submit the CSAT form
+    function submitCSATForm() {
+        let xhr = new XMLHttpRequest();
+        let radioselectedValues = {
+            satisfaction: $("input[name='satisfaction']:checked").val()
+        };
+        let comments = document.getElementById("comments").value;
+        let message = `Order Id: ${order_id}\nDomain/Server: ${domain_name}\n\nDisposition: ${disposition}\nCSR: ${agent_username}\n\nOn a scale of 1 to 5, how satisfied are you with the assistance you received? \n${radioselectedValues.satisfaction}\n\nPlease share additional comments or suggestions to help us improve our service. \n${comments}`;
+        let data = {
+            title: "CSR Voice CSAT Survey",
+            email: email,
+            message: message,
+            agent_username: agent_username,
+            order_id: order_id,
+            domain_name: domain_name,
+            disposition: disposition,
+            satisfaction: radioselectedValues.satisfaction,
+            comments: comments
+        };
+
+        if (!radioselectedValues.satisfaction) {
+            document.getElementById("response").innerHTML = "<p style='color: #cc0202'>Please provide answers.</p>";
+        } else {
+            document.getElementById("response").innerHTML = "<p>Please wait...</p>";
+            xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0');
+            xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
+            xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzlkNDhmNTU4YzIxYzYyZGY1MTk0ZiIsInVzZXIiOiI2NTc5ZDQ4ZDAwMzE4MzVmNDhhYTAyMjgiLCJvcmciOiI2MmFiMzVmNTRkNmQ5ODNkZDEyMGFmYjAiLCJvcmdOYW1lIjoiY2FycGFydHMiLCJ1c2VyVHlwZSI6Im1hY2hpbmUiLCJwb2QiOiJwcm9kMSIsInJvbGVzIjpbIm9yZy5hZG1pbiJdLCJhdWQiOiJ1cm46Y29uc3VtZXIiLCJpc3MiOiJ1cm46YXBpIiwic3ViIjoiNjU3OWQ0OGQwMDMxODM1ZjQ4YWEwMjI4In0.hHPqxf04wPqBGyiMjllKqOswPhPMnFoLdaSReRrK5ME");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    let form = document.forms['csat'];
+                    form.btnSubmit.style.cursor = "default";
+                    form.btnSubmit.value = "Submitted";
+                    form.btnSubmit.disabled = true;
+                    document.getElementById("response").innerHTML = "<p>Thank you for your feedback!</p>";
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        }
+    }
+
+    // Main execution starts here
+    $(document).ready(function () {
+        var form = document.forms['csat'];
+        var btnSubmit = document.getElementById("btnSubmit");
+        var radioSatisfaction = document.getElementsByName("satisfaction");
+        var textboxComments = document.getElementById("comments");
+        var responseText = document.getElementById("response");
+
+        var qs = window.location.search;
+        var csid = new URLSearchParams(qs).get('csid');
+
+        if (!csid) {
+            alert('Broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
+        } else {
+            var obj = JSON.parse(atob(csid));
+            var csr_voice_csat_invite_at = obj.csr_voice_csat_invite_at || null;
+            var email = obj.email;
+            var name = obj.firstname + " " + obj.lastname;
+            var agent_username = obj.agent_user_name;
+            var order_id = obj.merchant_order_id;
+            var domain_name = obj.domain_name + " / " + obj.server_name;
+            var domain = obj.domain_name ? obj.domain_name.toLowerCase() : null;
+            var sitecode = obj.sitecode ? obj.sitecode.toLowerCase() : null;
+            var disposition = obj.disposition_text;
+
+            // Display the appropriate logo
+            displayLogo(domain, sitecode);
+
+            // Handle the CSAT form submission logic
+            handleCSATFormSubmission(csr_voice_csat_invite_at);
+        }
+    });
+</script>
 
 </body>
 </html>
