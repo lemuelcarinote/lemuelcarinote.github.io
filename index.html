@@ -21,7 +21,7 @@
     }
 
     .row {
-        padding: 10px 0
+        padding: 15px 0
     }
 
     .logo_section {
@@ -45,6 +45,13 @@
         font-size: 16px;
     }
 
+    .satisfaction {
+        display: block;
+        margin: 0 auto;;
+        text-align: center;
+        max-width: 350px;
+    }
+
     ul {
         list-style: none;
         padding: 0;
@@ -52,21 +59,65 @@
     }
 
     li {
-        padding-top: 5px;
-        padding-right: 15px;
+        padding: 5px;
         display: inline-block
     }
 
     label {
         display: inline-block;
         margin-bottom: 5px;
-        line-height: 140%;
         font-weight: bold;
     }
 
-    input[type="radio"] label {
-        margin-bottom: 15px;
-        margin-right: 15px;
+    /* Hide the default radio button appearance */
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    /* Style the label as a button */
+    input[type="radio"] + label {
+        display: inline-block;
+        padding: 12px 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f7f7f7;
+        cursor: pointer;
+    }
+
+    /* Style the label text */
+    input[type="radio"] + label span {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Add a hover effect */
+    input[type="radio"] + label:hover {
+        background-color: #eee;
+    }
+
+    /* Add a checked state effect */
+    input[type="radio"]:checked + label {
+        background-color: #ffcd05;
+        border: 1px solid #ffcd05;
+        color: #282832;
+    }
+
+    .label-row {
+        display: flex;
+        flex-wrap: wrap;
+        width: 90%;
+        margin: 0 auto
+    }
+
+    .label-row .col-50 {
+        flex-basis: 50%;
+    }
+
+    .label-row .col-50 span {
+        font-size: 12px;
     }
 
     textarea {
@@ -115,7 +166,7 @@
         <form name="csat">
             <div class="row">
                 <label for="satisfaction">On a scale of 1 to 5, how satisfied are you with the assistance you received?</label>
-                <div align="center">
+                <div class="satisfaction">
                     <ul>
                         <li><input type="radio" id="satisfaction1" name="satisfaction" value="1"><label for="satisfaction1"> 1</label></li>
                         <li><input type="radio" id="satisfaction2" name="satisfaction" value="2"><label for="satisfaction2"> 2</label></li>
@@ -123,7 +174,14 @@
                         <li><input type="radio" id="satisfaction4" name="satisfaction" value="4"><label for="satisfaction4"> 4</label></li>
                         <li><input type="radio" id="satisfaction5" name="satisfaction" value="5"><label for="satisfaction5"> 5</label></li>
                     </ul>
-                    <span style="font-size: 13px">(1 = Not at all Likely&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5 = Extremely Likely)</span>
+                    <div class="label-row">
+                        <div class="col-50" align="left">
+                          <span>1 = Not at all Likely</span>
+                        </div>
+                        <div class="col-50" align="right">
+                          <span>5 = Extremely Likely</span>
+                        </div>
+                      </div>
                 </div>
             </div>
 
