@@ -234,20 +234,24 @@
             satisfaction: $("input[name='satisfaction']:checked").val()
         };
         let comments = document.getElementById("comments").value;
-        let message = `Order Id: ${order_id}\nDomain/Server: ${domain_name}\n\nDisposition: ${disposition}\nCSR: ${agent_username}\n\nOn a scale of 1 to 5, how satisfied are you with the assistance you received? \n${radioselectedValues.satisfaction}\n\nPlease share additional comments or suggestions to help us improve our service. \n${comments}`;
-        let data = {
-            title: "CSR Voice CSAT Survey",
-            email: email,
-            message: message,
-            agent_username: agent_username,
-            order_id: order_id,
-            domain_name: domain_name,
-            disposition: disposition,
-            satisfaction: radioselectedValues.satisfaction,
-            comments: comments
-        };
+        var message = "Order Id: " + order_id
+            + "\nDomain/Server: " + domain_name
+            + "\n\nDisposition: " + disposition
+            + "\nCSR: " + agent_username 
+            + "\n\nOn a scale of 1 to 5, how satisfied are you with the assistance you received? \n" + radioselectedValues.satisfaction
+            + "\n\nPlease share additional comments or suggestions to help us improve our service. \n" + comments;
+        var data = {};
+        data.title = "CSR Voice CSAT Survey";
+        data.email = email;
+        data.message = message;
+        data.agent_username = agent_username;
+        data.order_id = order_id;
+        data.domain_name = domain_name;
+        data.disposition = disposition;
+        data.satisfaction = radioselectedValues.satisfaction;
+        data.comments = comments; 
 
-        if (!radioselectedValues.satisfaction) {
+        if (radioselectedValues.satisfaction === "" || radioselectedValues.satisfaction === undefined) {
             document.getElementById("response").innerHTML = "<p style='color: #cc0202'>Please provide answers.</p>";
         } else {
             document.getElementById("response").innerHTML = "<p>Please wait...</p>";
