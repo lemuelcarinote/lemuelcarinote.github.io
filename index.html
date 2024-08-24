@@ -144,6 +144,22 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
+    var form = document.forms['csat'];
+    var btnSubmit = document.getElementById("btnSubmit");
+
+    var qs = window.location.search;
+    var csid = new URLSearchParams(qs).get('csid');
+    var obj = JSON.parse(atob(csid));
+    var csr_voice_csat_invite_at = obj.csr_voice_csat_invite_at || null;
+    var email = obj.email;
+    var name = obj.firstname + " " + obj.lastname;
+    var agent_username = obj.agent_user_name;
+    var order_id = obj.merchant_order_id;
+    var domain_name = obj.domain_name + " / " + obj.server_name;
+    var domain = obj.domain_name ? obj.domain_name.toLowerCase() : null;
+    var sitecode = obj.sitecode ? obj.sitecode.toLowerCase() : null;
+    var disposition = obj.disposition_text;
+
     // Function to add days to a date
     function addDays(date, days) {
         let result = new Date(date);
@@ -234,22 +250,18 @@
             satisfaction: $("input[name='satisfaction']:checked").val()
         };
         let comments = document.getElementById("comments").value;
-        var message = "Order Id: " + order_id
-            + "\nDomain/Server: " + domain_name
-            + "\n\nDisposition: " + disposition
-            + "\nCSR: " + agent_username 
-            + "\n\nOn a scale of 1 to 5, how satisfied are you with the assistance you received? \n" + radioselectedValues.satisfaction
-            + "\n\nPlease share additional comments or suggestions to help us improve our service. \n" + comments;
-        var data = {};
-        data.title = "CSR Voice CSAT Survey";
-        data.email = email;
-        data.message = message;
-        data.agent_username = agent_username;
-        data.order_id = order_id;
-        data.domain_name = domain_name;
-        data.disposition = disposition;
-        data.satisfaction = radioselectedValues.satisfaction;
-        data.comments = comments; 
+        let message = `Order Id: ${order_id}\nDomain/Server: ${domain_name}\n\nDisposition: ${disposition}\nCSR: ${agent_username}\n\nOn a scale of 1 to 5, how satisfied are you with the assistance you received? \n${radioselectedValues.satisfaction}\n\nPlease share additional comments or suggestions to help us improve our service: \n${comments}`;
+        let data = {
+            title: "CSR Voice CSAT Survey",
+            email: email,
+            message: message,
+            agent_username: agent_username,
+            order_id: order_id,
+            domain_name: domain_name,
+            disposition: disposition,
+            satisfaction: radioselectedValues.satisfaction,
+            comments: comments
+        };
 
         if (radioselectedValues.satisfaction === "" || radioselectedValues.satisfaction === undefined) {
             document.getElementById("response").innerHTML = "<p style='color: #cc0202'>Please provide answers.</p>";
@@ -273,29 +285,10 @@
 
     // Main execution starts here
     $(document).ready(function () {
-        var form = document.forms['csat'];
-        var btnSubmit = document.getElementById("btnSubmit");
-        var radioSatisfaction = document.getElementsByName("satisfaction");
-        var textboxComments = document.getElementById("comments");
-        var responseText = document.getElementById("response");
-
-        var qs = window.location.search;
-        var csid = new URLSearchParams(qs).get('csid');
-
         if (!csid) {
             alert('Broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
         } else {
-            var obj = JSON.parse(atob(csid));
-            var csr_voice_csat_invite_at = obj.csr_voice_csat_invite_at || null;
-            var email = obj.email;
-            var name = obj.firstname + " " + obj.lastname;
-            var agent_username = obj.agent_user_name;
-            var order_id = obj.merchant_order_id;
-            var domain_name = obj.domain_name + " / " + obj.server_name;
-            var domain = obj.domain_name ? obj.domain_name.toLowerCase() : null;
-            var sitecode = obj.sitecode ? obj.sitecode.toLowerCase() : null;
-            var disposition = obj.disposition_text;
-
+            
             // Display the appropriate logo
             displayLogo(domain, sitecode);
 
