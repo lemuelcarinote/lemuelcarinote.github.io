@@ -152,6 +152,15 @@
         font-size: 14px;
         font-weight: bold;
     }
+
+    @media only screen and (max-width: 460px) {
+        .mob-no {
+            display: none !important;
+            overflow: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+    }
 </style>
 <meta name="robots" content="noindex, nofollow">
 </head>
@@ -163,7 +172,7 @@
     <div id="expired_widget">
         <p align="center">
             Thank you for your interest, but the survey is now closed. 
-            <br>We hope to hear from you in the future!
+            <br class="mob-no">We hope to hear from you in the future!
         </p>
     </div>
 
