@@ -71,6 +71,7 @@
         display: inline-block;
         margin-bottom: 5px;
         font-weight: bold;
+        line-height: 140%;
     }
 
     /* Hide the default radio button appearance */
@@ -185,7 +186,7 @@
         
         <form name="csat">
             <div class="row">
-                <label for="satisfaction">On a scale of 1 to 5, how satisfied are you with the assistance you received?</label>
+                <label for="satisfaction">On a scale of 1 to 5, how satisfied were you with the assistance provided by our Customer Service agent?</label>
                 <div class="satisfaction">
                     <ul>
                         <li><input type="radio" id="satisfaction1" name="satisfaction" value="1"><label for="satisfaction1"> 1</label></li>
@@ -196,10 +197,10 @@
                     </ul>
                     <div class="label-row">
                         <div class="col-50" align="left">
-                          <span>1 = Not at all Likely</span>
+                          <span>1 = Very unsatisfied</span>
                         </div>
                         <div class="col-50" align="right">
-                          <span>5 = Extremely Likely</span>
+                          <span>5 = Very Satisfied</span>
                         </div>
                       </div>
                 </div>
@@ -211,7 +212,7 @@
             </div>
 
             <div class="row" align="center">
-                <input id="btnSubmit" type="submit" value="SUBMIT">
+                <input id="btnSubmit" type="submit" value="Submit">
                 <div id="response"></div>
             </div>
         </form>
@@ -222,6 +223,10 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
+
+    const tkn = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzlkNDhmNTU4YzIxYzYyZGY1MTk0ZiIsInVzZXIiOiI2NTc5ZDQ4ZDAwMzE4MzVmNDhhYTAyMjgiLCJvcmciOiI2MmFiMzVmNTRkNmQ5ODNkZDEyMGFmYjAiLCJvcmdOYW1lIjoiY2FycGFydHMiLCJ1c2VyVHlwZSI6Im1hY2hpbmUiLCJwb2QiOiJwcm9kMSIsInJvbGVzIjpbIm9yZy5hZG1pbiJdLCJhdWQiOiJ1cm46Y29uc3VtZXIiLCJpc3MiOiJ1cm46YXBpIiwic3ViIjoiNjU3OWQ0OGQwMDMxODM1ZjQ4YWEwMjI4In0.hHPqxf04wPqBGyiMjllKqOswPhPMnFoLdaSReRrK5ME';
+    const hook_id = '62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0';
+
     var form = document.forms['csat'];
     var btnSubmit = document.getElementById("btnSubmit");
 
@@ -328,7 +333,7 @@
             satisfaction: $("input[name='satisfaction']:checked").val()
         };
         let comments = document.getElementById("comments").value;
-        let message = `Order Id: ${order_id}\nDomain/Server: ${domain_name}\n\nDisposition: ${disposition}\nCSR: ${agent_username}\n\nOn a scale of 1 to 5, how satisfied are you with the assistance you received? \n${radioselectedValues.satisfaction}\n\nPlease share additional comments or suggestions to help us improve our service: \n${comments}`;
+        let message = `Order Id: ${order_id}\nDomain/Server: ${domain_name}\n\nDisposition: ${disposition}\nCSR: ${agent_username}\n\nOn a scale of 1 to 5, how satisfied were you with the assistance provided by our Customer Service agent? \n${radioselectedValues.satisfaction}\n\nPlease share additional comments or suggestions to help us improve our service: \n${comments}`;
         let data = {
             title: "CSR Voice CSAT Survey",
             email: email,
@@ -345,9 +350,9 @@
             document.getElementById("response").innerHTML = "<p style='color: #cc0202'>Please provide answers.</p>";
         } else {
             document.getElementById("response").innerHTML = "<p>Please wait...</p>";
-            xhr.open('POST', 'https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0');
+            xhr.open('POST', `https://api.kustomerapp.com/v1/hooks/form/${rootDomain}`);
             xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
-            xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzlkNDhmNTU4YzIxYzYyZGY1MTk0ZiIsInVzZXIiOiI2NTc5ZDQ4ZDAwMzE4MzVmNDhhYTAyMjgiLCJvcmciOiI2MmFiMzVmNTRkNmQ5ODNkZDEyMGFmYjAiLCJvcmdOYW1lIjoiY2FycGFydHMiLCJ1c2VyVHlwZSI6Im1hY2hpbmUiLCJwb2QiOiJwcm9kMSIsInJvbGVzIjpbIm9yZy5hZG1pbiJdLCJhdWQiOiJ1cm46Y29uc3VtZXIiLCJpc3MiOiJ1cm46YXBpIiwic3ViIjoiNjU3OWQ0OGQwMDMxODM1ZjQ4YWEwMjI4In0.hHPqxf04wPqBGyiMjllKqOswPhPMnFoLdaSReRrK5ME");
+            xhr.setRequestHeader("Authorization", `Bearer ${bearerToken}`);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     let form = document.forms['csat'];
