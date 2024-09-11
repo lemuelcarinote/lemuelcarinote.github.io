@@ -74,6 +74,10 @@
         line-height: 140%;
     }
 
+    #followup {
+        font-weight: normal;
+    }
+
     /* Hide the default radio button appearance */
     input[type="radio"] {
         position: absolute;
@@ -182,7 +186,7 @@
     </div>
 
     <div id="form_widget">
-        <h3>Thank you for contacting us regarding your purchase. We&nbsp;want&nbsp;to&nbsp;be&nbsp;sure&nbsp;that you were satisfied with the level of service we&nbsp;provided.</h3>
+        <h3>Thanks for your interest and taking the time to share your rating!</h3>
         
         <form name="csat">
             <div class="row">
@@ -197,17 +201,17 @@
                     </ul>
                     <div class="label-row">
                         <div class="col-50" align="left">
-                          <span>1 = Very unsatisfied</span>
+                          <span>Very dissatisfied</span>
                         </div>
                         <div class="col-50" align="right">
-                          <span>5 = Very Satisfied</span>
+                          <span>Very satisfied</span>
                         </div>
                       </div>
                 </div>
             </div>
 
             <div class="row">
-                <label for="comments">Please share additional comments or suggestions to help us improve our service:</label>
+                <label id="followup" for="comments">Please share additional comments or suggestions to help us improve our service:</label>
                 <textarea id="comments" name="comments" rows="4" cols="50" value=""></textarea>
             </div>
 
@@ -223,12 +227,55 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
+    // Get the div element where you want to insert the HTML
+    const labelmsg = document.getElementById('followup');
+
+    // Get the radio buttons
+    const radioButtons = document.getElementsByName('satisfaction');
+
+    // Add an event listener to each radio button
+    radioButtons.forEach((radioButton) => {
+    radioButton.addEventListener('change', (event) => {
+        // Get the selected radio button's value
+        const selectedValue = event.target.value;
+
+        // Define the HTML code for each radio button value
+        let msg;
+        switch (selectedValue) {
+        case '1':
+            msg = "<strong>We’re sorry to hear that your expectations weren’t met. We’d love to make things right!</strong> Please feel free to share any additional comments or suggestions so we can fine-tune our service.";
+            break;
+        case '2':
+            msg = "<strong>We understand that your experience could have been better, and we’re committed to improving.</strong> Please feel free to share any additional comments or suggestions so we can fine-tune our service.";
+            break;
+        case '3':
+            msg = "<strong>It seems there’s room for improvement, and we’d like to know how we can make your future experience better!</strong> Please feel free to share any additional comments or suggestions so we can fine-tune our service.";
+            break;
+        case '4':
+            msg = "<strong>We’re glad you had a good experience, but we’re always striving for excellence.</strong> Please feel free share additional comments or suggestions so we fine-tune our service:";
+            break;
+        case '5':
+            msg = "<strong>We’re thrilled that you had a great experience! Your feedback motivates us to keep delivering top-notch service.</strong> Please feel free to share any additional comments or suggestions if there’s anything else we can do for you:";
+            break;
+        // Add more cases for each radio button value
+        default:
+            htmlCode = '';
+        }
+
+        // Insert the HTML code into the div element
+        labelmsg.innerHTML = msg;
+    });
+    });
+</script>
+
+<script>
+
     var form = document.forms['csat'];
     var btnSubmit = document.getElementById("btnSubmit");
 
-    var qs = window.location.search;
-    var csid = new URLSearchParams(qs).get('csid');
+    var csid = new URLSearchParams(window.location.search).get('csid');
     var obj = JSON.parse(atob(csid));
+    var csr_voice_csat_link_expiry = obj.csr_voice_csat_link_expiry || null;
     var csr_voice_csat_invite_at = obj.csr_voice_csat_invite_at || null;
     var email = obj.email;
     var name = obj.firstname + " " + obj.lastname;
@@ -297,28 +344,48 @@
         }
     }
 
-    // Function to handle the CSAT form submission
-    function handleCSATFormSubmission(csr_voice_csat_invite_at) {
+    // Function to handle the CSAT form submission - Legacy
+    function handleCSATLegacy(csr_voice_csat_invite_at) {
         let currentdate = getCurrentDatePacificTime();
 
         if (csr_voice_csat_invite_at === null) {
-            console.log("The csr_voice_csat_invite_at is null.");
             document.getElementById('expired_widget').style.display = 'block';
             document.getElementById('form_widget').style.display = 'none';
         } else {
             let linkexpirydate = addDays(new Date(csr_voice_csat_invite_at), 8);
-            console.log("CSAT Invite:", csr_voice_csat_invite_at);
-            console.log("Link expiry date:", linkexpirydate);
 
-            if (linkexpirydate < currentdate) {
-                document.getElementById('expired_widget').style.display = 'block';
-                document.getElementById('form_widget').style.display = 'none';
-            } else {
+            if (linkexpirydate > currentdate) {
                 document.forms['csat'].addEventListener('submit', function (e) {
                     e.preventDefault();
                     submitCSATForm();
                 });
+            } else {
+                document.getElementById('expired_widget').style.display = 'block';
+                document.getElementById('form_widget').style.display = 'none';
             }
+        }
+    }
+
+    // Function to handle the CSAT form submission - Dynamic
+    function csatExpiryEval(csr_voice_csat_link_expiry) {
+        let currentdatetime = getCurrentDatePacificTime();
+        let linkexpiry = csr_voice_csat_link_expiry;
+        linkexpiry_datetime = new Date(
+            linkexpiry.split("T")[0].split("-")[0], // year
+            linkexpiry.split("T")[0].split("-")[1] - 1, // month ( subtract 1 because months are 0-based)
+            linkexpiry.split("T")[0].split("-")[2], // day
+            linkexpiry.split("T")[1].split(":")[0], // hour
+            linkexpiry.split("T")[1].split(":")[1], // minutes
+            linkexpiry.split("T")[1].split(":")[2].replace(/\-.*/, '') // seconds (remove timezone offset)
+        );
+        if (linkexpiry_datetime > currentdatetime) {
+            document.forms['csat'].addEventListener('submit', function (e) {
+                e.preventDefault();
+                submitCSATForm();
+            });
+        } else {
+            document.getElementById('expired_widget').style.display = 'block';
+            document.getElementById('form_widget').style.display = 'none';
         }
     }
 
@@ -373,7 +440,18 @@
             displayLogo(domain, sitecode);
 
             // Handle the CSAT form submission logic
-            handleCSATFormSubmission(csr_voice_csat_invite_at);
+            if (csr_voice_csat_link_expiry != null) {
+                csatExpiryEval(csr_voice_csat_link_expiry);
+            } else if (csr_voice_csat_invite_at != null) {
+                handleCSATLegacy(csr_voice_csat_invite_at); 
+            } else {
+                document.getElementById('expired_widget').style.display = 'block';
+                document.getElementById('form_widget').style.display = 'none';
+            }
+            
+
+            
+
         }
     });
 </script>
