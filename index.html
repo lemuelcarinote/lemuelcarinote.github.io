@@ -297,7 +297,7 @@
     }
 
     // Function to handle the CSAT form submission - Dynamic
-    function csatExpiryEval(csr_voice_csat_link_expiry) {
+    function handleCSATExpiry(csr_voice_csat_link_expiry) {
         let currentdatetime = getCurrentDatePacificTime();
         let linkexpiry = csr_voice_csat_link_expiry;
         linkexpiry_datetime = new Date(
@@ -375,7 +375,7 @@
 
             // Handle the CSAT form submission logic
             if (csr_voice_csat_link_expiry != null) {
-                csatExpiryEval(csr_voice_csat_link_expiry);
+                handleCSATExpiry(csr_voice_csat_link_expiry);
             } else if (csr_voice_csat_invite_at != null) {
                 handleCSATLegacy(csr_voice_csat_invite_at); 
             } else {
