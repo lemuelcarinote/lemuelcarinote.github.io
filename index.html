@@ -22,7 +22,7 @@
     .wrapper {
         display: block;
         margin: 0 auto;
-        max-width: 600px;
+        max-width: 420px;
     }
 
     .row {
@@ -32,11 +32,18 @@
     .logo_section {
         display: block;
         margin: 0 auto;
+        padding-bottom: 25px;
     }
 
     .logo_section .logo {
         display: block;
         margin: 0 auto;
+    }
+
+    #error {
+        line-height: 160%;
+        font-weight: normal;
+        font-size: 16px;
     }
 
     #expired_widget {
@@ -78,63 +85,23 @@
         font-weight: normal;
     }
 
-    /* Hide the default radio button appearance */
-    input[type="radio"] {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-    }
-
-    /* Style the label as a button */
-    input[type="radio"] + label {
-        display: inline-block;
-        padding: 10px 18px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background-color: #f7f7f7;
-        cursor: pointer;
-        font-size: 24px;
-    }
-
-    /* Style the label text */
-    input[type="radio"] + label span {
-        font-size: 18px;
+    .satisfaction {
+        font-size: 22px;
         font-weight: bold;
         color: #333;
-    }
-
-    /* Add a hover effect */
-    input[type="radio"] + label:hover {
-        background-color: #eee;
-    }
-
-    /* Add a checked state effect */
-    input[type="radio"]:checked + label {
         background-color: #ffcd05;
-        border: 1px solid #ffcd05;
-        color: #282832;
-        transition: background-color 0.9s;
-    }
-
-    .label-row {
-        display: flex;
-        flex-wrap: wrap;
-        width: 85%;
-        margin: 0 auto
-    }
-
-    .label-row .col-50 {
-        flex-basis: 50%;
-    }
-
-    .label-row .col-50 span {
-        font-size: 12px;
+        display: inline-block;
+        padding: 12px 20px;
+        border: 1px solid #282832;
+        border-radius: 4px;
     }
 
     textarea {
         margin-top: 5px;
         padding: 10px;
-        width: 95%
+        width: 95%;
+        border: 1px solid #282832;
+        border-radius: 4px;
     }
 
     input[type="submit"] {
@@ -149,6 +116,7 @@
         cursor: pointer;
         border-radius: 4px;
         font-weight: bold;
+        border: 1px solid #282832;
     }
 
     /* Add a hover effect */
@@ -177,6 +145,9 @@
 
 <div class="wrapper">
     <div class="logo_section" id="logo_section"></div>
+
+    <div id="error">
+    </div>
     
     <div id="expired_widget">
         <p align="center">
@@ -186,33 +157,16 @@
     </div>
 
     <div id="form_widget">
-        <h3>Thanks for your interest and taking the time to share your rating!</h3>
+        <h3>Thanks for taking the time to share your rating!</h3>
         
         <form name="csat">
-            <div class="row">
-                <label for="satisfaction">On a scale of 1 to 5, how satisfied were you with the assistance provided by our Customer Service agent?</label>
-                <div class="satisfaction">
-                    <ul>
-                        <li><input type="radio" id="satisfaction1" name="satisfaction" value="1"><label for="satisfaction1"> 1</label></li>
-                        <li><input type="radio" id="satisfaction2" name="satisfaction" value="2"><label for="satisfaction2"> 2</label></li>
-                        <li><input type="radio" id="satisfaction3" name="satisfaction" value="3"><label for="satisfaction3"> 3</label></li>
-                        <li><input type="radio" id="satisfaction4" name="satisfaction" value="4"><label for="satisfaction4"> 4</label></li>
-                        <li><input type="radio" id="satisfaction5" name="satisfaction" value="5"><label for="satisfaction5"> 5</label></li>
-                    </ul>
-                    <div class="label-row">
-                        <div class="col-50" align="left">
-                          <span>Very dissatisfied</span>
-                        </div>
-                        <div class="col-50" align="right">
-                          <span>Very satisfied</span>
-                        </div>
-                      </div>
-                </div>
+            <div class="row_satisfaction">
+                <div class="satisfaction" id="csat_rating"></div>
             </div>
 
             <div class="row">
-                <label id="followup" for="comments"><strong>Please share additional comments or suggestions to help us improve our service:</strong></label>
-                <textarea id="comments" name="comments" rows="4" cols="50" value=""></textarea>
+                <label id="followup" for="comments"></label>
+                <textarea id="comments" name="comments" rows="6" cols="50" value=""></textarea>
             </div>
 
             <div class="row" align="center">
@@ -227,64 +181,21 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-    // Get the div element where you want to insert the HTML
-    const labelmsg = document.getElementById('followup');
-
-    // Get the radio buttons
-    const radioButtons = document.getElementsByName('satisfaction');
-
-    // Add an event listener to each radio button
-    radioButtons.forEach((radioButton) => {
-    radioButton.addEventListener('change', (event) => {
-        // Get the selected radio button's value
-        const selectedValue = event.target.value;
-
-        // Define the HTML code for each radio button value
-        let msg;
-        switch (selectedValue) {
-        case '1':
-            msg = "<strong>We’re sorry to hear that your expectations weren’t met. We’d love to make things right!</strong> Please feel free to share any additional comments or suggestions so we can fine-tune our service.";
-            break;
-        case '2':
-            msg = "<strong>We understand that your experience could have been better, and we’re committed to improving.</strong> Please feel free to share any additional comments or suggestions so we can fine-tune our service.";
-            break;
-        case '3':
-            msg = "<strong>It seems there’s room for improvement, and we’d like to know how we can make your future experience better!</strong> Please feel free to share any additional comments or suggestions so we can fine-tune our service.";
-            break;
-        case '4':
-            msg = "<strong>We’re glad you had a good experience, but we’re always striving for excellence.</strong> Please feel free share additional comments or suggestions so we fine-tune our service:";
-            break;
-        case '5':
-            msg = "<strong>We’re thrilled that you had a great experience! Your feedback motivates us to keep delivering top-notch service.</strong> Please feel free to share any additional comments or suggestions if there’s anything else we can do for you:";
-            break;
-        // Add more cases for each radio button value
-        default:
-            htmlCode = "<strong>Please share additional comments or suggestions to help us improve our service:<strong>";
-        }
-
-        // Insert the HTML code into the div element
-        labelmsg.innerHTML = msg;
-    });
-    });
-</script>
-
-<script>
-
     var form = document.forms['csat'];
     var btnSubmit = document.getElementById("btnSubmit");
 
-    var csid = new URLSearchParams(window.location.search).get('csid');
-    var obj = JSON.parse(atob(csid));
-    var csr_voice_csat_link_expiry = obj.csr_voice_csat_link_expiry || null;
-    var csr_voice_csat_invite_at = obj.csr_voice_csat_invite_at || null;
-    var email = obj.email;
-    var name = obj.firstname + " " + obj.lastname;
-    var agent_username = obj.agent_user_name;
-    var order_id = obj.merchant_order_id;
-    var domain_name = obj.domain_name + " / " + obj.server_name;
-    var domain = obj.domain_name ? obj.domain_name.toLowerCase() : null;
-    var sitecode = obj.sitecode ? obj.sitecode.toLowerCase() : null;
-    var disposition = obj.disposition_text;
+    var csid = JSON.parse(atob(new URLSearchParams(window.location.search).get('csid')));
+    var csrating = atob(new URLSearchParams(window.location.search).get('csrating'));
+    var csr_voice_csat_link_expiry = csid.csr_voice_csat_link_expiry || null;
+    var csr_voice_csat_invite_at = csid.csr_voice_csat_invite_at || null;
+    var email = csid.email;
+    var name = csid.firstname + " " + csid.lastname;
+    var agent_username = csid.agent_user_name;
+    var order_id = csid.merchant_order_id;
+    var domain_name = csid.domain_name + " / " + csid.server_name;
+    var domain = csid.domain_name ? csid.domain_name.toLowerCase() : null;
+    var sitecode = csid.sitecode ? csid.sitecode.toLowerCase() : null;
+    var disposition = csid.disposition_text;
 
     // Function to add days to a date
     function addDays(date, days) {
@@ -328,7 +239,7 @@
     // Function to display the appropriate logo based on the site code or domain
     function displayLogo(domain, sitecode) {
         let logoSection = document.getElementById("logo_section");
-
+        
         if (domain === 'carparts.com') {
             logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/227464/content/carpartscom.png' alt='CarParts.com'>";
         } else if (sitecode === 'carpartswholesale' || sitecode === 'carpartswholesale-whi') {
@@ -342,6 +253,36 @@
         } else if (sitecode === 'returnedcarparts.ebay-ams.com') {
             logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/163612/content/ebay-rcp.png' alt='Returned Car Parts'>";
         }
+    }
+
+    // Follow-up question
+    function csatFollowupQ(csrating) {
+        document.getElementById("csat_rating").textContent = csrating;
+        // Define the HTML code for each radio button value
+        let msg;
+        switch (csrating) {
+        case '1':
+            msg = "<strong>We’re sorry to hear that your expectations weren’t met. We’d&nbsp;love&nbsp;to make things right!</strong> <br><br>Please feel free to share any additional comments or suggestions so we can fine-tune our service.";
+            break;
+        case '2':
+            msg = "<strong>We understand that your experience could have been better, and we’re committed to improving.</strong> <br><br>Please feel free to share any additional comments or suggestions so we can fine-tune our service.";
+            break;
+        case '3':
+            msg = "<strong>It seems there’s room for improvement, and we’d like to know how we can make your future experience better!</strong> <br><br>Please feel free to share any additional comments or suggestions so we can fine-tune our service.";
+            break;
+        case '4':
+            msg = "<strong>We’re glad you had a good experience, but we’re always striving for excellence.</strong> <br><br>Please feel free share additional comments or suggestions so we fine-tune our service:";
+            break;
+        case '5':
+            msg = "<strong>We’re thrilled that you had a great experience! Your&nbsp;feedback&nbsp;motivates us to keep delivering top-notch service.</strong> <br><br>Please feel free to share any additional comments or suggestions if there’s anything else we can do for you:";
+            break;
+        // Add more cases for each radio button value
+        default:
+            htmlCode = "<strong>Please share additional comments or suggestions to help us improve our service:<strong>";
+        }
+
+        // Insert the HTML code into the div element
+        document.getElementById('followup').innerHTML = msg;
     }
 
     // Function to handle the CSAT form submission - Legacy
@@ -432,12 +373,17 @@
 
     // Main execution starts here
     $(document).ready(function () {
-        if (!csid) {
-            alert('Broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
+        if (!csid || !csrating) {
+            document.getElementById("error").innerHTML = "<p>Broken link! <br>Please reply to the email, and our customer service team will be happy to assist you further.</p>";
+            document.getElementById('expired_widget').style.display = 'none';
+            document.getElementById('form_widget').style.display = 'none';
         } else {
             
             // Display the appropriate logo
             displayLogo(domain, sitecode);
+            
+            // Follow-up question
+            csatFollowupQ(csrating);
 
             // Handle the CSAT form submission logic
             if (csr_voice_csat_link_expiry != null) {
@@ -448,10 +394,6 @@
                 document.getElementById('expired_widget').style.display = 'block';
                 document.getElementById('form_widget').style.display = 'none';
             }
-            
-
-            
-
         }
     });
 </script>
