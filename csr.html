@@ -7,17 +7,14 @@
 <title>CSR Voice CSAT Survey</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="icon" href="https://cld.partsimg.com/image/upload/h_200,w_200,f_auto,q_auto/carparts/logos/badge/blue/CP_BADGE_RGB_BLUE_HR.png">
 <style>
     body {
         margin: 15px;
+        font-family: 'Roboto', Arial, sans-serif;
     }
     
-    * {
-        font-family: 'Roboto', Arial, sans-serif !important;
-    }
-
     .wrapper {
         display: block;
         margin: 0 auto;
@@ -43,8 +40,8 @@
     }
 
     #expired_widget p, #form_widget p {
-        line-height: 160%;
-        font-weight: normal;
+        line-height: 1.6;
+        font-weight: 400;
         font-size: 16px;
     }
 
@@ -74,18 +71,15 @@
     label {
         display: inline-block;
         margin-bottom: 5px;
-        font-weight: bold;
-        line-height: 140%;
+        font-weight: 700;
+        line-height: 1.4;
     }
 
-    /* Hide the default radio button appearance */
     input[type="radio"] {
         position: absolute;
         opacity: 0;
-        cursor: pointer;
     }
 
-    /* Style the label as a button */
     input[type="radio"] + label {
         display: inline-block;
         padding: 10px 18px;
@@ -96,24 +90,21 @@
         font-size: 24px;
     }
 
-    /* Style the label text */
     input[type="radio"] + label span {
         font-size: 18px;
-        font-weight: bold;
+        font-weight: 700;
         color: #333;
     }
 
-    /* Add a hover effect */
     input[type="radio"] + label:hover {
         background-color: #eee;
     }
 
-    /* Add a checked state effect */
     input[type="radio"]:checked + label {
         background-color: #ffcd05;
-        border: 1px solid #ffcd05;
+        border-color: #ffcd05;
         color: #282832;
-        transition: background-color 0.9s;
+        transition: background-color 0.3s;
     }
 
     .label-row {
@@ -124,7 +115,7 @@
     }
 
     .label-row .col-50 {
-        flex-basis: 50%;
+        flex: 0 0 50%;
     }
 
     .label-row .col-50 span {
@@ -134,7 +125,8 @@
     textarea {
         margin-top: 5px;
         padding: 10px;
-        width: 95%
+        width: 95%;
+        box-sizing: border-box;
     }
 
     input[type="submit"] {
@@ -148,25 +140,17 @@
         font-size: 18px;
         cursor: pointer;
         border-radius: 4px;
-        font-weight: bold;
+        font-weight: 700;
     }
 
-    /* Add a hover effect */
-    input[type="submit"]:hover {
-        transition: background-color 0.9s;
-    }
-        
     #response {
         font-size: 14px;
-        font-weight: bold;
+        font-weight: 700;
     }
 
-    @media only screen and (max-width: 460px) {
+    @media (max-width: 460px) {
         .mob-no {
             display: none !important;
-            overflow: hidden !important;
-            width: 0 !important;
-            height: 0 !important;
         }
     }
 </style>
@@ -178,7 +162,7 @@
     <div class="logo_section" id="logo_section"></div>
     
     <div id="expired_widget">
-        <p align="center">
+        <p style="text-align: center">
             Thank you for your interest, but the survey is now closed. 
             <br class="mob-no">We hope to hear from you in the future!
         </p>
@@ -201,10 +185,10 @@
                         <li><input type="radio" id="satisfaction5" name="satisfaction" value="5"><label for="satisfaction5"> 5</label></li>
                     </ul>
                     <div class="label-row">
-                        <div class="col-50" align="left">
+                        <div class="col-50" style="text-align: left">
                           <span>Very dissatisfied</span>
                         </div>
-                        <div class="col-50" align="right">
+                        <div class="col-50" style="text-align: right">
                           <span>Very satisfied</span>
                         </div>
                     </div>
@@ -222,10 +206,10 @@
                         <li><input type="radio" id="audio_quality5" name="audio_quality" value="5"><label for="audio_quality5"> 5</label></li>
                     </ul>
                     <div class="label-row">
-                        <div class="col-50" align="left">
+                        <div class="col-50" style="text-align: left">
                           <span>Very poor</span>
                         </div>
-                        <div class="col-50" align="right">
+                        <div class="col-50" style="text-align: right">
                           <span>Excellent</span>
                         </div>
                     </div>
@@ -234,10 +218,10 @@
 
             <div class="row">
                 <label for="comments">Please share additional comments or suggestions to help us improve our service:</label>
-                <textarea id="comments" name="comments" rows="4" cols="50" value=""></textarea>
+                <textarea id="comments" name="comments" rows="4"></textarea>
             </div>
 
-            <div class="row" align="center">
+            <div class="row" style="text-align: center">
                 <input id="btnSubmit" type="submit" value="Submit">
                 <div id="response"></div>
             </div>
@@ -245,33 +229,115 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <script>
-
-    var form = document.forms['csat'];
-    var btnSubmit = document.getElementById("btnSubmit");
-
-    var csid = new URLSearchParams(window.location.search).get('csid');
-    var obj = JSON.parse(atob(csid));
-    var csr_voice_csat_link_expiry = obj.csr_voice_csat_link_expiry || null;
-    var csr_voice_csat_invite_at = obj.csr_voice_csat_invite_at || null;
-    var email = obj.email;
-    var name = obj.firstname + " " + obj.lastname;
-    var agent_username = obj.agent_user_name;
-    var order_id = obj.merchant_order_id;
-    var domain_name = obj.domain_name + " / " + obj.server_name;
-    var domain = obj.domain_name ? obj.domain_name.toLowerCase() : null;
-    var sitecode = obj.sitecode ? obj.sitecode.toLowerCase() : null;
-    var disposition = obj.disposition_text;
-
-    // Function to add days to a date
-    function addDays(date, days) {
-        let result = new Date(date);
-        result.setDate(result.getDate() + days);
+(function() {
+    'use strict';
+    
+    // DOM elements
+    const form = document.forms.csat;
+    const btnSubmit = document.getElementById("btnSubmit");
+    const responseDiv = document.getElementById("response");
+    const expiredWidget = document.getElementById("expired_widget");
+    const formWidget = document.getElementById("form_widget");
+    
+    // URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const csid = urlParams.get('csid');
+    
+    if (!csid) {
+        alert('Broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
+        return;
+    }
+    
+    // Parse CSID data
+    let obj;
+    try {
+        obj = JSON.parse(atob(csid));
+    } catch (e) {
+        console.error("Error parsing CSID:", e);
+        alert('Invalid survey link. Please contact customer service.');
+        return;
+    }
+    
+    const {
+        csr_voice_csat_link_expiry = null,
+        csr_voice_csat_invite_at = null,
+        email,
+        firstname = '',
+        lastname = '',
+        agent_user_name: agent_username,
+        merchant_order_id: order_id,
+        domain_name: rawDomainName = '',
+        server_name = '',
+        disposition_text: disposition,
+        sitecode = null
+    } = obj;
+    
+    const name = `${firstname} ${lastname}`.trim();
+    const domain_name = `${rawDomainName} / ${server_name}`;
+    const domain = rawDomainName ? rawDomainName.toLowerCase() : null;
+    const siteCode = sitecode ? sitecode.toLowerCase() : null;
+    
+    // Logo mapping
+    const LOGOS = {
+        'carparts.com': {
+            src: 'https://cdn.getblueshift.com/pictures/227464/content/carpartscom.png',
+            alt: 'CarParts.com',
+            width: 200
+        },
+        'carpartswholesale': {
+            src: 'https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png',
+            alt: 'CarParts.com',
+            width: 180
+        },
+        'carpartswholesale-whi': {
+            src: 'https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png',
+            alt: 'CarParts.com',
+            width: 180
+        },
+        'carpartswholesale.ebay-ams.com': {
+            src: 'https://cdn.getblueshift.com/pictures/162960/content/ebay-cpw.png',
+            alt: 'CarPars Wholesale on eBay',
+            width: 200
+        },
+        'carparts.ebay-ams.com': {
+            src: 'https://cdn.getblueshift.com/pictures/162481/content/ebay-carparts.png',
+            alt: 'CarParts on eBay',
+            width: 200
+        },
+        'jcwhitney.ebay-ams.com': {
+            src: 'https://cdn.getblueshift.com/pictures/162479/content/ebay-jcwhitney.png',
+            alt: 'JC Whitney on eBay',
+            width: 200
+        },
+        'returnedcarparts.ebay-ams.com': {
+            src: 'https://cdn.getblueshift.com/pictures/163612/content/ebay-rcp.png',
+            alt: 'Returned Car Parts',
+            width: 200
+        }
+    };
+    
+    // Display logo based on domain/sitecode
+    function displayLogo() {
+        const logoSection = document.getElementById("logo_section");
+        let logoKey = domain;
         
-        // Adjust the result date to the Pacific Time zone (US & Canada)
+        if (!logoKey || !LOGOS[logoKey]) {
+            logoKey = siteCode;
+        }
+        
+        if (logoKey && LOGOS[logoKey]) {
+            const logo = LOGOS[logoKey];
+            logoSection.innerHTML = `
+                <img class="logo" 
+                     style="width:${logo.width}px; height:auto" 
+                     src="${logo.src}" 
+                     alt="${logo.alt}">`;
+        }
+    }
+    
+    // Get current date in Pacific Time
+    function getCurrentDatePacificTime() {
         const options = {
             timeZone: 'America/Los_Angeles',
             year: 'numeric',
@@ -281,163 +347,165 @@
             minute: '2-digit',
             second: '2-digit'
         };
-
-        // Format and parse to get the correct date in the specified timezone
-        let adjustedDate = new Date(
-            new Intl.DateTimeFormat('en-US', options).format(result)
+        
+        const formatter = new Intl.DateTimeFormat('en-US', options);
+        const parts = formatter.formatToParts(new Date());
+        const { year, month, day, hour, minute, second } = Object.fromEntries(
+            parts.map(part => [part.type, part.value])
         );
-
-        return adjustedDate;
+        
+        return new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}-08:00`);
     }
-
-    // Function to get the current date in Pacific Time
-    function getCurrentDatePacificTime() {
-        return new Date(
-            new Intl.DateTimeFormat('en-US', {
-                timeZone: 'America/Los_Angeles',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            }).format(new Date())
-        );
+    
+    // Add days to a date
+    function addDays(date, days) {
+        const result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
     }
-
-    // Function to display the appropriate logo based on the site code or domain
-    function displayLogo(domain, sitecode) {
-        let logoSection = document.getElementById("logo_section");
-
-        if (domain === 'carparts.com') {
-            logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/227464/content/carpartscom.png' alt='CarParts.com'>";
-        } else if (sitecode === 'carpartswholesale' || sitecode === 'carpartswholesale-whi') {
-            logoSection.innerHTML = "<img class='logo' style='width:180px; height: auto' src='https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png' alt='CarParts.com'>";
-        } else if (sitecode === 'carpartswholesale.ebay-ams.com') {
-            logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162960/content/ebay-cpw.png' alt='CarPars Wholesale on eBay'>";
-        } else if (sitecode === 'carparts.ebay-ams.com') {
-            logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162481/content/ebay-carparts.png' alt='CarParts on eBay'>";
-        } else if (sitecode === 'jcwhitney.ebay-ams.com') {
-            logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/162479/content/ebay-jcwhitney.png' alt='JC Whitney on eBay'>";
-        } else if (sitecode === 'returnedcarparts.ebay-ams.com') {
-            logoSection.innerHTML = "<img class='logo' style='width:200px; height: auto' src='https://cdn.getblueshift.com/pictures/163612/content/ebay-rcp.png' alt='Returned Car Parts'>";
-        }
+    
+    // Check if survey is expired (legacy)
+    function isSurveyExpiredLegacy(inviteDate) {
+        if (!inviteDate) return true;
+        
+        const currentDate = getCurrentDatePacificTime();
+        const expiryDate = addDays(new Date(inviteDate), 8);
+        return currentDate > expiryDate;
     }
-
-    // Function to handle the CSAT form submission - Legacy
-    function handleCSATLegacy(csr_voice_csat_invite_at) {
-        let currentdate = getCurrentDatePacificTime();
-
-        if (csr_voice_csat_invite_at === null) {
-            document.getElementById('expired_widget').style.display = 'block';
-            document.getElementById('form_widget').style.display = 'none';
-        } else {
-            let linkexpirydate = addDays(new Date(csr_voice_csat_invite_at), 8);
-
-            if (linkexpirydate > currentdate) {
-                document.forms['csat'].addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    submitCSATForm();
-                });
-            } else {
-                document.getElementById('expired_widget').style.display = 'block';
-                document.getElementById('form_widget').style.display = 'none';
-            }
-        }
-    }
-
-    // Function to handle the CSAT form submission - Dynamic
-    function csatExpiryEval(csr_voice_csat_link_expiry) {
-        let currentdatetime = getCurrentDatePacificTime();
-        let linkexpiry = csr_voice_csat_link_expiry;
-        linkexpiry_datetime = new Date(
-            linkexpiry.split("T")[0].split("-")[0], // year
-            linkexpiry.split("T")[0].split("-")[1] - 1, // month ( subtract 1 because months are 0-based)
-            linkexpiry.split("T")[0].split("-")[2], // day
-            linkexpiry.split("T")[1].split(":")[0], // hour
-            linkexpiry.split("T")[1].split(":")[1], // minutes
-            linkexpiry.split("T")[1].split(":")[2].replace(/\-.*/, '') // seconds (remove timezone offset)
-        );
-        if (linkexpiry_datetime > currentdatetime) {
-            document.forms['csat'].addEventListener('submit', function (e) {
-                e.preventDefault();
-                submitCSATForm();
-            });
-        } else {
-            document.getElementById('expired_widget').style.display = 'block';
-            document.getElementById('form_widget').style.display = 'none';
-        }
-    }
-
-    // Function to submit the CSAT form
-    function submitCSATForm() {
-        let xhr = new XMLHttpRequest();
-        let radioselectedValuesSatisfaction = {
-            satisfaction: $("input[name='satisfaction']:checked").val()
-        };
-        let radioselectedValuesAudio = {
-            audio_quality: $("input[name='satisfaction']:checked").val()
-        };
-        let comments = document.getElementById("comments").value;
-        let message = `Order Id: ${order_id}\nDomain/Server: ${domain_name}\n\nDisposition: ${disposition}\nCSR: ${agent_username}\n\nOn a scale of 1 to 5, \n\nHow satisfied were you with the assistance provided by our Customer Service agent? \n${radioselectedValuesSatisfaction.satisfaction}\n\nHow would you rate the audio quality of your recent call? \n${radioselectedValuesAudio.audio_quality}\n\nPlease share additional comments or suggestions to help us improve our service: \n${comments}`;
-        let data = {
-            title: "CSR Voice CSAT Survey",
-            email: email,
-            message: message,
-            agent_username: agent_username,
-            order_id: order_id,
-            domain_name: domain_name,
-            disposition: disposition,
-            satisfaction: radioselectedValuesSatisfaction.satisfaction,
-            audio: radioselectedValuesAudio.audio_quality,
-            comments: comments
-        };
-
-        if (radioselectedValuesSatisfaction.satisfaction === "" || radioselectedValuesSatisfaction.satisfaction === undefined) {
-            document.getElementById("response").innerHTML = "<p style='color: #cc0202'>Please provide answers.</p>";
-        } else if (radioselectedValuesAudio.audio_quality === "" || radioselectedValuesAudio.audio_quality === undefined) {
-            document.getElementById("response").innerHTML = "<p style='color: #cc0202'>Please provide answers.</p>";
-        } else {
-            document.getElementById("response").innerHTML = "<p>Please wait...</p>";
-            xhr.open('POST', '#');
-            xhr.setRequestHeader("Accept", "application/json;charset=UTF-8");
-            xhr.setRequestHeader("Authorization", "Bearer #");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    let form = document.forms['csat'];
-                    form.btnSubmit.style.cursor = "default";
-                    form.btnSubmit.value = "Submitted";
-                    form.btnSubmit.disabled = true;
-                    form.btnSubmit.style.backgroundColor = "#f7f7f7";
-                    document.getElementById("response").innerHTML = "<p>Thank you for your feedback!</p>";
-                }
-            };
-            xhr.send(JSON.stringify(data));
-            console.log((JSON.stringify(data)))
-        }
-    }
-
-    // Main execution starts here
-    $(document).ready(function () {
-        if (!csid) {
-            alert('Broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
-        } else {
+    
+    // Check if survey is expired (new)
+    function isSurveyExpired(expiryDateString) {
+        if (!expiryDateString) return true;
+        
+        try {
+            const [datePart, timePart] = expiryDateString.split('T');
+            const [year, month, day] = datePart.split('-');
+            const [time, offset] = timePart.split(/(-|\+)/);
+            const [hours, minutes, seconds] = time.split(':');
             
-            // Display the appropriate logo
-            displayLogo(domain, sitecode);
-
-            // Handle the CSAT form submission logic
-            if (csr_voice_csat_link_expiry != null) {
-                csatExpiryEval(csr_voice_csat_link_expiry);
-            } else if (csr_voice_csat_invite_at != null) {
-                handleCSATLegacy(csr_voice_csat_invite_at); 
-            } else {
-                document.getElementById('expired_widget').style.display = 'block';
-                document.getElementById('form_widget').style.display = 'none';
-            }
-
+            // Create date with timezone offset
+            const expiryDate = new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}${offset ? offset : ''}`);
+            
+            return getCurrentDatePacificTime() > expiryDate;
+        } catch (e) {
+            console.error("Error parsing expiry date:", e);
+            return true;
         }
-    });
+    }
+    
+    // Get authentication token
+    async function getToken() {
+        try {
+            const response = await fetch("https://script.google.com/macros/s/AKfycby2R35znp1gqqr9NKVIZOD8PujpKvGlXvW6QO3ND5CT8cThxAqmWuhVZLm6Hef8FDESUA/exec", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `data=${encodeURIComponent(JSON.stringify({ action: "get_token" }))}`
+            });
+            
+            if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+            
+            const data = await response.json();
+            return data.accessToken || null;
+        } catch (error) {
+            console.error("Error fetching token:", error);
+            return null;
+        }
+    }
+    
+    // Submit CSAT form
+    async function submitCSATForm(event) {
+        event.preventDefault();
+        
+        const satisfaction = form.satisfaction.value;
+        const audioQuality = form.audio_quality.value;
+        const comments = form.comments.value;
+        
+        if (!satisfaction || !audioQuality) {
+            responseDiv.innerHTML = "<p style='color: #cc0202'>Please answer all questions.</p>";
+            return;
+        }
+        
+        responseDiv.innerHTML = "<p>Please wait...</p>";
+        btnSubmit.disabled = true;
+        
+        try {
+            const token = await getToken();
+            if (!token) {
+                throw new Error("Unable to authenticate");
+            }
+            
+            const message = `Order Id: ${order_id}\nDomain/Server: ${domain_name}\n\nDisposition: ${disposition}\nCSR: ${agent_username}\n\nOn a scale of 1 to 5, \n\nHow satisfied were you with the assistance provided by our Customer Service agent? \n${satisfaction}\n\nHow would you rate the audio quality of your recent call? \n${audioQuality}\n\nPlease share additional comments or suggestions to help us improve our service: \n${comments}`;
+            
+            const data = {
+                title: "CSR Voice CSAT Survey",
+                email: email,
+                message: message,
+                agent_username: agent_username,
+                order_id: order_id,
+                domain_name: domain_name,
+                disposition: disposition,
+                satisfaction: satisfaction,
+                audio: audioQuality,
+                comments: comments
+            };
+            
+            const response = await fetch('https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json;charset=UTF-8',
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+            
+            btnSubmit.value = "Submitted";
+            btnSubmit.style.backgroundColor = "#f7f7f7";
+            responseDiv.innerHTML = "<p>Thank you for your feedback!</p>";
+        } catch (error) {
+            console.error("Submission error:", error);
+            responseDiv.innerHTML = `<p style='color: #cc0202'>Error: ${error.message || "Submission failed"}</p>`;
+            btnSubmit.disabled = false;
+        }
+    }
+    
+    // Initialize the survey
+    function initSurvey() {
+        displayLogo();
+        
+        if (csr_voice_csat_link_expiry) {
+            if (isSurveyExpired(csr_voice_csat_link_expiry)) {
+                showExpired();
+            } else {
+                setupForm();
+            }
+        } else if (csr_voice_csat_invite_at) {
+            if (isSurveyExpiredLegacy(csr_voice_csat_invite_at)) {
+                showExpired();
+            } else {
+                setupForm();
+            }
+        } else {
+            showExpired();
+        }
+    }
+    
+    function showExpired() {
+        expiredWidget.style.display = 'block';
+        formWidget.style.display = 'none';
+    }
+    
+    function setupForm() {
+        form.addEventListener('submit', submitCSATForm);
+    }
+    
+    // Start the application
+    document.addEventListener('DOMContentLoaded', initSurvey);
+})();
 </script>
 </body>
 </html>
