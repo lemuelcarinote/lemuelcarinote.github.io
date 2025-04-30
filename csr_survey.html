@@ -249,9 +249,10 @@
 <script>
     // Constants and configuration
     const CONFIG = {
-        kx_secret: 'https://script.google.com/macros/s/AKfycbxXeX_8NXD6Kvf-cQyDI4jRxHSyubOy4sSe4-cOD82CZqgNVsLonRklpPcnR2yiee52SQ/exec', 
+        kx_secret: 'https://script.google.com/macros/s/AKfycby2R35znp1gqqr9NKVIZOD8PujpKvGlXvW6QO3ND5CT8cThxAqmWuhVZLm6Hef8FDESUA/exec', 
         kx_endpoint: 'https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0' 
     };
+
     // Main CSAT Form Handler
     class CSATForm {
         constructor() {
@@ -396,27 +397,61 @@
         
         async fetchTokenFromAppsScript() {
             try {
+                console.log('Attempting to fetch token from:', CONFIG.kx_secret);
+                
                 const response = await fetch(CONFIG.kx_secret, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
-                    }
+                    },
+                    // Add timeout handling
+                    signal: AbortSignal.timeout(8000) // 8 second timeout
+                }).catch(err => {
+                    console.error('Network error:', err);
+                    throw new Error(`Network error: ${err.message}`);
                 });
                 
+                console.log('Response status:', response.status);
+                
                 if (!response.ok) {
-                    throw new Error('Failed to fetch token');
+                    const errorText = await response.text();
+                    console.error('API error response:', errorText);
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
-                const data = await response.json();
+                const data = await response.json().catch(err => {
+                    console.error('JSON parsing error:', err);
+                    throw new Error('Invalid JSON response');
+                });
+                
+                console.log('API response data:', data);
                 
                 if (data.status !== "success") {
-                    console.error('Apps Script error:', data.error || 'Unknown error');
-                    return null;
+                    console.error('Apps Script error:', data.error || 'No accessToken returned');
+                    throw new Error(data.error || 'No accessToken returned');
+                }
+                
+                if (!data.accessToken) {
+                    throw new Error('Access token is empty');
                 }
                 
                 return data.accessToken;
             } catch (error) {
-                console.error('Error fetching token from Apps Script:', error);
+                console.error('Error in fetchTokenFromAppsScript:', {
+                    error: error.message,
+                    stack: error.stack,
+                    timestamp: new Date().toISOString()
+                });
+                
+                // Update UI to show error to user
+                this.responseDiv.innerHTML = `
+                    <p style='color: #cc0202'>
+                        Temporary service issue. Please try again later.
+                        <br><small>${error.message}</small>
+                    </p>
+                `;
+                
+                this.btnSubmit.disabled = false;
                 return null;
             }
         }
