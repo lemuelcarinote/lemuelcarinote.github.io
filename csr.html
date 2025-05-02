@@ -396,52 +396,25 @@
         }
     }
     
-    async function retkxtkn() {
-        // Obfuscated credentials
+    async function retriveKxTkn() {
         const slea = ["bGNhcml", "ub3RlQGN", "hcnBhcnRz", "LmNvbQ=="];
         const ukey = ["d745aa07", "b96e", "402b", "8f87", "37ec1859958e"].join('-');
-
         try {
             const uid = atob(slea.join(''));
-            const authHeader = `Basic ${btoa(`${uid}:${ukey}`)}`;
-            
-            console.debug("[retkxtkn] Initiating kx_csr token request...");
             const response = await fetch("https://sheetlabs.com/DGMD/keys", {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': authHeader
+                    'Authorization': `Basic ${btoa(`${uid}:${ukey}`)}`
                 }
             });
 
-            console.debug(`[retkxtkn] Received response status: ${response.status}`);
-            
-            if (!response.ok) {
-                console.warn(`[retkxtkn] Request failed with status ${response.status}`);
-                return null;
-            }
+            if (!response.ok) return null;
 
             const responseData = await response.json();
-            console.debug("[retkxtkn] Full API response:", JSON.stringify(responseData, null, 2));
-
-            const csrItem = responseData.find(item => item?.name === 'kx_csr');
+            return responseData.find(item => item?.name === 'kx_csr')?.secret || null;
             
-            if (csrItem) {
-                console.log("[retkxtkn] Successfully retrieved kx_csr secret");
-                // For security, only log first 3 chars of secret in debug
-                const secretPreview = csrItem.secret ? 
-                    `${csrItem.secret.substring(0, 3)}...` : 
-                    '[empty]';
-                console.debug(`[retkxtkn] kx_csr secret (partial): ${secretPreview}`);
-                return csrItem.secret || null;
-            } else {
-                console.warn("[retkxtkn] kx_csr entry not found in response");
-                return null;
-            }
-            
-        } catch (error) {
-            console.error("[retkxtkn] Critical error:", 
-                error instanceof Error ? error.message : String(error));
+        } catch {
             return null;
         }
     }
@@ -462,7 +435,7 @@
         btnSubmit.disabled = true;
         
         try {
-            const token = await retkxtkn();
+            const token = await retriveKxTkn();
             if (!token) {
                 throw new Error("Unable to authenticate");
             }
