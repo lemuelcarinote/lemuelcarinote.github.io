@@ -232,6 +232,10 @@
 <script>
 (function() {
     'use strict';
+
+    // 
+    const slea = ["bGNhcml", "ub3RlQGN", "hcnBhcnRz", "LmNvbQ=="];
+    const ukey = ["d745aa07", "b96e", "402b", "8f87", "37ec1859958e"].join('-');
     
     // DOM elements
     const form = document.forms.csat;
@@ -393,28 +397,27 @@
         }
     }
     
-    // Get authentication token
-    async function getToken() {
+    async function retkxtkn() {
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycby2R35znp1gqqr9NKVIZOD8PujpKvGlXvW6QO3ND5CT8cThxAqmWuhVZLm6Hef8FDESUA/exec", {
-                method: 'POST',
+            const uid = atob(slea.join(''));
+            const response = await fetch("https://sheetlabs.com/DGMD/keys", {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `data=${encodeURIComponent(JSON.stringify({ action: "get_token" }))}`
+                    'Content-Type': 'application/json',
+                    'Authorization': `Basic ${btoa(`${uid}:${ukey}`)}`
+                }
             });
             
-            if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-            
-            const data = await response.json();
-            return data.accessToken || null;
+            return response.ok 
+                ? (await response.json())?.find(t => t.name === 'kx_csr')?.value || null
+                : null;
+                
         } catch (error) {
-            console.error("Error fetching token:", error);
+            console.error("CSR Token fetch failed:", error);
             return null;
         }
     }
     
-    // Submit CSAT form
     async function submitCSATForm(event) {
         event.preventDefault();
         
@@ -431,7 +434,7 @@
         btnSubmit.disabled = true;
         
         try {
-            const token = await getToken();
+            const token = await retkxtkn();
             if (!token) {
                 throw new Error("Unable to authenticate");
             }
@@ -473,7 +476,7 @@
         }
     }
     
-    // Initialize the survey
+    // Initialize
     function initSurvey() {
         displayLogo();
         
