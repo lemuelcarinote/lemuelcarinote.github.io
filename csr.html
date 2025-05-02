@@ -468,6 +468,32 @@
             btnSubmit.value = "Submitted";
             btnSubmit.style.backgroundColor = "#f7f7f7";
             responseDiv.innerHTML = "<p>Thank you for your feedback!</p>";
+
+            const cleanup = () => {
+                try {
+                    // Clear sensitive data
+                    data.message = null;
+                    data.email = null;
+                    token = null;
+                    
+                    // Clear form data
+                    form.satisfaction.value = '';
+                    form.audio_quality.value = '';
+                    form.comments.value = '';
+                    
+                    // Force garbage collection (where supported)
+                    if (window.gc) {
+                        window.gc();
+                    }
+                } catch (e) {
+                    console.warn("Cleanup error:", e);
+                }
+            };
+            
+            // Run cleanup immediately and schedule another pass
+            cleanup();
+            setTimeout(cleanup, 500);
+            
         } catch (error) {
             console.error("Submission error:", error);
             responseDiv.innerHTML = `<p style='color: #cc0202'>Error: ${error.message || "Submission failed"}</p>`;
