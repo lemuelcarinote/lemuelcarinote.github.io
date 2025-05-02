@@ -471,17 +471,14 @@
 
             const cleanup = () => {
                 try {
-                    // Clear sensitive data
                     data.message = null;
                     data.email = null;
                     token = null;
                     
-                    // Clear form data
                     form.satisfaction.value = '';
                     form.audio_quality.value = '';
                     form.comments.value = '';
                     
-                    // Force garbage collection (where supported)
                     if (window.gc) {
                         window.gc();
                     }
