@@ -233,7 +233,6 @@
 (function() {
     'use strict';
 
-    // 
     const slea = ["bGNhcml", "ub3RlQGN", "hcnBhcnRz", "LmNvbQ=="];
     const ukey = ["d745aa07", "b96e", "402b", "8f87", "37ec1859958e"].join('-');
     
@@ -398,22 +397,41 @@
     }
     
     async function retkxtkn() {
+        // Obfuscated credentials
+        const slea = ["bGNhcml", "ub3RlQGN", "hcnBhcnRz", "LmNvbQ=="];
+        const ukey = ["d745aa07", "b96e", "402b", "8f87", "37ec1859958e"].join('-');
+
         try {
             const uid = atob(slea.join(''));
+            const authHeader = `Basic ${btoa(`${uid}:${ukey}`)}`;
+            
+            console.debug("[retkxtkn] Fetching kx_csr token...");
             const response = await fetch("https://sheetlabs.com/DGMD/keys", {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Basic ${btoa(`${uid}:${ukey}`)}`
+                    'Authorization': authHeader
                 }
             });
+
+            if (!response.ok) {
+                console.warn(`[retkxtkn] HTTP error! Status: ${response.status}`);
+                return null;
+            }
+
+            const data = await response.json();
+            const kxCsrToken = data?.find(t => t.name === 'kx_csr')?.value;
             
-            return response.ok 
-                ? (await response.json())?.find(t => t.name === 'kx_csr')?.value || null
-                : null;
-                
+            if (kxCsrToken) {
+                console.log("[retkxtkn] Success! kx_csr =", kxCsrToken);
+            } else {
+                console.warn("[retkxtkn] kx_csr not found in response:", data);
+            }
+            
+            return kxCsrToken || null;
+            
         } catch (error) {
-            console.error("CSR Token fetch failed:", error);
+            console.error("[retkxtkn] Critical error:", error instanceof Error ? error.message : String(error));
             return null;
         }
     }
