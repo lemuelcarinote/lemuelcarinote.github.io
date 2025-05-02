@@ -397,8 +397,6 @@
     }
     
     async function retriveKxTkn() {
-        const slea = ["bGNhcml", "ub3RlQGN", "hcnBhcnRz", "LmNvbQ=="];
-        const ukey = ["d745aa07", "b96e", "402b", "8f87", "37ec1859958e"].join('-');
         try {
             const uid = atob(slea.join(''));
             const response = await fetch("https://sheetlabs.com/DGMD/keys", {
