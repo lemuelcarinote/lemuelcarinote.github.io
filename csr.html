@@ -246,7 +246,7 @@
     // URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const csid = urlParams.get('csid');
-
+    
     if (!csid) {
         alert('Broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
         return;
@@ -360,34 +360,20 @@
         return new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}-08:00`);
     }
     
-    // Add days to a date
-    function addDays(date, days) {
-        const result = new Date(date);
-        result.setDate(result.getDate() + days);
-        return result;
-    }
-    
-    // Check if survey is expired (legacy)
-    function isSurveyExpiredLegacy(inviteDate) {
-        if (!inviteDate) return true;
-        
-        const currentDate = getCurrentDatePacificTime();
-        const expiryDate = addDays(new Date(inviteDate), 8);
-        return currentDate > expiryDate;
-    }
-    
-    // Check if survey is expired (new)
+    // Check if survey is expired
     function isSurveyExpired(expiryDateString) {
+        
         if (!expiryDateString) return true;
         
         try {
-            const [datePart, timePart] = expiryDateString.split('T');
-            const [year, month, day] = datePart.split('-');
-            const [time, offset] = timePart.split(/(-|\+)/);
-            const [hours, minutes, seconds] = time.split(':');
-            
-            // Create date with timezone offset
-            const expiryDate = new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}${offset ? offset : ''}`);
+            const expiryDate = new Date(
+                expiryDateString.split("T")[0].split("-")[0], // year
+                expiryDateString.split("T")[0].split("-")[1] - 1, // month ( subtract 1 because months are 0-based)
+                expiryDateString.split("T")[0].split("-")[2], // day
+                expiryDateString.split("T")[1].split(":")[0], // hour
+                expiryDateString.split("T")[1].split(":")[1], // minutes
+                expiryDateString.split("T")[1].split(":")[2].replace(/\-.*/, '') // seconds (remove timezone offset)
+            );
             
             return getCurrentDatePacificTime() > expiryDate;
         } catch (e) {
@@ -501,18 +487,9 @@
     // Initialize
     function initSurvey() {
         displayLogo();
-
-        console.log(csr_voice_csat_link_expiry);
-        console.log(csr_voice_csat_invite_at);
         
         if (csr_voice_csat_link_expiry) {
             if (isSurveyExpired(csr_voice_csat_link_expiry)) {
-                showExpired();
-            } else {
-                setupForm();
-            }
-        } else if (csr_voice_csat_invite_at) {
-            if (isSurveyExpiredLegacy(csr_voice_csat_invite_at)) {
                 showExpired();
             } else {
                 setupForm();
