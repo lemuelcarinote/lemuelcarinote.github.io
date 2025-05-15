@@ -246,7 +246,7 @@
     // URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const csid = urlParams.get('csid');
-    
+
     if (!csid) {
         alert('Broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
         return;
@@ -501,6 +501,9 @@
     // Initialize
     function initSurvey() {
         displayLogo();
+
+        console.log(csr_voice_csat_link_expiry);
+        console.log(csr_voice_csat_invite_at);
         
         if (csr_voice_csat_link_expiry) {
             if (isSurveyExpired(csr_voice_csat_link_expiry)) {
