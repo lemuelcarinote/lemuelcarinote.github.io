@@ -402,7 +402,7 @@
         const audioqualityClearSatisfactoryBool = form.audio_quality.value;
         const comments = form.comments.value;
         
-        if (!satisfaction || !audioQuality) {
+        if (!satisfaction || !audioqualityClearSatisfactoryBool) {
             responseDiv.innerHTML = "<p style='color: #cc0202'>Please answer all questions.</p>";
             return;
         }
