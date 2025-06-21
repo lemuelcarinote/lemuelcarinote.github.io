@@ -73,7 +73,7 @@ if(blueshift.constructor===Array){(function () { var b = document.createElement(
 document.addEventListener('DOMContentLoaded', function() {
   
   // Helper function to attach form handling to a specific form by ID
-  function setupFormHandler(formId, inputId, buttonId, source) {
+  function setupFormHandler(formId, inputId, buttonId) {
     var form = document.getElementById(formId);
     if (!form) return;
 
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
       event.stopPropagation();
 
       var email = emailInput.value;
-      var signupsource = source;
+      //var signupsource = source;
 
       // Remove any existing classes from response container
       responseContainer.classList.remove('success', 'error');
@@ -113,11 +113,11 @@ document.addEventListener('DOMContentLoaded', function() {
           opted_in_email: opted_in_email,
           unsubscribed: unsubscribed,
           email_spam_reported: unsubscribed,
-          source: signupsource,
+          //source: signupsource,
           signed_up_date_from_webforms: timestamp,
         });
 
-        blueshift.identify({ email: emailaddress });
+        blueshift.identify({ email: email });
 
         // Display success message
         responseContainer.textContent = 'Congrats! A 10% Off code has been sent to your email. Welcome to the community.';
@@ -150,9 +150,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Setup handlers for each form using their specific IDs
-  setupFormHandler('newsletter-signup', 'input[type="email"]', 'button[type="submit"]', 'sidebar'); // Sidebar
-  setupFormHandler('newsletter-signup-banner', 'input[type="email"]', 'button[type="submit"]', 'homepage'); // Homepage banner
-  setupFormHandler('footer-newsletter', 'input[type="email"]', 'button[type="submit"]', 'footer'); // Footer
+  setupFormHandler('newsletter-signup', 'input[type="email"]', 'button[type="submit"]'); // Sidebar
+  setupFormHandler('newsletter-signup-banner', 'input[type="email"]', 'button[type="submit"]'); // Homepage banner
+  setupFormHandler('footer-newsletter', 'input[type="email"]', 'button[type="submit"]'); // Footer
 
 });
 
