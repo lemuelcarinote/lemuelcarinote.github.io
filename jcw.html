@@ -1,84 +1,12 @@
-<p>Homepage Middle</p>
-
-<section data-wpr-lazyrender="1" class="newsletter-signup-banner">
-  <div class="container">
-    <form id="newsletter-signup-banner">
-      <h3 class="title" data-newsletter-title="">
-        Join the JC Whitney Community
-      </h3>
-      <p class="description">
-        Get 10% Off Gear when you sign up for the JC Whitney community.
-      </p>
-      <div class="inline-form">
-        <input name="signup" type="email" autocomplete="email" class="input email jcw-input" placeholder="Enter your email">
-        <button name="cta" type="submit" class="button cta">
-          Sign Me Up
-        </button>
-      </div>
-    <div class="newsletter-signup-response"></div></form>
-  </div>
-</section>
-
-
-<hr>
-<p>Floating Sidebar</p>
-<form class="newsletter-signup" id="newsletter-signup">
-  <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 45 20">
-    <polyline fill="none" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" points="22.6,1.6 33,11 43.4,1.6"></polyline>
-    <path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" d="M24,1h18c1.1,0,2,0.9,2,2 v14c0,1.1-0.9,2-2,2H24c-1.1,0-2-0.9-2-2V3C22,1.9,22.9,1,24,1z"></path>
-    <line fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-miterlimit="10" x1="16" y1="5" x2="1" y2="5"></line>
-    <line fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-miterlimit="10" x1="16" y1="10" x2="6" y2="10"></line>
-    <line fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-miterlimit="10" x1="16" y1="15" x2="11" y2="15"></line>
-  </svg>  <h3 class="title" data-newsletter-title="">Get our newsletter</h3>
-  <p class="description">
-    <!-- Get the top stories on car news, culture, technology, garage and more. -->
-     
-    Get 10% Off Gear when you sign up for the JC Whitney community.
-  </p>
-  <input name="signup" type="email" autocomplete="email" class="input email jcw-input" placeholder="Enter your email">
-  <button name="cta" type="submit" class="button cta">
-    Sign Me Up
-  </button>
-<div class="newsletter-signup-response"></div></form>
-
-
-<hr>
-<footer data-wpr-lazyrender="1" class="footer container" id="footer">
-<div class="footer-column">
-    <form class="footer-newsletter" id="footer-newsletter">
-        <h6 class="title" data-newsletter-title="">
-            Join our newsletter
-        </h6>
-        <p class="description">
-            Get 10% Off Gear when you sign up for the JC Whitney community.
-        </p>
-        <div class="inline-form">
-            <input name="signup" type="email" autocomplete="email" class="input jcw-input" placeholder="Email Address">
-            <button name="cta" type="submit" class="button submit-cta jcw-input">
-                Subscribe
-            </button>
-        </div>
-        <div class="newsletter-signup-response"></div></form>
-    </div>
-</footer>
-
-
-<script>
-
-window._blueshiftid='24fbc4ed7d27f7c4d7a9e4484402514e';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load = function () { var d = function (a) { return function () { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))) } }, e = ["config", "identify", "track", "pageload", "live"]; for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]) };}
-blueshift.load();
-blueshift.pageload();
-if(blueshift.constructor===Array){(function () { var b = document.createElement("script"); b.type = "text/javascript", b.async = !0, b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js"; var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c); })()}
-
 document.addEventListener('DOMContentLoaded', function() {
   
   // Helper function to attach form handling to a specific form by ID
-  function setupFormHandler(formId, inputId, buttonId) {
+  function setupFormHandler(formId) {
     var form = document.getElementById(formId);
     if (!form) return;
 
-    var emailInput = form.querySelector(inputId);
-    var submitButton = form.querySelector(buttonId);
+    var emailInput = form.querySelector('input[type="email"]');
+    var submitButton = form.querySelector('button[type="submit"]');
     var responseContainer = form.querySelector('.newsletter-signup-response');
 
     // Create response container if it does not exist
@@ -88,13 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
       form.appendChild(responseContainer);
     }
 
-    // Add click event listener to submit button
-    submitButton.addEventListener('click', function(event) {
+    function handleSubmit(event) {
       event.preventDefault();
       event.stopPropagation();
 
       var email = emailInput.value;
-      //var signupsource = source;
 
       // Remove any existing classes from response container
       responseContainer.classList.remove('success', 'error');
@@ -107,51 +33,50 @@ document.addEventListener('DOMContentLoaded', function() {
         var email_spam_reported = false;
 
         // Call the Blueshift function to pass data
-        blueshift.track("signed_up", {
-          email: email,
-          opted_in_email: opted_in_email,
-          unsubscribed: unsubscribed,
-          email_spam_reported: unsubscribed,
-          //source: signupsource,
-          signed_up_date_from_webforms: timestamp,
-        });
+        if (typeof blueshift !== 'undefined') {
+          blueshift.track("signed_up", {
+            email: email,
+            opted_in_email: opted_in_email,
+            unsubscribed: unsubscribed,
+            email_spam_reported: unsubscribed,
+            signed_up_date_from_webforms: timestamp,
+          });
 
-        blueshift.identify({ email: email });
+          blueshift.identify({ email: email });
+        }
 
         // Display success message
         responseContainer.textContent = 'Congrats! A 10% Off code has been sent to your email. Welcome to the community.';
         responseContainer.classList.add('success');
 
-        // Automatically remove success message after 3 seconds
-        setTimeout(function() {
-          if (responseContainer.classList.contains('success')) {
-            // responseContainer.classList.remove('success');
-            // responseContainer.textContent = ''; // Clear the text
-
-						emailInput.value = '';
-          }
-        }, 100);
-
+        // Clear the input after successful submission
+        emailInput.value = '';
       } else {
         // Display error message
         responseContainer.textContent = 'Please enter a valid email address.';
         responseContainer.classList.add('error');
       }
-    });
+    }
+
+    // Add submit event listener to form
+    form.addEventListener('submit', handleSubmit);
+    
+    // Also add click event listener to submit button for better compatibility
+    submitButton.addEventListener('click', handleSubmit);
 
     // Clear error message when user starts typing a valid email address
     emailInput.addEventListener('input', function() {
       if (validateEmail(emailInput.value) && responseContainer.classList.contains('error')) {
         responseContainer.classList.remove('error');
-        responseContainer.textContent = ''; // Clear the text
+        responseContainer.textContent = '';
       }
     });
   }
 
-  // Setup handlers for each form using their specific IDs
-  setupFormHandler('newsletter-signup', 'input[type="email"]', 'button[type="submit"]'); // Sidebar
-  setupFormHandler('newsletter-signup-banner', 'input[type="email"]', 'button[type="submit"]'); // Homepage banner
-  setupFormHandler('footer-newsletter', 'input[type="email"]', 'button[type="submit"]'); // Footer
+  // Setup handlers for each form
+  setupFormHandler('newsletter-signup'); // Sidebar
+  setupFormHandler('newsletter-signup-banner'); // Homepage banner
+  setupFormHandler('footer-newsletter'); // Footer
 
 });
 
@@ -160,4 +85,3 @@ function validateEmail(email) {
   var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(email);
 }
-</script>
