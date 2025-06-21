@@ -1,6 +1,7 @@
 <html>
-  <body>
-    </html><p>Homepage Middle</p>
+<body>
+
+<p>Homepage Middle</p>
 
 <section data-wpr-lazyrender="1" class="newsletter-signup-banner">
   <div class="container">
@@ -71,84 +72,84 @@ blueshift.pageload();
 if(blueshift.constructor===Array){(function () { var b = document.createElement("script"); b.type = "text/javascript", b.async = !0, b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js"; var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c); })()}
 
 document.addEventListener('DOMContentLoaded', function() {
-  
-  // Helper function to attach form handling to a specific form by ID
-  function setupFormHandler(formId) {
-    var form = document.getElementById(formId);
-    if (!form) return;
+    // Modified Helper function to attach form handling to a specific form by ID with signup source
+    function setupFormHandler(formId, signupSource) {
+        var form = document.getElementById(formId);
+        if (!form) return;
 
-    var emailInput = form.querySelector('input[type="email"]');
-    var submitButton = form.querySelector('button[type="submit"]');
-    var responseContainer = form.querySelector('.newsletter-signup-response');
+        var emailInput = form.querySelector('input[type="email"]');
+        var submitButton = form.querySelector('button[type="submit"]');
+        var responseContainer = form.querySelector('.newsletter-signup-response');
 
-    // Create response container if it does not exist
-    if (!responseContainer) {
-      responseContainer = document.createElement('div');
-      responseContainer.className = 'newsletter-signup-response';
-      form.appendChild(responseContainer);
-    }
-
-    function handleSubmit(event) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      var email = emailInput.value;
-
-      // Remove any existing classes from response container
-      responseContainer.classList.remove('success', 'error');
-
-      if (email && validateEmail(email)) {      
-        var d = new Date();
-        var timestamp = d.toISOString();
-        var opted_in_email = true;
-        var unsubscribed = false;
-        var email_spam_reported = false;
-
-        // Call the Blueshift function to pass data
-        if (typeof blueshift !== 'undefined') {
-          blueshift.track("signed_up", {
-            email: email,
-            opted_in_email: opted_in_email,
-            unsubscribed: unsubscribed,
-            email_spam_reported: unsubscribed,
-            signed_up_date_from_webforms: timestamp,
-          });
-
-          blueshift.identify({ email: email });
+        // Create response container if it does not exist
+        if (!responseContainer) {
+        responseContainer = document.createElement('div');
+        responseContainer.className = 'newsletter-signup-response';
+        form.appendChild(responseContainer);
         }
 
-        // Display success message
-        responseContainer.textContent = 'Congrats! A 10% Off code has been sent to your email. Welcome to the community.';
-        responseContainer.classList.add('success');
+        function handleSubmit(event) {
+        event.preventDefault();
+        event.stopPropagation();
 
-        // Clear the input after successful submission
-        emailInput.value = '';
-      } else {
-        // Display error message
-        responseContainer.textContent = 'Please enter a valid email address.';
-        responseContainer.classList.add('error');
-      }
+        var email = emailInput.value;
+
+        // Remove any existing classes from response container
+        responseContainer.classList.remove('success', 'error');
+
+        if (email && validateEmail(email)) {      
+            var d = new Date();
+            var timestamp = d.toISOString();
+            var opted_in_email = true;
+            var unsubscribed = false;
+            var email_spam_reported = false;
+
+            // Call the Blueshift function to pass data
+            if (typeof blueshift !== 'undefined') {
+            blueshift.track("signed_up", {
+                email: email,
+                opted_in_email: opted_in_email,
+                unsubscribed: unsubscribed,
+                email_spam_reported: unsubscribed,
+                signed_up_date_from_webforms: timestamp,
+                signup_source: signupSource
+            });
+
+            blueshift.identify({ email: email });
+            }
+
+            // Display success message
+            responseContainer.textContent = 'Congrats! A 10% Off code has been sent to your email. Welcome to the community.';
+            responseContainer.classList.add('success');
+
+            // Clear the input after successful submission
+            emailInput.value = '';
+        } else {
+            // Display error message
+            responseContainer.textContent = 'Please enter a valid email address.';
+            responseContainer.classList.add('error');
+        }
+        }
+
+        // Add submit event listener to form
+        form.addEventListener('submit', handleSubmit);
+        
+        // Also add click event listener to submit button for better compatibility
+        submitButton.addEventListener('click', handleSubmit);
+
+        // Clear error message when user starts typing a valid email address
+        emailInput.addEventListener('input', function() {
+        if (validateEmail(emailInput.value) && responseContainer.classList.contains('error')) {
+            responseContainer.classList.remove('error');
+            responseContainer.textContent = '';
+        }
+        });
     }
 
-    // Add submit event listener to form
-    form.addEventListener('submit', handleSubmit);
-    
-    // Also add click event listener to submit button for better compatibility
-    submitButton.addEventListener('click', handleSubmit);
-
-    // Clear error message when user starts typing a valid email address
-    emailInput.addEventListener('input', function() {
-      if (validateEmail(emailInput.value) && responseContainer.classList.contains('error')) {
-        responseContainer.classList.remove('error');
-        responseContainer.textContent = '';
-      }
-    });
-  }
-
-  // Setup handlers for each form
-  setupFormHandler('newsletter-signup'); // Sidebar
-  setupFormHandler('newsletter-signup-banner'); // Homepage banner
-  setupFormHandler('footer-newsletter'); // Footer
+    // Setup handlers for each form with their respective signup sources
+    setupFormHandler('newsletter-signup', 'sidebar'); // Sidebar
+    setupFormHandler('newsletter-signup-banner', 'homepage_middle'); // Homepage banner
+    setupFormHandler('footer-newsletter', 'footer'); // Footer
 
 });
 
@@ -159,5 +160,5 @@ function validateEmail(email) {
 }
   
 </script>
-  </body>
+</body>
 </html>
