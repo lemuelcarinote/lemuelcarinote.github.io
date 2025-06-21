@@ -1,3 +1,9 @@
+<script>
+window._blueshiftid='24fbc4ed7d27f7c4d7a9e4484402514e';window.blueshift=window.blueshift||[];if(blueshift.constructor===Array){blueshift.load = function () { var d = function (a) { return function () { blueshift.push([a].concat(Array.prototype.slice.call(arguments, 0))) } }, e = ["config", "identify", "track", "pageload", "live"]; for (var f = 0; f < e.length; f++) blueshift[e[f]] = d(e[f]) };}
+blueshift.load();
+blueshift.pageload();
+if(blueshift.constructor===Array){(function () { var b = document.createElement("script"); b.type = "text/javascript", b.async = !0, b.src = ("https:" === document.location.protocol ? "https:" : "http:") + "//cdn.getblueshift.com/blueshift.js"; var c = document.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c); })()}
+
 document.addEventListener('DOMContentLoaded', function() {
   
   // Helper function to attach form handling to a specific form by ID
@@ -85,3 +91,5 @@ function validateEmail(email) {
   var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(email);
 }
+  
+</script>
