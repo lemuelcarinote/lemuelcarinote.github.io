@@ -33,17 +33,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (email && validateEmail(email)) {      
             var d = new Date();
             var timestamp = d.toISOString();
-            var opted_in_email = true;
-            var unsubscribed = false;
-            var email_spam_reported = false;
 
             // Call the Blueshift function to pass data
             if (typeof blueshift !== 'undefined') {
             blueshift.track("signed_up", {
                 email: email,
-                opted_in_email: opted_in_email,
-                unsubscribed: unsubscribed,
-                email_spam_reported: email_spam_reported,
+                opted_in_email: true,
+                unsubscribed: false,
+                email_spam_reported: false,
                 signed_up_date_from_webforms: timestamp,
                 signed_up_source: signupSource
             });
