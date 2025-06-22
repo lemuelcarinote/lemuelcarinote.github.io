@@ -1,58 +1,469 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CORS Fixed Example</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CSR Voice CSAT Survey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="https://cld.partsimg.com/image/upload/h_200,w_200,f_auto,q_auto/carparts/logos/badge/blue/CP_BADGE_RGB_BLUE_HR.png">
+<style>
+    body, input, textarea {
+        font-family: 'Roboto', Arial, sans-serif;
+    }
+
+    body {
+        margin: 15px;
+    }
+
+    .wrapper {
+        display: block;
+        margin: 0 auto;
+        max-width: 620px;
+    }
+
+    .row {
+        padding: 15px 0
+    }
+
+    .logo_section {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .logo_section .logo {
+        display: block;
+        margin: 0 auto;
+    }
+
+    #expired_widget {
+        display: none;
+    }
+
+    #expired_widget p, #form_widget p {
+        line-height: 1.6;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    #form_widget h3 {
+        margin-top: 25px;
+        margin-bottom: 10px
+    }
+
+    .rating-section {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        max-width: 350px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        padding: 4px;
+        display: inline-block
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 5px;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+    }
+
+    input[type="radio"] + label {
+        display: inline-block;
+        padding: 10px 18px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f7f7f7;
+        cursor: pointer;
+        font-size: 24px;
+    }
+
+    input[type="radio"] + label span {
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    input[type="radio"] + label:hover {
+        background-color: #eee;
+    }
+
+    input[type="radio"]:checked + label {
+        background-color: #ffcd05;
+        border-color: #ffcd05;
+        color: #282832;
+        transition: background-color 0.3s;
+    }
+
+    .label-row {
+        display: flex;
+        flex-wrap: wrap;
+        width: 85%;
+        margin: 0 auto
+    }
+
+    .label-row .col-50 {
+        flex: 0 0 50%;
+    }
+
+    .label-row .col-50 span {
+        font-size: 12px;
+    }
+
+    textarea {
+        margin-top: 5px;
+        padding: 10px;
+        width: 95%;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #ffcd05;
+        border: none;
+        color: #282832;
+        padding: 12px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-weight: 700;
+    }
+
+    #response {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    @media (max-width: 460px) {
+        .mob-no {
+            display: none !important;
+        }
+    }
+</style>
+<meta name="robots" content="noindex, nofollow">
 </head>
 <body>
-    <form id="dataForm">
-        <input type="text" id="name" placeholder="Name" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <button type="submit">Submit</button>
-    </form>
-    <div id="result"></div>
 
-    <script>
-        document.getElementById('dataForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                timestamp: new Date().toISOString()
+<div class="wrapper">
+    <div class="logo_section" id="logo_section"></div>
+
+    <div id="expired_widget">
+        <p style="text-align: center">
+            Thank you for your interest, but the survey is now closed. 
+            <br class="mob-no">We hope to hear from you in the future!
+        </p>
+    </div>
+
+    <div id="form_widget">
+        <p>Thank you for contacting us regarding your purchase. We&nbsp;want&nbsp;to&nbsp;be&nbsp;sure&nbsp;that you&nbsp;were satisfied with the level of service we&nbsp;provided.</p>
+
+        <h3>On a scale of 1 to 5,</h3>
+
+        <form name="csat">
+            <div class="row">
+                <label for="satisfaction">How satisfied were you with the assistance provided by our Customer Service agent?</label>
+                <div class="rating-section">
+                    <ul>
+                        <li><input type="radio" id="satisfaction1" name="satisfaction" value="1"><label for="satisfaction1"> 1</label></li>
+                        <li><input type="radio" id="satisfaction2" name="satisfaction" value="2"><label for="satisfaction2"> 2</label></li>
+                        <li><input type="radio" id="satisfaction3" name="satisfaction" value="3"><label for="satisfaction3"> 3</label></li>
+                        <li><input type="radio" id="satisfaction4" name="satisfaction" value="4"><label for="satisfaction4"> 4</label></li>
+                        <li><input type="radio" id="satisfaction5" name="satisfaction" value="5"><label for="satisfaction5"> 5</label></li>
+                    </ul>
+                    <div class="label-row">
+                        <div class="col-50" style="text-align: left">
+                          <span>Very dissatisfied</span>
+                        </div>
+                        <div class="col-50" style="text-align: right">
+                          <span>Very satisfied</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <label for="audio_quality">Was the audio quality during your recent call clear and satisfactory?</label>
+                <div class="rating-section">
+                    <ul>
+                        <li><input type="radio" id="audio_quality_yes" name="audio_quality" value="yes"><label for="audio_quality_yes"> Yes</label></li>
+                        <li><input type="radio" id="audio_quality_no" name="audio_quality" value="no"><label for="audio_quality_no"> No</label></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <label for="comments">Please share additional comments or suggestions to help us improve our service:</label>
+                <textarea id="comments" name="comments" rows="4"></textarea>
+            </div>
+
+            <div class="row" style="text-align: center">
+                <input id="btnSubmit" type="submit" value="Submit">
+                <div id="response"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+(function() {
+    'use strict';
+
+    // Google Apps Script Web App URL - UPDATE THIS WITH YOUR ACTUAL URL
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw79i-uNDryl0IiFVMdXmhpq5NBF95MdwNjGN08FXoTWxVbFbioo4MSFHYJ-gUxknmufw/exec';
+
+    // DOM elements
+    const form = document.forms.csat;
+    const btnSubmit = document.getElementById("btnSubmit");
+    const responseDiv = document.getElementById("response");
+    const expiredWidget = document.getElementById("expired_widget");
+    const formWidget = document.getElementById("form_widget");
+
+    // URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const csid = urlParams.get('csid');
+
+    if (!csid) {
+        alert('Broken link. Please reply to the email, and our customer service team will be happy to assist you further.');
+        return;
+    }
+
+    // Parse CSID data
+    let obj;
+    try {
+        obj = JSON.parse(atob(csid));
+    } catch (e) {
+        console.error("Error parsing CSID:", e);
+        alert('Invalid survey link. Please contact customer service.');
+        return;
+    }
+
+    const {
+        csr_voice_csat_link_expiry = null,
+        csr_voice_csat_invite_at = null,
+        email,
+        firstname = '',
+        lastname = '',
+        agent_user_name: agent_username,
+        merchant_order_id: order_id,
+        domain_name: rawDomainName = '',
+        server_name = '',
+        disposition_text: disposition,
+        sitecode = null
+    } = obj;
+
+    const name = `${firstname} ${lastname}`.trim();
+    const domain_name = `${rawDomainName} / ${server_name}`;
+    const domain = rawDomainName ? rawDomainName.toLowerCase() : null;
+    const siteCode = sitecode ? sitecode.toLowerCase() : null;
+
+    // Logo mapping
+    const LOGOS = {
+        'carparts.com': {
+            src: 'https://cdn.getblueshift.com/pictures/227464/content/carpartscom.png',
+            alt: 'CarParts.com',
+            width: 200
+        },
+        'carpartswholesale': {
+            src: 'https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png',
+            alt: 'CarParts.com',
+            width: 180
+        },
+        'carpartswholesale-whi': {
+            src: 'https://cdn.getblueshift.com/pictures/194663/content/carpartswholesale.png',
+            alt: 'CarParts.com',
+            width: 180
+        },
+        'carpartswholesale.ebay-ams.com': {
+            src: 'https://cdn.getblueshift.com/pictures/162960/content/ebay-cpw.png',
+            alt: 'CarPars Wholesale on eBay',
+            width: 200
+        },
+        'carparts.ebay-ams.com': {
+            src: 'https://cdn.getblueshift.com/pictures/162481/content/ebay-carparts.png',
+            alt: 'CarParts on eBay',
+            width: 200
+        },
+        'jcwhitney.ebay-ams.com': {
+            src: 'https://cdn.getblueshift.com/pictures/162479/content/ebay-jcwhitney.png',
+            alt: 'JC Whitney on eBay',
+            width: 200
+        },
+        'returnedcarparts.ebay-ams.com': {
+            src: 'https://cdn.getblueshift.com/pictures/163612/content/ebay-rcp.png',
+            alt: 'Returned Car Parts',
+            width: 200
+        }
+    };
+
+    // Display logo based on domain/sitecode
+    function displayLogo() {
+        const logoSection = document.getElementById("logo_section");
+        let logoKey = domain;
+
+        if (!logoKey || !LOGOS[logoKey]) {
+            logoKey = siteCode;
+        }
+
+        if (logoKey && LOGOS[logoKey]) {
+            const logo = LOGOS[logoKey];
+            logoSection.innerHTML = `
+                <img class="logo" 
+                     style="width:${logo.width}px; height:auto" 
+                     src="${logo.src}" 
+                     alt="${logo.alt}">`;
+        }
+    }
+
+    // Get current date in Pacific Time
+    function getCurrentDatePacificTime() {
+        const options = {
+            timeZone: 'America/Los_Angeles',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+
+        const formatter = new Intl.DateTimeFormat('en-US', options);
+        const parts = formatter.formatToParts(new Date());
+        const { year, month, day, hour, minute, second } = Object.fromEntries(
+            parts.map(part => [part.type, part.value])
+        );
+
+        return new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}-08:00`);
+    }
+
+    // Check if survey is expired
+    function isSurveyExpired(expiryDateString) {
+        if (!expiryDateString) return true;
+
+        try {
+            const expiryDate = new Date(
+                expiryDateString.split("T")[0].split("-")[0], // year
+                expiryDateString.split("T")[0].split("-")[1] - 1, // month (subtract 1 because months are 0-based)
+                expiryDateString.split("T")[0].split("-")[2], // day
+                expiryDateString.split("T")[1].split(":")[0], // hour
+                expiryDateString.split("T")[1].split(":")[1], // minutes
+                expiryDateString.split("T")[1].split(":")[2].replace(/\-.*/, '') // seconds (remove timezone offset)
+            );
+
+            return getCurrentDatePacificTime() > expiryDate;
+        } catch (e) {
+            console.error("Error parsing expiry date:", e);
+            return true;
+        }
+    }
+    
+    async function submitCSATForm(event) {
+        event.preventDefault();
+
+        const satisfaction = form.satisfaction.value;
+        const audio_quality = form.audio_quality.value;
+        const comments = form.comments.value;
+
+        // Validation
+        if (!satisfaction || !audio_quality) {
+            responseDiv.innerHTML = "<p style='color: #cc0202'>Please answer all questions.</p>";
+            return;
+        }
+
+        responseDiv.innerHTML = "<p>Please wait...</p>";
+        btnSubmit.disabled = true;
+
+        try {
+
+            // Prepare data for Google Sheets
+            const data = {
+                email: email,
+                name: name,
+                order_id: order_id,
+                domain_name: domain_name,
+                disposition: disposition,
+                agent_username: agent_username,
+                satisfaction: satisfaction,
+                audio_quality: audio_quality,
+                comments: comments
             };
+
+            // Submit to Google Apps Script using no-cors mode to bypass CORS
+            const response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+                mode: 'no-cors' // This bypasses CORS restrictions
+            });
+
+            // Since we're using no-cors mode, we can't read the response
+            // but the request will go through to Google Apps Script
+            btnSubmit.value = "Submitted";
+            btnSubmit.style.backgroundColor = "#f7f7f7";
+            responseDiv.innerHTML = "<p>Thank you for your feedback!</p>";
+
+        } catch (error) {
+            console.error("Submission error:", error);
             
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbxHu4E6yVHy4y_bgwRVKCy8jPiD77hEZh4389Ybivh5HDmsisaW_tJySWyLrQkgchLuXg/exec';
-            
-            try {
-                // First make OPTIONS preflight request
-                const preflight = await fetch(scriptUrl, {
-                    method: 'OPTIONS',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
-                
-                if (!preflight.ok) {
-                    throw new Error('Preflight request failed');
-                }
-                
-                // Then make the actual POST request
-                const response = await fetch(scriptUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                const data = await response.json();
-                document.getElementById('result').innerHTML = 
-                    `<p style="color:green;">Success: ${JSON.stringify(data)}</p>`;
-            } catch (error) {
-                document.getElementById('result').innerHTML = 
-                    `<p style="color:red;">Error: ${error.message}</p>`;
+            let errorMessage = "Submission failed. ";
+            if (error instanceof TypeError && error.message.includes('fetch')) {
+                errorMessage += "Please verify your Google Apps Script configuration and try again.";
+            } else if (error.message) {
+                errorMessage += error.message;
+            } else {
+                errorMessage += "Please try again or contact support.";
             }
-        });
-    </script>
+            
+            responseDiv.innerHTML = `<p style='color: #cc0202'>Error: ${errorMessage}</p>`;
+            btnSubmit.disabled = false;
+        }
+    }
+
+    // Initialize
+    function initSurvey() {
+        displayLogo();
+
+        if (csr_voice_csat_link_expiry) {
+            if (isSurveyExpired(csr_voice_csat_link_expiry)) {
+                showExpired();
+            } else {
+                setupForm();
+            }
+        } else {
+            showExpired();
+        }
+    }
+
+    function showExpired() {
+        expiredWidget.style.display = 'block';
+        formWidget.style.display = 'none';
+    }
+
+    function setupForm() {
+        form.addEventListener('submit', submitCSATForm);
+    }
+
+    // Start the application
+    document.addEventListener('DOMContentLoaded', initSurvey);
+})();
+</script>
 </body>
 </html>
