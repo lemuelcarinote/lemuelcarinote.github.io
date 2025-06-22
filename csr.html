@@ -224,9 +224,6 @@
 <script>
 (function() {
     'use strict';
-
-    const slea = ["bGNhcml", "ub3RlQGN", "hcnBhcnRz", "LmNvbQ=="];
-    const ukey = ["d745aa07", "b96e", "402b", "8f87", "37ec1859958e"].join('-');
     
     // DOM elements
     const form = document.forms.csat;
@@ -374,27 +371,6 @@
         }
     }
     
-    async function retriveKxTkn() {
-        try {
-            const uid = atob(slea.join(''));
-            const response = await fetch("https://sheetlabs.com/DGMD/keys", {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Basic ${btoa(`${uid}:${ukey}`)}`
-                }
-            });
-
-            if (!response.ok) return null;
-
-            const responseData = await response.json();
-            return responseData.find(item => item?.name === 'kx_csr')?.secret || null;
-            
-        } catch {
-            return null;
-        }
-    }
-    
     async function submitCSATForm(event) {
         event.preventDefault();
         
@@ -411,10 +387,7 @@
         btnSubmit.disabled = true;
         
         try {
-            const token = await retriveKxTkn();
-            if (!token) {
-                throw new Error("Unable to authenticate");
-            }
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzlkNDhmNTU4YzIxYzYyZGY1MTk0ZiIsInVzZXIiOiI2NTc5ZDQ4ZDAwMzE4MzVmNDhhYTAyMjgiLCJvcmciOiI2MmFiMzVmNTRkNmQ5ODNkZDEyMGFmYjAiLCJvcmdOYW1lIjoiY2FycGFydHMiLCJ1c2VyVHlwZSI6Im1hY2hpbmUiLCJwb2QiOiJwcm9kMSIsInJvbGVzIjpbIm9yZy5hZG1pbiJdLCJhdWQiOiJ1cm46Y29uc3VtZXIiLCJpc3MiOiJ1cm46YXBpIiwic3ViIjoiNjU3OWQ0OGQwMDMxODM1ZjQ4YWEwMjI4In0.hHPqxf04wPqBGyiMjllKqOswPhPMnFoLdaSReRrK5ME";
             
             const message = `Order Id: ${order_id}\nDomain/Server: ${domain_name}\n\nDisposition: ${disposition}\nCSR: ${agent_username}\n\nOn a scale of 1 to 5, \n\nHow satisfied were you with the assistance provided by our Customer Service agent? \n${satisfaction}\n\nWas the audio quality during your recent call clear and satisfactory? \n${audioqualityClearSatisfactoryBool === 'true' ? 'Yes' : 'No'}\n\nPlease share additional comments or suggestions to help us improve our service: \n${comments}`;
             
