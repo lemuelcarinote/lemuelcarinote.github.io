@@ -1,0 +1,26 @@
+name: Kustomer Proxy API
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'JSON payload for Kustomer API'
+        required: true
+        type: string
+
+jobs:
+  call-kustomer-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make API request
+        env:
+          KUSTOMER_APIKEY: ${{ secrets.KUSTOMER_APIKEY }}  # Your repo secret
+        run: |
+          # Parse the input payload
+          PAYLOAD='${{ github.event.inputs.payload }}'
+          
+          # Call Kustomer API
+          curl -X POST 'https://api.kustomerapp.com/v1/hooks/form/62ab35f54d6d983dd120afb0/6ff02ab5fceb6215898281533c8138872ad096d908bd5174545726d9f836a5b0' \
+            -H "Authorization: Bearer $KUSTOMER_APIKEY" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json;charset=UTF-8" \
+            -d "$PAYLOAD"
